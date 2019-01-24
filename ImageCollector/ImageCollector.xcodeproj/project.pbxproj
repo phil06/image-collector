@@ -1,0 +1,375 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2D5A2FB621F6EDCE003AB537 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FB521F6EDCE003AB537 /* AppDelegate.swift */; };
+		2D5A2FBA21F6EDCF003AB537 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A2FB921F6EDCF003AB537 /* Assets.xcassets */; };
+		2D5A2FBD21F6EDCF003AB537 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A2FBB21F6EDCF003AB537 /* Main.storyboard */; };
+		2D5A2FC721F807CB003AB537 /* ImageCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FC621F807CB003AB537 /* ImageCanvas.swift */; };
+		2D5A2FCC21F808E0003AB537 /* ImageCanvasDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FCB21F808E0003AB537 /* ImageCanvasDelegate.swift */; };
+		2D5A2FCE21F86565003AB537 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FCD21F86565003AB537 /* MainViewController.swift */; };
+		2D5A2FD321F8665D003AB537 /* ImportImageCanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD121F8665D003AB537 /* ImportImageCanvasController.swift */; };
+		2D5A2FD421F8665D003AB537 /* ImportImageCanvasController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */; };
+		2D5A2FD721F9B4E7003AB537 /* ExtNSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD621F9B4E7003AB537 /* ExtNSImage.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2D5A2FB221F6EDCE003AB537 /* ImageCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D5A2FB521F6EDCE003AB537 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2D5A2FB921F6EDCF003AB537 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2D5A2FBC21F6EDCF003AB537 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2D5A2FBE21F6EDCF003AB537 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D5A2FBF21F6EDCF003AB537 /* ImageCollector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImageCollector.entitlements; sourceTree = "<group>"; };
+		2D5A2FC621F807CB003AB537 /* ImageCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCanvas.swift; sourceTree = "<group>"; };
+		2D5A2FCB21F808E0003AB537 /* ImageCanvasDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCanvasDelegate.swift; sourceTree = "<group>"; };
+		2D5A2FCD21F86565003AB537 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		2D5A2FD121F8665D003AB537 /* ImportImageCanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportImageCanvasController.swift; sourceTree = "<group>"; };
+		2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportImageCanvasController.xib; sourceTree = "<group>"; };
+		2D5A2FD621F9B4E7003AB537 /* ExtNSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtNSImage.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2D5A2FAF21F6EDCE003AB537 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2D5A2FA921F6EDCE003AB537 = {
+			isa = PBXGroup;
+			children = (
+				2D5A2FB421F6EDCE003AB537 /* ImageCollector */,
+				2D5A2FB321F6EDCE003AB537 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2D5A2FB321F6EDCE003AB537 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2D5A2FB221F6EDCE003AB537 /* ImageCollector.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2D5A2FB421F6EDCE003AB537 /* ImageCollector */ = {
+			isa = PBXGroup;
+			children = (
+				2D5A2FD521F9B4C2003AB537 /* extension */,
+				2D5A2FCA21F808C4003AB537 /* delegate */,
+				2D5A2FB521F6EDCE003AB537 /* AppDelegate.swift */,
+				2D5A2FB921F6EDCF003AB537 /* Assets.xcassets */,
+				2D5A2FBB21F6EDCF003AB537 /* Main.storyboard */,
+				2D5A2FBE21F6EDCF003AB537 /* Info.plist */,
+				2D5A2FBF21F6EDCF003AB537 /* ImageCollector.entitlements */,
+				2D5A2FCD21F86565003AB537 /* MainViewController.swift */,
+				2D5A2FC621F807CB003AB537 /* ImageCanvas.swift */,
+				2D5A2FD121F8665D003AB537 /* ImportImageCanvasController.swift */,
+				2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */,
+			);
+			path = ImageCollector;
+			sourceTree = "<group>";
+		};
+		2D5A2FCA21F808C4003AB537 /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				2D5A2FCB21F808E0003AB537 /* ImageCanvasDelegate.swift */,
+			);
+			path = delegate;
+			sourceTree = "<group>";
+		};
+		2D5A2FD521F9B4C2003AB537 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				2D5A2FD621F9B4E7003AB537 /* ExtNSImage.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2D5A2FB121F6EDCE003AB537 /* ImageCollector */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D5A2FC221F6EDCF003AB537 /* Build configuration list for PBXNativeTarget "ImageCollector" */;
+			buildPhases = (
+				2D5A2FAE21F6EDCE003AB537 /* Sources */,
+				2D5A2FAF21F6EDCE003AB537 /* Frameworks */,
+				2D5A2FB021F6EDCE003AB537 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImageCollector;
+			productName = ImageCollector;
+			productReference = 2D5A2FB221F6EDCE003AB537 /* ImageCollector.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2D5A2FAA21F6EDCE003AB537 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = tldev;
+				TargetAttributes = {
+					2D5A2FB121F6EDCE003AB537 = {
+						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 2D5A2FAD21F6EDCE003AB537 /* Build configuration list for PBXProject "ImageCollector" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2D5A2FA921F6EDCE003AB537;
+			productRefGroup = 2D5A2FB321F6EDCE003AB537 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2D5A2FB121F6EDCE003AB537 /* ImageCollector */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2D5A2FB021F6EDCE003AB537 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D5A2FBA21F6EDCF003AB537 /* Assets.xcassets in Resources */,
+				2D5A2FD421F8665D003AB537 /* ImportImageCanvasController.xib in Resources */,
+				2D5A2FBD21F6EDCF003AB537 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2D5A2FAE21F6EDCE003AB537 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D5A2FD721F9B4E7003AB537 /* ExtNSImage.swift in Sources */,
+				2D5A2FD321F8665D003AB537 /* ImportImageCanvasController.swift in Sources */,
+				2D5A2FB621F6EDCE003AB537 /* AppDelegate.swift in Sources */,
+				2D5A2FCC21F808E0003AB537 /* ImageCanvasDelegate.swift in Sources */,
+				2D5A2FC721F807CB003AB537 /* ImageCanvas.swift in Sources */,
+				2D5A2FCE21F86565003AB537 /* MainViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2D5A2FBB21F6EDCF003AB537 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2D5A2FBC21F6EDCF003AB537 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2D5A2FC021F6EDCF003AB537 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2D5A2FC121F6EDCF003AB537 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		2D5A2FC321F6EDCF003AB537 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = E833V996FU;
+				INFOPLIST_FILE = ImageCollector/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tl.dev.ImageCollector;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		2D5A2FC421F6EDCF003AB537 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = E833V996FU;
+				INFOPLIST_FILE = ImageCollector/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tl.dev.ImageCollector;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D5A2FAD21F6EDCE003AB537 /* Build configuration list for PBXProject "ImageCollector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D5A2FC021F6EDCF003AB537 /* Debug */,
+				2D5A2FC121F6EDCF003AB537 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D5A2FC221F6EDCF003AB537 /* Build configuration list for PBXNativeTarget "ImageCollector" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2D5A2FC321F6EDCF003AB537 /* Debug */,
+				2D5A2FC421F6EDCF003AB537 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2D5A2FAA21F6EDCE003AB537 /* Project object */;
+}
