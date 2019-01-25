@@ -10,11 +10,7 @@ import Cocoa
 
 //MARK: isLoading 은 나중에 구현하기... 일단 기능 먼저..
 class ImageCanvas: NSView {
-    
-    enum Appearance {
-        static let maxStickerDimension: CGFloat = 350.0
-    }
-    
+
     @IBOutlet weak var delegate: ImportImageCanvasController!
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
@@ -24,7 +20,7 @@ class ImageCanvas: NSView {
             imageView.image = newValue
             isLoading = false
             
-            let constrainedSize = newValue!.aspectFitSizeForMaxDimension(Appearance.maxStickerDimension)
+            let constrainedSize = newValue!.aspectFitSizeForMaxDimension(Appearance.maxDimension)
             imageView.image?.size = constrainedSize
             
             needsLayout = true

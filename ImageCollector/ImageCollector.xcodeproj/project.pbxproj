@@ -16,6 +16,12 @@
 		2D5A2FD321F8665D003AB537 /* ImportImageCanvasController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD121F8665D003AB537 /* ImportImageCanvasController.swift */; };
 		2D5A2FD421F8665D003AB537 /* ImportImageCanvasController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */; };
 		2D5A2FD721F9B4E7003AB537 /* ExtNSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD621F9B4E7003AB537 /* ExtNSImage.swift */; };
+		2D5A2FDA21FAB238003AB537 /* ApplicationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD921FAB238003AB537 /* ApplicationEnums.swift */; };
+		2D5A2FDF21FAD3DB003AB537 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FDE21FAD3DB003AB537 /* Tags.swift */; };
+		2D5A2FE121FADDD2003AB537 /* DisableIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE021FADDD2003AB537 /* DisableIndicator.xib */; };
+		2D5A2FE321FADF1A003AB537 /* DisableIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */; };
+		2D5A2FE521FB01DA003AB537 /* ExtNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */; };
+		2D5A2FE721FB0BFC003AB537 /* AppSettingFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +37,12 @@
 		2D5A2FD121F8665D003AB537 /* ImportImageCanvasController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportImageCanvasController.swift; sourceTree = "<group>"; };
 		2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportImageCanvasController.xib; sourceTree = "<group>"; };
 		2D5A2FD621F9B4E7003AB537 /* ExtNSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtNSImage.swift; sourceTree = "<group>"; };
+		2D5A2FD921FAB238003AB537 /* ApplicationEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationEnums.swift; sourceTree = "<group>"; };
+		2D5A2FDE21FAD3DB003AB537 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
+		2D5A2FE021FADDD2003AB537 /* DisableIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisableIndicator.xib; sourceTree = "<group>"; };
+		2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableIndicator.swift; sourceTree = "<group>"; };
+		2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtNSView.swift; sourceTree = "<group>"; };
+		2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingFileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +75,10 @@
 		2D5A2FB421F6EDCE003AB537 /* ImageCollector */ = {
 			isa = PBXGroup;
 			children = (
+				2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */,
+				2D5A2FE021FADDD2003AB537 /* DisableIndicator.xib */,
+				2D5A2FDB21FAD3A8003AB537 /* model */,
+				2D5A2FD821FAB219003AB537 /* configure */,
 				2D5A2FD521F9B4C2003AB537 /* extension */,
 				2D5A2FCA21F808C4003AB537 /* delegate */,
 				2D5A2FB521F6EDCE003AB537 /* AppDelegate.swift */,
@@ -90,8 +106,26 @@
 			isa = PBXGroup;
 			children = (
 				2D5A2FD621F9B4E7003AB537 /* ExtNSImage.swift */,
+				2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */,
 			);
 			path = extension;
+			sourceTree = "<group>";
+		};
+		2D5A2FD821FAB219003AB537 /* configure */ = {
+			isa = PBXGroup;
+			children = (
+				2D5A2FD921FAB238003AB537 /* ApplicationEnums.swift */,
+				2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */,
+			);
+			path = configure;
+			sourceTree = "<group>";
+		};
+		2D5A2FDB21FAD3A8003AB537 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				2D5A2FDE21FAD3DB003AB537 /* Tags.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +193,7 @@
 			files = (
 				2D5A2FBA21F6EDCF003AB537 /* Assets.xcassets in Resources */,
 				2D5A2FD421F8665D003AB537 /* ImportImageCanvasController.xib in Resources */,
+				2D5A2FE121FADDD2003AB537 /* DisableIndicator.xib in Resources */,
 				2D5A2FBD21F6EDCF003AB537 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,9 +208,14 @@
 				2D5A2FD721F9B4E7003AB537 /* ExtNSImage.swift in Sources */,
 				2D5A2FD321F8665D003AB537 /* ImportImageCanvasController.swift in Sources */,
 				2D5A2FB621F6EDCE003AB537 /* AppDelegate.swift in Sources */,
+				2D5A2FDA21FAB238003AB537 /* ApplicationEnums.swift in Sources */,
+				2D5A2FDF21FAD3DB003AB537 /* Tags.swift in Sources */,
 				2D5A2FCC21F808E0003AB537 /* ImageCanvasDelegate.swift in Sources */,
 				2D5A2FC721F807CB003AB537 /* ImageCanvas.swift in Sources */,
 				2D5A2FCE21F86565003AB537 /* MainViewController.swift in Sources */,
+				2D5A2FE721FB0BFC003AB537 /* AppSettingFileManager.swift in Sources */,
+				2D5A2FE321FADF1A003AB537 /* DisableIndicator.swift in Sources */,
+				2D5A2FE521FB01DA003AB537 /* ExtNSView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
