@@ -60,4 +60,42 @@ class Tags: NSObject {
                 PropertyListKeys.tagCollectionIDIdx : newIdx,
                 PropertyListKeys.tagCollectionIDChilds : tempChilds]
     }
+    
+    func findAndAddTags(name: String, selectedKey: String) {
+        var newIdx: Int = 0
+        
+        for (idx, child) in (self.childs?.enumerated())! {
+            debugPrint("idx : \(idx), val : \(child.name)")
+
+            if child.key == selectedKey {
+                debugPrint("선택한 태그의 부모안에서의 인덱스 : \(idx)")
+                newIdx = idx + 1
+                break
+            }
+
+            if (child.childs?.count)! > 0 {
+                child.findAndAddTags(name: name, selectedKey: selectedKey)
+            }
+        }
+        
+        if newIdx > 0 {
+            childs?.insert(Tags(name: name, idx: newIdx, child: [:]), at: newIdx)
+        }
+    }
+    
+    func addChild(name: String) {
+        childs?.insert(Tags(name: name, idx: 0, child: [:]), at: 0)
+    }
+    
+    func deleteChild(key: String) {
+        var deleteTargetIdx = 0
+        for (idx, child) in (self.childs?.enumerated())! {
+            if child.key == key {
+                deleteTargetIdx = idx
+                break
+            }
+        }
+        self.childs?.remove(at: deleteTargetIdx)
+    }
+
 }

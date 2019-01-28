@@ -849,6 +849,9 @@
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="deleteTag:" target="XfG-lQ-9wD" id="8uT-JM-OvV"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>

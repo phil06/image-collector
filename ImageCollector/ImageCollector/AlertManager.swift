@@ -53,4 +53,26 @@ class AlertManager: NSObject {
         
         return nil
     }
+    
+    func confirmDeleteTag() -> Bool {
+        let alert = NSAlert()
+        
+        alert.alertStyle = .warning
+        alert.messageText = "하위 태그가 존재할 경우 함께 삭제됩니다. 삭제하겠습니까?"
+        alert.addButton(withTitle: "예")
+        alert.addButton(withTitle: "아니오")
+        
+        let button = alert.runModal()
+        
+        return button == NSApplication.ModalResponse.alertFirstButtonReturn
+    }
+    
+    func infoMessage(messageTitle: String) {
+        let alert = NSAlert()
+        
+        alert.alertStyle = .warning
+        alert.messageText = messageTitle
+        
+        alert.runModal()
+    }
 }

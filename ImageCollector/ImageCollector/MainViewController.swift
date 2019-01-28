@@ -10,6 +10,7 @@
 import Cocoa
 
 //MARK: 코드중복 리펙토링 필요..
+//MARK: reload, scroll 페이지 넘어갈때 확인
 class MainViewController: NSViewController {
     
     var indicator: DisableIndicator!
@@ -57,7 +58,7 @@ class MainViewController: NSViewController {
 
     }
     
-    override func viewWillDisappear() {
+    deinit {
         AppSettingFileManager.shared.convertTagData(data: self.tags)
     }
     
@@ -68,30 +69,48 @@ class MainViewController: NSViewController {
     
     @IBAction func addTag(_ sender: Any) {
         
-        let targetIdx = outlineTagView.selectedRow
-        
-        debugPrint("targetIdx : \(targetIdx)")
-        
+        var targetIdx = outlineTagView.selectedRow
+
         if let tagName = AlertManager.shared.showAddTagAlert(messageText: "태그명을 입력해주세요",
                                                                        infoText: "선택한 태그 아래 위치에 추가됩니다. 선택한 태그가 없을경우 이전에 추가된 태그그룹의 최상단에 추가됩니다.",
                                                       okTitle: "추가",
                                                       cancelTitle: "취소",
                                                       suppressionTitle: targetIdx < 0 ? nil : "태그를 선택한 태그의 하위로 추가합니다.") {
 
-
-
-            //하위의 하위일떈 어찌되려나... 인덱스가....
-            //parent 체그가 필요하겠지...?
-            if let addSub = tagName["suppression"] {
-                self.tags[targetIdx].childs?.append(Tags(name: tagName["input"] as! String, idx: 0, child: [:]))
-            } else {
+            //하위로 추가할때
+            if tagName["suppression"] != nil {
                 
+                let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
+                
+                if (selectedItem.childs?.count)! > 0 {
+                    selectedItem.findAndAddTags(name: tagName["input"] as! String, selectedKey: (selectedItem.childs?.last?.key)!)
+                } else {
+                    selectedItem.addChild(name: tagName["input"] as! String)
+                }
+                
+            } else {
                 let parentOfSelected = outlineTagView.parent(forItem: outlineTagView.item(atRow: targetIdx))
                 
-                
-                let newIdx = targetIdx < 0 ? 0 : targetIdx + 1
-                debugPrint("targetIdx > \(targetIdx), newIdx > \(newIdx)")
-                self.tags.insert(Tags(name: tagName["input"] as! String, idx: newIdx, child: [:]), at: newIdx)
+                if let parent = parentOfSelected as? Tags {
+                    let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
+                    parent.findAndAddTags(name: tagName["input"] as! String, selectedKey: selectedItem.key)
+                    
+                    
+                } else {
+                    
+                    let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
+                    
+                    for (idx, item) in self.tags.enumerated() {
+                        if item == selectedItem {
+                            targetIdx = idx
+                            break
+                        }
+                    }
+                    
+                    let newIdx = targetIdx < 0 ? 0 : targetIdx + 1
+                    debugPrint("targetIdx > \(targetIdx), newIdx > \(newIdx)")
+                    self.tags.insert(Tags(name: tagName["input"] as! String, idx: newIdx, child: [:]), at: newIdx)
+                }
             }
 
 
@@ -100,6 +119,40 @@ class MainViewController: NSViewController {
         }
         
     }
+    
+    @IBAction func deleteTag(_ sender: Any) {
+        var targetIdx = outlineTagView.selectedRow
+        
+        guard targetIdx >= 0 else {
+            //MARK: 선택한 태그가 없다고 알럿
+            AlertManager.shared.infoMessage(messageTitle: "선택된 태그가 없습니다.")
+            return
+        }
+        
+        let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
+        
+        let parentOfSelected = outlineTagView.parent(forItem: outlineTagView.item(atRow: targetIdx)) as? Tags
+        
+        if AlertManager.shared.confirmDeleteTag() {
+            if parentOfSelected == nil {
+                //root에서 삭제
+                for (idx, item) in self.tags.enumerated() {
+                    if item == selectedItem {
+                        targetIdx = idx
+                        break
+                    }
+                }
+                self.tags.remove(at: targetIdx)
+            } else {
+                //부모에서 삭제
+                parentOfSelected!.deleteChild(key: selectedItem.key)
+            }
+            
+        }
+        
+        self.outlineTagView.reloadData()
+    }
+    
     
     func setDirectories() {
         let panel = NSOpenPanel()
@@ -275,7 +328,7 @@ extension MainViewController: NSOutlineViewDelegate {
     }
     
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
-        //MARK: 최상이 아이템은... item 값이 nil로 오네..?
+        
         
         
         //내가 속해있는 아이템이 아닌.. target으로 지정한 앞으로 속할 아이템
@@ -295,7 +348,6 @@ extension MainViewController: NSOutlineViewDelegate {
                         fromIndex = idx
                     }
                 }
-                self.outlineTagView.moveItem(at: fromIndex, inParent: nil, to: childIndex, inParent: nil)
                 
                 self.tags.remove(at: fromIndex)
                 
@@ -303,10 +355,16 @@ extension MainViewController: NSOutlineViewDelegate {
                     childIndex = childIndex - 1;
                 }
                 
-                self.tags.insert(self.itemBeginDrag, at: childIndex)
+                let tag = item as? Tags
+                if tag == nil {
+                    self.tags.insert(self.itemBeginDrag, at: childIndex)
+                } else {
+                    
+                    tag?.childs?.insert(self.itemBeginDrag, at: childIndex < 0 ? 0 : childIndex)
+                }
             } else {
                 let tag = item as? Tags
-                
+
                 //상위 아이템이 있는 아이들
                 var fromIndex: Int = 0
                 for (idx, val) in (oldParent?.childs?.enumerated())! {
@@ -326,7 +384,13 @@ extension MainViewController: NSOutlineViewDelegate {
                     }
                 }
                 
-                tag!.childs?.insert(self.itemBeginDrag, at: childIndex)
+                if tag == nil {
+                    self.tags.insert(self.itemBeginDrag, at: childIndex)
+                } else {
+                    tag!.childs?.insert(self.itemBeginDrag, at: childIndex)
+                }
+                
+                
             }
             
             
@@ -334,9 +398,7 @@ extension MainViewController: NSOutlineViewDelegate {
             self.itemBeginDrag = nil
             
             outlineTagView.reloadData()
-            
-            
-            
+        
             return true
 
     }
