@@ -34,3 +34,7 @@ enum InterfaceStyle : String {
         self = InterfaceStyle(rawValue: type)!
     }
 }
+
+enum DateFormats {
+    static let yyyyMMddHHmmss = "yyyyMMddHHmmss"
+}

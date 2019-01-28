@@ -814,17 +814,6 @@
                                     <action selector="test1:" target="XfG-lQ-9wD" id="dqL-84-eX6"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NV5-dz-M4Q">
-                                <rect key="frame" x="530" y="100" width="80" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="roundRect" title="plist 가져오기" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uAN-d9-Ate">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="test2:" target="XfG-lQ-9wD" id="RMA-Fz-Qbc"/>
-                                </connections>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f7u-pR-lMD">
                                 <rect key="frame" x="20" y="28" width="25" height="27"/>
                                 <constraints>
@@ -851,6 +840,17 @@
                                 </buttonCell>
                                 <connections>
                                     <action selector="deleteTag:" target="XfG-lQ-9wD" id="8uT-JM-OvV"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NV5-dz-M4Q">
+                                <rect key="frame" x="285" y="32" width="35" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundRect" title="저장" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uAN-d9-Ate">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="save:" target="XfG-lQ-9wD" id="nIY-TS-C1P"/>
                                 </connections>
                             </button>
                         </subviews>

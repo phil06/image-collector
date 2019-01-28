@@ -21,28 +21,33 @@ class Tags: NSObject {
         self.childs = nil
     }
     
-    //MARK: 키도 다 직접 받는거로 나중엔 바꾸자...
-    convenience init(name: String, idx: Int, child: [String:Any]?) {
+    convenience init(name: String, idx: Int) {
         self.init()
         self.name = name
-        self.key = String.init(format: "%@-key", name)
+        self.key = makeKey()
+        self.idx = idx
+        self.childs = []
+    }
+    
+    convenience init(name: String, idx: Int, key: String, child: [String:Any]?) {
+        self.init()
+        self.name = name
+        self.key = key
         self.idx = idx
         self.childs = []
         
         if !(child?.isEmpty)! {
-            for (key, val) in child! {
+            for (_, val) in child! {
                 let dat = val as! [String:Any]
                 let newItem = Tags(name: dat[PropertyListKeys.tagCollectionIDName] as! String,
                                    idx: dat[PropertyListKeys.tagCollectionIDIdx] as! Int,
-                                   child: dat[PropertyListKeys.tagCollectionIDChilds] as? [String : Any]) 
+                                   key: dat[PropertyListKeys.tagCollectionIDKey] as! String,
+                                   child: dat[PropertyListKeys.tagCollectionIDChilds] as? [String : Any])
                 self.childs?.append(newItem)
             }
         }
         
         self.childs?.sort(by: {$0.idx < $1.idx})
-
-    
-
     }
     
     func getForMigration(newIdx: Int) -> [String:Any] {
@@ -61,32 +66,6 @@ class Tags: NSObject {
                 PropertyListKeys.tagCollectionIDChilds : tempChilds]
     }
     
-    func findAndAddTags(name: String, selectedKey: String) {
-        var newIdx: Int = 0
-        
-        for (idx, child) in (self.childs?.enumerated())! {
-            debugPrint("idx : \(idx), val : \(child.name)")
-
-            if child.key == selectedKey {
-                debugPrint("선택한 태그의 부모안에서의 인덱스 : \(idx)")
-                newIdx = idx + 1
-                break
-            }
-
-            if (child.childs?.count)! > 0 {
-                child.findAndAddTags(name: name, selectedKey: selectedKey)
-            }
-        }
-        
-        if newIdx > 0 {
-            childs?.insert(Tags(name: name, idx: newIdx, child: [:]), at: newIdx)
-        }
-    }
-    
-    func addChild(name: String) {
-        childs?.insert(Tags(name: name, idx: 0, child: [:]), at: 0)
-    }
-    
     func deleteChild(key: String) {
         var deleteTargetIdx = 0
         for (idx, child) in (self.childs?.enumerated())! {
@@ -98,4 +77,9 @@ class Tags: NSObject {
         self.childs?.remove(at: deleteTargetIdx)
     }
 
+    private func makeKey() -> String {
+        return String.init(format: "%@-%@",
+                    Utility.shared.randomString(length: 10),
+                    Utility.shared.getCurrentDateFormat(format: DateFormats.yyyyMMddHHmmss))
+    }
 }

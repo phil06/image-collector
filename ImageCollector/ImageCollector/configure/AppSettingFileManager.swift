@@ -89,6 +89,7 @@ class AppSettingFileManager: NSObject {
             let newItem: Tags
             newItem = Tags(name: dat[PropertyListKeys.tagCollectionIDName] as! String,
                            idx: dat[PropertyListKeys.tagCollectionIDIdx] as! Int,
+                           key: dat[PropertyListKeys.tagCollectionIDKey] as! String,
                            child: dat[PropertyListKeys.tagCollectionIDChilds] as? [String:Any])
             
             tags.append(newItem)

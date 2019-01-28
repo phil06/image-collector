@@ -5,11 +5,10 @@
 //  Created by NHNEnt on 23/01/2019.
 //  Copyright © 2019 tldev. All rights reserved.
 //
-//https://developer.apple.com/library/archive/samplecode/TableViewPlayground/Introduction/Intro.html#//apple_ref/doc/uid/DTS40010727 참고
+//https://developer.apple.com/library/archive/samplecode/TableViewPlayground/Introduction/Intro.html#//apple_ref/doc/uid/DTS40010727
 
 import Cocoa
 
-//MARK: 코드중복 리펙토링 필요..
 //MARK: reload, scroll 페이지 넘어갈때 확인
 class MainViewController: NSViewController {
     
@@ -18,16 +17,6 @@ class MainViewController: NSViewController {
     var itemBeginDrag: Tags!
 
     @IBOutlet weak var outlineTagView: NSOutlineView!
-
-    
-    
-    
-    //view가 window에 추가되기 전에 호출되기때문에 window의 title에 접근 할 수 없음
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-        
-    }
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -47,7 +36,11 @@ class MainViewController: NSViewController {
             
             indicator.message.stringValue = "저장 위치가 설정되어야 사용 가능합니다"
 
-            setDirectories()
+            if let path = PanelManager.shared.openDefaultPathPanel() {
+                //view가 window에 추가되기 전에 호출되서 viewDidLoad에선 window의 title에 접근 할 수 없음
+                self.view.window?.title = path
+                indicator.isHidden = true
+            }
         }
         
         self.fetchData()
@@ -55,10 +48,9 @@ class MainViewController: NSViewController {
         outlineTagView.delegate = self
         outlineTagView.dataSource = self
         outlineTagView.registerForDraggedTypes([.string])
-
     }
     
-    deinit {
+    override func viewWillDisappear() {
         AppSettingFileManager.shared.convertTagData(data: self.tags)
     }
     
@@ -77,54 +69,45 @@ class MainViewController: NSViewController {
                                                       cancelTitle: "취소",
                                                       suppressionTitle: targetIdx < 0 ? nil : "태그를 선택한 태그의 하위로 추가합니다.") {
 
+            let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
+
             //하위로 추가할때
             if tagName["suppression"] != nil {
-                
-                let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
-                
-                if (selectedItem.childs?.count)! > 0 {
-                    selectedItem.findAndAddTags(name: tagName["input"] as! String, selectedKey: (selectedItem.childs?.last?.key)!)
-                } else {
-                    selectedItem.addChild(name: tagName["input"] as! String)
-                }
-                
+                selectedItem.childs?.insert(Tags(name: tagName["input"] as! String, idx: 0), at: 0)
             } else {
                 let parentOfSelected = outlineTagView.parent(forItem: outlineTagView.item(atRow: targetIdx))
                 
                 if let parent = parentOfSelected as? Tags {
-                    let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
-                    parent.findAndAddTags(name: tagName["input"] as! String, selectedKey: selectedItem.key)
-                    
-                    
-                } else {
-                    
-                    let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
-                    
-                    for (idx, item) in self.tags.enumerated() {
-                        if item == selectedItem {
-                            targetIdx = idx
-                            break
-                        }
+
+                    if let foundIdx = findGroupIndexByKey(arr: parent.childs!, keyToFind: selectedItem.key) {
+                        targetIdx = foundIdx
                     }
                     
                     let newIdx = targetIdx < 0 ? 0 : targetIdx + 1
-                    debugPrint("targetIdx > \(targetIdx), newIdx > \(newIdx)")
-                    self.tags.insert(Tags(name: tagName["input"] as! String, idx: newIdx, child: [:]), at: newIdx)
+                    parent.childs?.insert(Tags(name: tagName["input"] as! String, idx: newIdx), at: newIdx)
+                    
+                } else {
+
+                    if let foundIdx = findGroupIndexByKey(arr: self.tags, keyToFind: selectedItem.key) {
+                        targetIdx = foundIdx
+                    }
+
+                    let newIdx = targetIdx < 0 ? 0 : targetIdx + 1
+                    self.tags.insert(Tags(name: tagName["input"] as! String, idx: newIdx), at: newIdx)
                 }
             }
-
-
 
             outlineTagView.reloadData()
         }
         
     }
     
+
+    
     @IBAction func deleteTag(_ sender: Any) {
         var targetIdx = outlineTagView.selectedRow
         
         guard targetIdx >= 0 else {
-            //MARK: 선택한 태그가 없다고 알럿
             AlertManager.shared.infoMessage(messageTitle: "선택된 태그가 없습니다.")
             return
         }
@@ -136,11 +119,8 @@ class MainViewController: NSViewController {
         if AlertManager.shared.confirmDeleteTag() {
             if parentOfSelected == nil {
                 //root에서 삭제
-                for (idx, item) in self.tags.enumerated() {
-                    if item == selectedItem {
-                        targetIdx = idx
-                        break
-                    }
+                if let foundIdx = findGroupIndexByKey(arr: self.tags, keyToFind: selectedItem.key) {
+                    targetIdx = foundIdx
                 }
                 self.tags.remove(at: targetIdx)
             } else {
@@ -153,84 +133,30 @@ class MainViewController: NSViewController {
         self.outlineTagView.reloadData()
     }
     
-    
-    func setDirectories() {
-        let panel = NSOpenPanel()
-        panel.canChooseDirectories = true
-        
-        if panel.runModal() == NSApplication.ModalResponse.OK {
-            if let result = panel.url {
-                let path = result.path
-                self.view.window?.title = path
-                UserDefaults.standard.set(path, forKey: UserDefaultKeys.filePath)
-                indicator.isHidden = true
-                
-                AppSettingFileManager.shared.initFile()
-            }
-        } else {
-            NSApplication.shared.terminate(self)
-            return
-        }
+    @IBAction func save(_ sender: Any) {
+        AppSettingFileManager.shared.convertTagData(data: self.tags)
     }
+    
+
     
     func fetchData() {
         tags = AppSettingFileManager.shared.readConvertedTagData()
         self.outlineTagView.reloadData()
     }
     
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    @IBAction func test2(_ sender: Any) {
-        
-        
-        AppSettingFileManager.shared.addField()
-        
-//        AppSettingFileManager.shared.convertTagData(data: self.tags)
-        
-        
-  
+    func findGroupIndexByKey(arr: [Tags], keyToFind: String) -> Int? {
+        for (idx, item) in arr.enumerated() {
+            if item.key == keyToFind {
+                return idx
+            }
+        }
+        return nil
     }
-    
-    @IBAction func test1(_ sender: Any) {
-        
-        UserDefaults.standard.removeObject(forKey: UserDefaultKeys.filePath)
-    }
-    
-    
-    
-    
-    
-    
  
-   
-    
-    
- 
-    
-    
 }
 
-
-
-/* 봐야할 때가 올지도 모르는거..
- moveItem(at:inParent:to:inParent:)
-    https://developer.apple.com/documentation/appkit/nsoutlineview/1530467-moveitem
- */
-
-
 extension MainViewController: NSOutlineViewDataSource {
-    // Tell the view how many children an item has
+
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         guard self.tags != nil else {
             return 0
@@ -241,46 +167,30 @@ extension MainViewController: NSOutlineViewDataSource {
         }
         return tags.count
     }
-    
-    // Tell the view controller whether an item can be expanded (i.e. it has children) or not
-    // (i.e. it doesn't)
+
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
         if let tag = item as? Tags {
             return (tag.childs?.count)! > 0
         }
         return false
     }
-    
-    
-    
 
-    // Find and return the child of an item. If item == nil, we need to return a child of the
-    // root node otherwise we find and return the child of the parent node indicated by 'item'
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
         if let tags = item as? Tags {
             return tags.childs![index]
         }
         return self.tags[index]
     }
-
-
-
-
-
 }
 
 extension MainViewController: NSOutlineViewDelegate {
-    // Add text to the view. 'item' will either be a Creature object or a string. If it's the former we just
-    // use the 'type' attribute otherwise we downcast it to a string and use that instead.
+
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         var text = ""
         if let tag = item as? Tags {
             text = tag.name
-        } else {
-            debugPrint("타입을 알쑤없쒀..")
         }
 
-        // Create our table cell -- note the reference to 'creatureCell' that we set when configuring the table cell
         let tableCell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "tagCell"), owner: self) as! NSTableCellView
         tableCell.textField!.stringValue = text
         return tableCell
@@ -288,17 +198,14 @@ extension MainViewController: NSOutlineViewDelegate {
     
     //support dran and drop
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
-        //이거 있어도 소용없어 보이는데...
         var text = ""
         if let tag = item as? Tags {
             text = tag.name
-        } else {
-            debugPrint("타입을 알쑤없쒀..")
         }
-        
+
         let pasteBoard = NSPasteboardItem()
         pasteBoard.setString(text, forType: .string)
-        
+
         return pasteBoard
     }
     
@@ -329,77 +236,44 @@ extension MainViewController: NSOutlineViewDelegate {
     
     func outlineView(_ outlineView: NSOutlineView, acceptDrop info: NSDraggingInfo, item: Any?, childIndex index: Int) -> Bool {
         
-        
-        
-        //내가 속해있는 아이템이 아닌.. target으로 지정한 앞으로 속할 아이템
-//        if let tag = item as? Tags {
+        var targetIdx = index
 
-            outlineTagView.beginUpdates()
+        let oldParent = outlineTagView.parent(forItem: self.itemBeginDrag) as? Tags
+        
+        var fromIndex: Int = 0
+        let tag = item as? Tags
+        
+        if oldParent == nil {
             
-            var childIndex = index
-            
-            //기존 아이템 리스트에서 제거
-            let oldParent = outlineTagView.parent(forItem: self.itemBeginDrag) as? Tags
-            
-            if oldParent == nil {
-                var fromIndex: Int = 0
-                for (idx, val) in self.tags.enumerated() {
-                    if val == self.itemBeginDrag {
-                        fromIndex = idx
-                    }
-                }
-                
-                self.tags.remove(at: fromIndex)
-                
-                if (fromIndex < childIndex) {
-                    childIndex = childIndex - 1;
-                }
-                
-                let tag = item as? Tags
-                if tag == nil {
-                    self.tags.insert(self.itemBeginDrag, at: childIndex)
-                } else {
-                    
-                    tag?.childs?.insert(self.itemBeginDrag, at: childIndex < 0 ? 0 : childIndex)
-                }
-            } else {
-                let tag = item as? Tags
-
-                //상위 아이템이 있는 아이들
-                var fromIndex: Int = 0
-                for (idx, val) in (oldParent?.childs?.enumerated())! {
-                    if val == self.itemBeginDrag {
-                        fromIndex = idx
-                    }
-                }
-                
-                oldParent?.childs?.remove(at: fromIndex)
-                
-                //insert 되기 전에 delete해야 한다
-                if (oldParent == tag) {
-                    // Consider the item being deleted before it is being inserted.
-                    // This is because we are inserting *before* childIndex, and *not* after it (which is what the move API does).
-                    if (fromIndex < childIndex) {
-                        childIndex = childIndex - 1;
-                    }
-                }
-                
-                if tag == nil {
-                    self.tags.insert(self.itemBeginDrag, at: childIndex)
-                } else {
-                    tag!.childs?.insert(self.itemBeginDrag, at: childIndex)
-                }
-                
-                
+            if let foundIdx = findGroupIndexByKey(arr: self.tags, keyToFind: self.itemBeginDrag.key) {
+                fromIndex = foundIdx
             }
-            
-            
-            outlineTagView.endUpdates()
-            self.itemBeginDrag = nil
-            
-            outlineTagView.reloadData()
+            self.tags.remove(at: fromIndex)
+
+        } else {
+            if let foundIdx = findGroupIndexByKey(arr: (oldParent?.childs)!, keyToFind: self.itemBeginDrag.key) {
+                fromIndex = foundIdx
+            }
+            oldParent?.childs?.remove(at: fromIndex)
+        }
         
-            return true
+        if (oldParent == tag) {
+            if (fromIndex < targetIdx) {
+                targetIdx = targetIdx - 1;
+            }
+        }
+        
+        if tag == nil {
+            self.tags.insert(self.itemBeginDrag, at: targetIdx)
+        } else {
+            tag?.childs?.insert(self.itemBeginDrag, at: targetIdx < 0 ? 0 : targetIdx)
+        }
+        
+        self.itemBeginDrag = nil
+        
+        outlineTagView.reloadData()
+    
+        return true
 
     }
 }
