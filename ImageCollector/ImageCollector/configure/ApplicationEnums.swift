@@ -18,7 +18,12 @@ enum UserDefaultKeys {
 
 enum PropertyListKeys {
     static let defaultLocation:String = "location"
+    static let tagCollection:String = "tags"
     
+    static let tagCollectionIDName: String = "name"
+    static let tagCollectionIDKey: String = "key"
+    static let tagCollectionIDIdx: String = "idx"
+    static let tagCollectionIDChilds: String = "childs"
 }
 
 enum InterfaceStyle : String {

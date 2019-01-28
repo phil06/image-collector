@@ -706,11 +706,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="MainViewController" customModule="ImageCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="684" height="458"/>
+                        <rect key="frame" x="0.0" y="0.0" width="684" height="461"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gle-co-7MK">
-                                <rect key="frame" x="573" y="419" width="91" height="19"/>
+                                <rect key="frame" x="573" y="422" width="91" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="roundRect" title="이미지 가져오기" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oSu-Ho-qN2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -721,7 +721,7 @@
                                 </connections>
                             </button>
                             <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KcQ-aG-JAk">
-                                <rect key="frame" x="460" y="390" width="204" height="22"/>
+                                <rect key="frame" x="460" y="393" width="204" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="XHb-aJ-ILJ">
                                     <font key="font" metaFont="system"/>
@@ -729,13 +729,13 @@
                                 </pathCell>
                             </pathControl>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cgz-6L-s7l">
-                                <rect key="frame" x="20" y="29" width="300" height="401"/>
+                                <rect key="frame" x="20" y="74" width="300" height="359"/>
                                 <clipView key="contentView" id="C5b-9Z-Ypz">
-                                    <rect key="frame" x="1" y="0.0" width="298" height="400"/>
+                                    <rect key="frame" x="1" y="0.0" width="298" height="358"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="8Cz-mb-xMd" viewBased="YES" indentationPerLevel="5" outlineTableColumn="XDt-Jg-7VE" id="LeR-s8-ZLp">
-                                            <rect key="frame" x="0.0" y="0.0" width="298" height="375"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="333"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -787,6 +787,7 @@
                                     </subviews>
                                 </clipView>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="359" id="2qr-ec-L7m"/>
                                     <constraint firstAttribute="width" constant="300" id="GXE-jN-AcN"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="4n3-aZ-0EN">
@@ -803,7 +804,7 @@
                                 </tableHeaderView>
                             </scrollView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p8c-Xf-e77">
-                                <rect key="frame" x="496" y="49" width="147" height="19"/>
+                                <rect key="frame" x="496" y="52" width="147" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="roundRect" title="(T) userdefault 경로 지우기" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="W8o-Dm-O8S">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -814,7 +815,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NV5-dz-M4Q">
-                                <rect key="frame" x="530" y="97" width="80" height="19"/>
+                                <rect key="frame" x="530" y="100" width="80" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="roundRect" title="plist 가져오기" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uAN-d9-Ate">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -825,7 +826,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f7u-pR-lMD">
-                                <rect key="frame" x="20" y="404" width="25" height="27"/>
+                                <rect key="frame" x="20" y="28" width="25" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="Thr-va-Vpg"/>
                                     <constraint firstAttribute="height" constant="25" id="o9f-F7-rIw"/>
@@ -834,9 +835,12 @@
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="addTag:" target="XfG-lQ-9wD" id="unt-OD-Wut"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="muA-Uf-Uq1">
-                                <rect key="frame" x="45" y="404" width="25" height="27"/>
+                                <rect key="frame" x="45" y="28" width="25" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="AKA-Pf-2GP"/>
                                     <constraint firstAttribute="width" constant="25" id="Tyw-dc-owv"/>
@@ -848,22 +852,23 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="f7u-pR-lMD" firstAttribute="leading" secondItem="Cgz-6L-s7l" secondAttribute="leading" id="JD7-0k-KAX"/>
-                            <constraint firstItem="f7u-pR-lMD" firstAttribute="top" secondItem="Cgz-6L-s7l" secondAttribute="top" id="LEB-Bi-IjK"/>
+                            <constraint firstAttribute="bottom" secondItem="f7u-pR-lMD" secondAttribute="bottom" constant="29" id="ERD-0J-GZQ"/>
+                            <constraint firstItem="f7u-pR-lMD" firstAttribute="top" secondItem="Cgz-6L-s7l" secondAttribute="bottom" constant="20" id="LEB-Bi-IjK"/>
                             <constraint firstItem="muA-Uf-Uq1" firstAttribute="leading" secondItem="f7u-pR-lMD" secondAttribute="trailing" id="Nwj-j5-FrK"/>
                             <constraint firstItem="Cgz-6L-s7l" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="WCc-E5-hdT"/>
                             <constraint firstItem="f7u-pR-lMD" firstAttribute="baseline" secondItem="muA-Uf-Uq1" secondAttribute="baseline" id="YE6-qj-yZl"/>
-                            <constraint firstAttribute="bottom" secondItem="Cgz-6L-s7l" secondAttribute="bottom" constant="29" id="ZZS-XB-Yot"/>
+                            <constraint firstItem="f7u-pR-lMD" firstAttribute="leading" secondItem="Cgz-6L-s7l" secondAttribute="leading" id="hcQ-Zb-sVc"/>
                             <constraint firstItem="Cgz-6L-s7l" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="28" id="qAP-dQ-q05"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="outlineTagView" destination="Cgz-6L-s7l" id="n4r-lE-nxL"/>
+                        <outlet property="addTag" destination="f7u-pR-lMD" id="I5H-eb-Wen"/>
+                        <outlet property="outlineTagView" destination="LeR-s8-ZLp" id="gDm-ov-ais"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="1039"/>
+            <point key="canvasLocation" x="75" y="1228.5"/>
         </scene>
     </scenes>
     <resources>

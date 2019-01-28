@@ -22,6 +22,7 @@
 		2D5A2FE321FADF1A003AB537 /* DisableIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */; };
 		2D5A2FE521FB01DA003AB537 /* ExtNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */; };
 		2D5A2FE721FB0BFC003AB537 /* AppSettingFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */; };
+		8AED201121FD78B700E0578C /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED201021FD78B700E0578C /* AlertManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableIndicator.swift; sourceTree = "<group>"; };
 		2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtNSView.swift; sourceTree = "<group>"; };
 		2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingFileManager.swift; sourceTree = "<group>"; };
+		8AED201021FD78B700E0578C /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				2D5A2FC621F807CB003AB537 /* ImageCanvas.swift */,
 				2D5A2FD121F8665D003AB537 /* ImportImageCanvasController.swift */,
 				2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */,
+				8AED201021FD78B700E0578C /* AlertManager.swift */,
 			);
 			path = ImageCollector;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				2D5A2FCC21F808E0003AB537 /* ImageCanvasDelegate.swift in Sources */,
 				2D5A2FC721F807CB003AB537 /* ImageCanvas.swift in Sources */,
 				2D5A2FCE21F86565003AB537 /* MainViewController.swift in Sources */,
+				8AED201121FD78B700E0578C /* AlertManager.swift in Sources */,
 				2D5A2FE721FB0BFC003AB537 /* AppSettingFileManager.swift in Sources */,
 				2D5A2FE321FADF1A003AB537 /* DisableIndicator.swift in Sources */,
 				2D5A2FE521FB01DA003AB537 /* ExtNSView.swift in Sources */,
