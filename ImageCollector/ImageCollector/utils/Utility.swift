@@ -28,4 +28,10 @@ class Utility: NSObject {
         
         return date.string(from: now)
     }
+    
+    func getTagKey() -> String {
+        return String.init(format: "%@-%@",
+                           Utility.shared.randomString(length: 10),
+                           Utility.shared.getCurrentDateFormat(format: DateFormats.yyyyMMddHHmmss))
+    }
 }

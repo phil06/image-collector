@@ -24,8 +24,6 @@ class PanelManager: NSObject {
                 
                 return path
             }
-        } else {
-            NSApplication.shared.terminate(self)
         }
         
         return nil

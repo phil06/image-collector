@@ -17,6 +17,12 @@ class ImageCanvas: NSView {
 
     var image: NSImage? {
         set {
+            if newValue == nil {
+                imageView.image = nil
+                delegate.replacePlaceholder()
+                return
+            }
+            
             imageView.image = newValue
             isLoading = false
             

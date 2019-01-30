@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D4B525922002063006A4119 /* CollectionViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4B525722002063006A4119 /* CollectionViewItem.swift */; };
+		2D4B525A22002063006A4119 /* CollectionViewItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D4B525822002063006A4119 /* CollectionViewItem.xib */; };
+		2D4B525C22013648006A4119 /* TagFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4B525B22013648006A4119 /* TagFileManager.swift */; };
+		2D4B525E22013A29006A4119 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4B525D22013A29006A4119 /* SettingModel.swift */; };
+		2D4B52622201AC6E006A4119 /* ImageListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4B52612201AC6E006A4119 /* ImageListModel.swift */; };
+		2D4B52642201B4AE006A4119 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4B52632201B4AE006A4119 /* ImageFile.swift */; };
 		2D5A2FB621F6EDCE003AB537 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FB521F6EDCE003AB537 /* AppDelegate.swift */; };
 		2D5A2FBA21F6EDCF003AB537 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A2FB921F6EDCF003AB537 /* Assets.xcassets */; };
 		2D5A2FBD21F6EDCF003AB537 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A2FBB21F6EDCF003AB537 /* Main.storyboard */; };
@@ -17,7 +23,6 @@
 		2D5A2FD421F8665D003AB537 /* ImportImageCanvasController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */; };
 		2D5A2FD721F9B4E7003AB537 /* ExtNSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD621F9B4E7003AB537 /* ExtNSImage.swift */; };
 		2D5A2FDA21FAB238003AB537 /* ApplicationEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FD921FAB238003AB537 /* ApplicationEnums.swift */; };
-		2D5A2FDF21FAD3DB003AB537 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FDE21FAD3DB003AB537 /* Tags.swift */; };
 		2D5A2FE121FADDD2003AB537 /* DisableIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE021FADDD2003AB537 /* DisableIndicator.xib */; };
 		2D5A2FE321FADF1A003AB537 /* DisableIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */; };
 		2D5A2FE521FB01DA003AB537 /* ExtNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */; };
@@ -29,6 +34,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D4B525722002063006A4119 /* CollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewItem.swift; sourceTree = "<group>"; };
+		2D4B525822002063006A4119 /* CollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewItem.xib; sourceTree = "<group>"; };
+		2D4B525B22013648006A4119 /* TagFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFileManager.swift; sourceTree = "<group>"; };
+		2D4B525D22013A29006A4119 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
+		2D4B52612201AC6E006A4119 /* ImageListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListModel.swift; sourceTree = "<group>"; };
+		2D4B52632201B4AE006A4119 /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		2D5A2FB221F6EDCE003AB537 /* ImageCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5A2FB521F6EDCE003AB537 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D5A2FB921F6EDCF003AB537 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -42,7 +53,6 @@
 		2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportImageCanvasController.xib; sourceTree = "<group>"; };
 		2D5A2FD621F9B4E7003AB537 /* ExtNSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtNSImage.swift; sourceTree = "<group>"; };
 		2D5A2FD921FAB238003AB537 /* ApplicationEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationEnums.swift; sourceTree = "<group>"; };
-		2D5A2FDE21FAD3DB003AB537 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		2D5A2FE021FADDD2003AB537 /* DisableIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisableIndicator.xib; sourceTree = "<group>"; };
 		2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableIndicator.swift; sourceTree = "<group>"; };
 		2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtNSView.swift; sourceTree = "<group>"; };
@@ -64,6 +74,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D4B525622002020006A4119 /* imageCollection */ = {
+			isa = PBXGroup;
+			children = (
+				2D4B525722002063006A4119 /* CollectionViewItem.swift */,
+				2D4B525822002063006A4119 /* CollectionViewItem.xib */,
+			);
+			path = imageCollection;
+			sourceTree = "<group>";
+		};
 		2D5A2FA921F6EDCE003AB537 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +102,7 @@
 		2D5A2FB421F6EDCE003AB537 /* ImageCollector */ = {
 			isa = PBXGroup;
 			children = (
+				2D4B525622002020006A4119 /* imageCollection */,
 				8AED201821FF451600E0578C /* utils */,
 				2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */,
 				2D5A2FE021FADDD2003AB537 /* DisableIndicator.xib */,
@@ -135,7 +155,9 @@
 		2D5A2FDB21FAD3A8003AB537 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				2D5A2FDE21FAD3DB003AB537 /* Tags.swift */,
+				2D4B525D22013A29006A4119 /* SettingModel.swift */,
+				2D4B52612201AC6E006A4119 /* ImageListModel.swift */,
+				2D4B52632201B4AE006A4119 /* ImageFile.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -144,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				8AED201921FF454F00E0578C /* Utility.swift */,
+				2D4B525B22013648006A4119 /* TagFileManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -214,6 +237,7 @@
 				2D5A2FBA21F6EDCF003AB537 /* Assets.xcassets in Resources */,
 				2D5A2FD421F8665D003AB537 /* ImportImageCanvasController.xib in Resources */,
 				2D5A2FE121FADDD2003AB537 /* DisableIndicator.xib in Resources */,
+				2D4B525A22002063006A4119 /* CollectionViewItem.xib in Resources */,
 				2D5A2FBD21F6EDCF003AB537 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,11 +253,15 @@
 				2D5A2FD321F8665D003AB537 /* ImportImageCanvasController.swift in Sources */,
 				2D5A2FB621F6EDCE003AB537 /* AppDelegate.swift in Sources */,
 				2D5A2FDA21FAB238003AB537 /* ApplicationEnums.swift in Sources */,
-				2D5A2FDF21FAD3DB003AB537 /* Tags.swift in Sources */,
+				2D4B525C22013648006A4119 /* TagFileManager.swift in Sources */,
 				2D5A2FCC21F808E0003AB537 /* ImageCanvasDelegate.swift in Sources */,
 				8AED201321FF2B7100E0578C /* PanelManager.swift in Sources */,
+				2D4B525E22013A29006A4119 /* SettingModel.swift in Sources */,
 				2D5A2FC721F807CB003AB537 /* ImageCanvas.swift in Sources */,
+				2D4B52622201AC6E006A4119 /* ImageListModel.swift in Sources */,
+				2D4B52642201B4AE006A4119 /* ImageFile.swift in Sources */,
 				8AED201721FF446D00E0578C /* ExtDate.swift in Sources */,
+				2D4B525922002063006A4119 /* CollectionViewItem.swift in Sources */,
 				2D5A2FCE21F86565003AB537 /* MainViewController.swift in Sources */,
 				8AED201121FD78B700E0578C /* AlertManager.swift in Sources */,
 				8AED201A21FF454F00E0578C /* Utility.swift in Sources */,

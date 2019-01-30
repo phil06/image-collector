@@ -13,10 +13,12 @@ import Cocoa
 class MainViewController: NSViewController {
     
     var indicator: DisableIndicator!
-    var tags: [Tags]!
-    var itemBeginDrag: Tags!
+    var tags: [TagModel]!
+    var itemBeginDrag: TagModel!
+    var currentTagKey: String!
 
     @IBOutlet weak var outlineTagView: NSOutlineView!
+    @IBOutlet weak var collectionView: NSCollectionView!
     
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -40,8 +42,12 @@ class MainViewController: NSViewController {
                 //view가 window에 추가되기 전에 호출되서 viewDidLoad에선 window의 title에 접근 할 수 없음
                 self.view.window?.title = path
                 indicator.isHidden = true
+            }  else {
+                NSApplication.shared.terminate(self)
             }
         }
+        
+        configureCollectionView()
         
         self.fetchData()
         
@@ -51,10 +57,19 @@ class MainViewController: NSViewController {
     }
     
     override func viewWillDisappear() {
-        AppSettingFileManager.shared.convertTagData(data: self.tags)
+        guard self.tags != nil else {
+            return
+        }
+        
+        AppSettingFileManager.shared.setDataSource(data: self.tags)
     }
     
     @IBAction func openImportWindow(_ sender: Any) {
+        if outlineTagView.selectedRow < 0 {
+            AlertManager.shared.infoMessage(messageTitle: "태그를 먼저 선택해주세요")
+            return
+        }
+        
         let vc = ImportImageCanvasController()
         self.presentAsModalWindow(vc)
     }
@@ -64,37 +79,43 @@ class MainViewController: NSViewController {
         var targetIdx = outlineTagView.selectedRow
 
         if let tagName = AlertManager.shared.showAddTagAlert(messageText: "태그명을 입력해주세요",
-                                                                       infoText: "선택한 태그 아래 위치에 추가됩니다. 선택한 태그가 없을경우 이전에 추가된 태그그룹의 최상단에 추가됩니다.",
+                                                                       infoText: "선택한 태그 아래 위치에 추가됩니다. 선택한 태그가 없을경우 최상단 하위에 추가됩니다.",
                                                       okTitle: "추가",
                                                       cancelTitle: "취소",
                                                       suppressionTitle: targetIdx < 0 ? nil : "태그를 선택한 태그의 하위로 추가합니다.") {
 
-            let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
-
             //하위로 추가할때
             if tagName["suppression"] != nil {
-                selectedItem.childs?.insert(Tags(name: tagName["input"] as! String, idx: 0), at: 0)
+                let selectedItem = outlineTagView.item(atRow: targetIdx) as! TagModel
+                selectedItem.childs?.insert(TagModel(name: tagName["input"] as! String, idx: 0), at: 0)
             } else {
-                let parentOfSelected = outlineTagView.parent(forItem: outlineTagView.item(atRow: targetIdx))
                 
-                if let parent = parentOfSelected as? Tags {
-
-                    if let foundIdx = findGroupIndexByKey(arr: parent.childs!, keyToFind: selectedItem.key) {
-                        targetIdx = foundIdx
-                    }
-                    
-                    let newIdx = targetIdx < 0 ? 0 : targetIdx + 1
-                    parent.childs?.insert(Tags(name: tagName["input"] as! String, idx: newIdx), at: newIdx)
-                    
+                if targetIdx < 0 {
+                    self.tags.insert(TagModel(name: tagName["input"] as! String, idx: 0), at: 0)
                 } else {
-
-                    if let foundIdx = findGroupIndexByKey(arr: self.tags, keyToFind: selectedItem.key) {
-                        targetIdx = foundIdx
+                    let selectedItem = outlineTagView.item(atRow: targetIdx) as! TagModel
+                    let parentOfSelected = outlineTagView.parent(forItem: outlineTagView.item(atRow: targetIdx))
+                    
+                    if let parent = parentOfSelected as? TagModel {
+                        
+                        if let foundIdx = findGroupIndexByKey(arr: parent.childs!, keyToFind: selectedItem.key) {
+                            targetIdx = foundIdx
+                        }
+                        
+                        targetIdx = targetIdx + 1
+                        parent.childs?.insert(TagModel(name: tagName["input"] as! String, idx: targetIdx), at: targetIdx)
+                        
+                    } else {
+                        
+                        if let foundIdx = findGroupIndexByKey(arr: self.tags, keyToFind: selectedItem.key) {
+                            targetIdx = foundIdx
+                        }
+                        
+                        targetIdx = targetIdx + 1
+                        self.tags.insert(TagModel(name: tagName["input"] as! String, idx: targetIdx), at: targetIdx)
                     }
-
-                    let newIdx = targetIdx < 0 ? 0 : targetIdx + 1
-                    self.tags.insert(Tags(name: tagName["input"] as! String, idx: newIdx), at: newIdx)
                 }
+
             }
 
             outlineTagView.reloadData()
@@ -112,9 +133,9 @@ class MainViewController: NSViewController {
             return
         }
         
-        let selectedItem = outlineTagView.item(atRow: targetIdx) as! Tags
+        let selectedItem = outlineTagView.item(atRow: targetIdx) as! TagModel
         
-        let parentOfSelected = outlineTagView.parent(forItem: outlineTagView.item(atRow: targetIdx)) as? Tags
+        let parentOfSelected = outlineTagView.parent(forItem: outlineTagView.item(atRow: targetIdx)) as? TagModel
         
         if AlertManager.shared.confirmDeleteTag() {
             if parentOfSelected == nil {
@@ -134,23 +155,73 @@ class MainViewController: NSViewController {
     }
     
     @IBAction func save(_ sender: Any) {
-        AppSettingFileManager.shared.convertTagData(data: self.tags)
+        AppSettingFileManager.shared.setDataSource(data: self.tags)
     }
     
-
+    @IBAction func changeDefaultSetting(_ sender: Any) {
+        let oldPath = AppSettingFileManager.shared.settingFileURL
+        
+        if let path = PanelManager.shared.openDefaultPathPanel() {
+            AppSettingFileManager.shared.moveFile(oldPath: oldPath!)
+            self.view.window?.title = path
+        }
+    }
+    
+    @IBAction func test(_ sender: Any) {
+        if let key = currentTagKey {
+            let manager = TagFileManager(tagKey: key)
+            
+            var imageList: [ImageListModel] = []
+            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279165.svg", description: "그림1"))
+            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279166.svg", description: "그림2"))
+            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279171.svg", description: "그림"))
+            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279163.svg", description: "카메라맨"))
+            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279162.svg", description: "카메라 앱 아이콘"))
+            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279170.svg", description: "풍경그림"))
+            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279164.svg", description: "카메라 to 패드"))
+            
+            manager.setData(data: imageList)
+            
+            
+            let result = manager.getData()
+            debugPrint("result > \(result)")
+        } else {
+            //태그 선택 이벤트로 코드내용 옮기면 이 아이는 필요 없게 됨
+            AlertManager.shared.infoMessage(messageTitle: "선택된 태그가 없으면 이미지를 추가 할 수 없습니다. 태그를 먼저 선택해주세요")
+        }
+        
+        
+    }
+    
+    
     
     func fetchData() {
-        tags = AppSettingFileManager.shared.readConvertedTagData()
+        tags = AppSettingFileManager.shared.getDataSource()
         self.outlineTagView.reloadData()
     }
     
-    func findGroupIndexByKey(arr: [Tags], keyToFind: String) -> Int? {
+    func findGroupIndexByKey(arr: [TagModel], keyToFind: String) -> Int? {
         for (idx, item) in arr.enumerated() {
             if item.key == keyToFind {
                 return idx
             }
         }
         return nil
+    }
+    
+    //MARK: collection view
+    private func configureCollectionView() {
+        // 1
+        let flowLayout = NSCollectionViewFlowLayout()
+        flowLayout.itemSize = NSSize(width: 130.0, height: 130.0)
+        flowLayout.sectionInset = NSEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+        flowLayout.minimumInteritemSpacing = 20.0
+        flowLayout.minimumLineSpacing = 20.0
+        collectionView.collectionViewLayout = flowLayout
+        // 2
+        view.wantsLayer = true
+        // 3
+        collectionView.layer?.backgroundColor = NSColor.black.cgColor
     }
  
 }
@@ -162,35 +233,43 @@ extension MainViewController: NSOutlineViewDataSource {
             return 0
         }
         
-        if let tag = item as? Tags {
+        if let tag = item as? TagModel {
             return (tag.childs?.count)!
         }
         return tags.count
     }
 
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        if let tag = item as? Tags {
+        if let tag = item as? TagModel {
             return (tag.childs?.count)! > 0
         }
         return false
     }
 
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
-        if let tags = item as? Tags {
+        if let tags = item as? TagModel {
             return tags.childs![index]
         }
         return self.tags[index]
     }
+
 }
 
 extension MainViewController: NSOutlineViewDelegate {
+    
+    func outlineViewSelectionDidChange(_ notification: Notification) {
+        if let selected =  outlineTagView.item(atRow: outlineTagView.selectedRow) as? TagModel {
+            debugPrint("selected tag > name : \(selected.name), key : \(selected.key)")
+            self.currentTagKey = selected.key
+        }
+    }
 
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         var text = ""
-        if let tag = item as? Tags {
+        if let tag = item as? TagModel {
             text = tag.name
         }
-
+        
         let tableCell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "tagCell"), owner: self) as! NSTableCellView
         tableCell.textField!.stringValue = text
         return tableCell
@@ -199,7 +278,7 @@ extension MainViewController: NSOutlineViewDelegate {
     //support dran and drop
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
         var text = ""
-        if let tag = item as? Tags {
+        if let tag = item as? TagModel {
             text = tag.name
         }
 
@@ -212,7 +291,7 @@ extension MainViewController: NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, draggingSession session: NSDraggingSession, willBeginAt screenPoint: NSPoint, forItems draggedItems: [Any]) {
         self.itemBeginDrag = nil
         if draggedItems.count == 1 {
-            self.itemBeginDrag = draggedItems.last as? Tags
+            self.itemBeginDrag = draggedItems.last as? TagModel
         }
     }
     
@@ -222,15 +301,17 @@ extension MainViewController: NSOutlineViewDelegate {
             return NSDragOperation()
         }
         
-        var tag = item as? Tags
+        var tag = item as? TagModel
         
         while (tag != nil) {
-            if (tag == self.itemBeginDrag) {
+            if (tag?.key == self.itemBeginDrag.key) {
+                debugPrint("[DEBUG] key value of tag is equal (tag/self.itemBeginDrag)")
                 return NSDragOperation()
             }
 
-            tag = outlineTagView.parent(forItem: tag) as? Tags
+            tag = outlineTagView.parent(forItem: tag) as? TagModel
         }
+        debugPrint("[DEBUG] allow movement")
         return NSDragOperation.move
     }
     
@@ -238,10 +319,10 @@ extension MainViewController: NSOutlineViewDelegate {
         
         var targetIdx = index
 
-        let oldParent = outlineTagView.parent(forItem: self.itemBeginDrag) as? Tags
+        let oldParent = outlineTagView.parent(forItem: self.itemBeginDrag) as? TagModel
         
         var fromIndex: Int = 0
-        let tag = item as? Tags
+        let tag = item as? TagModel
         
         if oldParent == nil {
             
@@ -257,7 +338,7 @@ extension MainViewController: NSOutlineViewDelegate {
             oldParent?.childs?.remove(at: fromIndex)
         }
         
-        if (oldParent == tag) {
+        if (oldParent?.key == tag?.key) {
             if (fromIndex < targetIdx) {
                 targetIdx = targetIdx - 1;
             }
@@ -275,5 +356,11 @@ extension MainViewController: NSOutlineViewDelegate {
     
         return true
 
+    }
+}
+
+extension MainViewController: NSCollectionViewDataSource {
+    func numberOfSections(in collectionView: NSCollectionView) -> Int {
+        return 
     }
 }

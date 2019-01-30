@@ -709,33 +709,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="684" height="461"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gle-co-7MK">
-                                <rect key="frame" x="573" y="422" width="91" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="roundRect" title="이미지 가져오기" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oSu-Ho-qN2">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="openImportWindow:" target="XfG-lQ-9wD" id="Bit-KY-uT1"/>
-                                </connections>
-                            </button>
-                            <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KcQ-aG-JAk">
-                                <rect key="frame" x="460" y="393" width="204" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="XHb-aJ-ILJ">
-                                    <font key="font" metaFont="system"/>
-                                    <url key="url" string="file://localhost/Applications/"/>
-                                </pathCell>
-                            </pathControl>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cgz-6L-s7l">
+                            <scrollView horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cgz-6L-s7l">
                                 <rect key="frame" x="20" y="74" width="300" height="359"/>
                                 <clipView key="contentView" id="C5b-9Z-Ypz">
-                                    <rect key="frame" x="1" y="0.0" width="298" height="358"/>
+                                    <rect key="frame" x="1" y="1" width="298" height="357"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="8Cz-mb-xMd" viewBased="YES" indentationPerLevel="5" outlineTableColumn="XDt-Jg-7VE" id="LeR-s8-ZLp">
-                                            <rect key="frame" x="0.0" y="0.0" width="298" height="333"/>
+                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="5" outlineTableColumn="XDt-Jg-7VE" id="LeR-s8-ZLp">
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="357"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -747,33 +728,29 @@
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="FTt-H8-Nnp">
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" identifier="tagCell" title="Text Cell" id="FTt-H8-Nnp">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView identifier="tagCell" id="2w8-KQ-ry5">
+                                                        <tableCellView identifier="tagCell" id="SSh-Nj-QeP">
                                                             <rect key="frame" x="1" y="1" width="295" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GVq-Wh-7kg">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m7f-He-fPM">
                                                                     <rect key="frame" x="0.0" y="0.0" width="295" height="17"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="ww2-7j-uaW">
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="wdA-sm-fYg">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
-                                                            <constraints>
-                                                                <constraint firstItem="GVq-Wh-7kg" firstAttribute="centerY" secondItem="2w8-KQ-ry5" secondAttribute="centerY" id="6bB-30-XyR"/>
-                                                                <constraint firstItem="GVq-Wh-7kg" firstAttribute="leading" secondItem="2w8-KQ-ry5" secondAttribute="leading" constant="2" id="fsn-AK-Qrp"/>
-                                                                <constraint firstItem="GVq-Wh-7kg" firstAttribute="centerX" secondItem="2w8-KQ-ry5" secondAttribute="centerX" id="nMe-E7-PxC"/>
-                                                            </constraints>
                                                             <connections>
-                                                                <outlet property="textField" destination="GVq-Wh-7kg" id="SeG-6g-mgv"/>
+                                                                <outlet property="textField" destination="m7f-He-fPM" id="eEL-G5-HPn"/>
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
@@ -790,30 +767,15 @@
                                     <constraint firstAttribute="height" constant="359" id="2qr-ec-L7m"/>
                                     <constraint firstAttribute="width" constant="300" id="GXE-jN-AcN"/>
                                 </constraints>
-                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="4n3-aZ-0EN">
-                                    <rect key="frame" x="1" y="180" width="233" height="16"/>
+                                <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="4n3-aZ-0EN">
+                                    <rect key="frame" x="1" y="342" width="298" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="N3n-Na-IUI">
-                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="N3n-Na-IUI">
+                                    <rect key="frame" x="283" y="1" width="16" height="357"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <tableHeaderView key="headerView" id="8Cz-mb-xMd">
-                                    <rect key="frame" x="0.0" y="0.0" width="298" height="25"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableHeaderView>
                             </scrollView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p8c-Xf-e77">
-                                <rect key="frame" x="496" y="52" width="147" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="roundRect" title="(T) userdefault 경로 지우기" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="W8o-Dm-O8S">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="test1:" target="XfG-lQ-9wD" id="dqL-84-eX6"/>
-                                </connections>
-                            </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f7u-pR-lMD">
                                 <rect key="frame" x="20" y="28" width="25" height="27"/>
                                 <constraints>
@@ -842,10 +804,9 @@
                                     <action selector="deleteTag:" target="XfG-lQ-9wD" id="8uT-JM-OvV"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NV5-dz-M4Q">
+                            <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NV5-dz-M4Q">
                                 <rect key="frame" x="285" y="32" width="35" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="roundRect" title="저장" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uAN-d9-Ate">
+                                <buttonCell key="cell" type="roundRect" title="태그 상태 저장" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uAN-d9-Ate">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
                                 </buttonCell>
@@ -853,19 +814,85 @@
                                     <action selector="save:" target="XfG-lQ-9wD" id="nIY-TS-C1P"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UwV-Vg-EeY">
+                                <rect key="frame" x="169" y="32" width="59" height="19"/>
+                                <buttonCell key="cell" type="roundRect" title="경로 변경" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WQV-nB-Qli">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="changeDefaultSetting:" target="XfG-lQ-9wD" id="f1U-mi-C5I"/>
+                                </connections>
+                            </button>
+                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXg-gc-xuH">
+                                <rect key="frame" x="339" y="74" width="325" height="358"/>
+                                <clipView key="contentView" id="Mt2-36-KU3">
+                                    <rect key="frame" x="1" y="1" width="323" height="356"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView id="yTP-5N-leJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="323" height="158"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="wSt-MX-U8b">
+                                                <size key="itemSize" width="50" height="50"/>
+                                            </collectionViewFlowLayout>
+                                            <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </collectionView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="ksG-cf-Ec7">
+                                    <rect key="frame" x="1" y="142" width="237" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="XH1-ZQ-vfo">
+                                    <rect key="frame" x="308" y="1" width="16" height="157"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2gh-Yh-lVl">
+                                <rect key="frame" x="559" y="19" width="74" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="테스트" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Rdp-vT-p34">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="13" name=".AppleSDGothicNeoI-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="test:" target="XfG-lQ-9wD" id="qHD-gU-HnP"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gle-co-7MK">
+                                <rect key="frame" x="429" y="28" width="91" height="19"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="roundRect" title="이미지 가져오기" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oSu-Ho-qN2">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="openImportWindow:" target="XfG-lQ-9wD" id="Bit-KY-uT1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="f7u-pR-lMD" secondAttribute="bottom" constant="29" id="ERD-0J-GZQ"/>
                             <constraint firstItem="f7u-pR-lMD" firstAttribute="top" secondItem="Cgz-6L-s7l" secondAttribute="bottom" constant="20" id="LEB-Bi-IjK"/>
+                            <constraint firstItem="NV5-dz-M4Q" firstAttribute="trailing" secondItem="LeR-s8-ZLp" secondAttribute="trailing" id="Lbu-7P-rFe"/>
+                            <constraint firstItem="KXg-gc-xuH" firstAttribute="top" secondItem="LeR-s8-ZLp" secondAttribute="top" id="MOe-2L-jAH"/>
                             <constraint firstItem="muA-Uf-Uq1" firstAttribute="leading" secondItem="f7u-pR-lMD" secondAttribute="trailing" id="Nwj-j5-FrK"/>
+                            <constraint firstItem="NV5-dz-M4Q" firstAttribute="centerY" secondItem="muA-Uf-Uq1" secondAttribute="centerY" id="Olx-59-gsB"/>
+                            <constraint firstItem="Cgz-6L-s7l" firstAttribute="bottom" secondItem="KXg-gc-xuH" secondAttribute="bottom" id="SQi-CY-hRc"/>
                             <constraint firstItem="Cgz-6L-s7l" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="WCc-E5-hdT"/>
+                            <constraint firstItem="UwV-Vg-EeY" firstAttribute="centerY" secondItem="muA-Uf-Uq1" secondAttribute="centerY" id="WpI-dF-baS"/>
                             <constraint firstItem="f7u-pR-lMD" firstAttribute="baseline" secondItem="muA-Uf-Uq1" secondAttribute="baseline" id="YE6-qj-yZl"/>
+                            <constraint firstItem="NV5-dz-M4Q" firstAttribute="leading" secondItem="UwV-Vg-EeY" secondAttribute="trailing" constant="8" id="bU3-0x-iM7"/>
+                            <constraint firstAttribute="trailing" secondItem="KXg-gc-xuH" secondAttribute="trailing" constant="20" id="hKi-bA-vHU"/>
                             <constraint firstItem="f7u-pR-lMD" firstAttribute="leading" secondItem="Cgz-6L-s7l" secondAttribute="leading" id="hcQ-Zb-sVc"/>
+                            <constraint firstItem="KXg-gc-xuH" firstAttribute="leading" secondItem="LeR-s8-ZLp" secondAttribute="trailing" constant="20" id="q6X-ES-BLY"/>
                             <constraint firstItem="Cgz-6L-s7l" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="28" id="qAP-dQ-q05"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addTag" destination="f7u-pR-lMD" id="I5H-eb-Wen"/>
+                        <outlet property="collectionView" destination="yTP-5N-leJ" id="0hs-2X-1pa"/>
                         <outlet property="outlineTagView" destination="LeR-s8-ZLp" id="gDm-ov-ais"/>
                     </connections>
                 </viewController>

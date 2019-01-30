@@ -13,4 +13,6 @@ import Cocoa
     func performDragOperation(forImageCanvas imageCanvas: ImageCanvas, sender: NSDraggingInfo) -> Bool
     
     func draggingEntered(forImageCanvas imageCanvas: ImageCanvas, sender: NSDraggingInfo) -> NSDragOperation
+    
+    func replacePlaceholder()
 }

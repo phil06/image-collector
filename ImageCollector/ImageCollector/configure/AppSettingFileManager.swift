@@ -17,101 +17,81 @@ class AppSettingFileManager: NSObject {
     
     var data:[String:Any] = [:]
     
+    var dataSource:SettingModel?
+    
     override init(){
-        basePath = UserDefaults.standard.string(forKey: UserDefaultKeys.filePath)!
-        settingFileURL = URL(fileURLWithPath: basePath).appendingPathComponent("settings.plist")
+        super.init()
+        defaultSetting()
     }
     
     func initFile() {
-        data[PropertyListKeys.defaultLocation] = basePath
+        self.dataSource = SettingModel(location: basePath, tags: nil)
         self.updateFile()
     }
     
     private func readFile() {
-        data = NSDictionary(contentsOfFile: settingFileURL.path) as! [String : Any]
-        debugPrint("result plist >>> \(data)")
-    }
-    
-    //data는 딕셔너리로 가지고 있고... 다른데서 쓸때 필요한 모델을 따로 둬야 하는건가...???
-    //그리고 저장/읽어들일때만 변환을 해야 하나봥..
-    
-    func addField() {
-        self.readFile()
-        
-        //data 딕셔너리를 업데이트
-        
-                var tags = [Tags]()
-        //
-        //
-        //
-        //        //MARK: 계층구조를 어떻게 만들지???? 고민좀 해봐야 함...
-                let tagsDic = ["2019":[:],
-                               "2018": [ "4월":[:], "5월":[:], "6월":[:], "7월":[:], "8월":[:] ],
-                               "2016": [ "11월":[:], "12월":[:] ],
-                               "2015":[:]]
-        //
-//                for (key, val) in tagsDic {
-//                    let newItem = Tags(name: key, child: val)
-//                    tags.append(newItem)
-//                }
-        //
-        //        debugPrint("tags >>> \(tags)")
-        
-        data[PropertyListKeys.tagCollection] = tagsDic
-        
-        self.updateFile()
-    }
-    
-    func convertTagData(data: [Tags]) {
-        var tempData:[String:Any] = [:]
-        for (idx, item) in data.enumerated() {
-            tempData[item.name] = item.getForMigration(newIdx: idx)
+        do {
+            let data = try Data(contentsOf:  self.settingFileURL)
+            let decoder = PropertyListDecoder()
+            self.dataSource = try decoder.decode(SettingModel.self, from: data)
+        } catch let err {
+            print("erro occured! \(err.localizedDescription)")
         }
-        
-        self.data[PropertyListKeys.tagCollection] = tempData
-        
-        self.updateFile()
     }
     
-    func readConvertedTagData() -> [Tags] {
+    func getDataSource() -> [TagModel] {
         self.readFile()
         
-        guard self.data[PropertyListKeys.tagCollection] != nil else {
+        guard self.dataSource?.tags != nil else {
             return []
         }
         
-        var tags = [Tags]()
+        self.dataSource?.tags?.sort(by: {$0.idx < $1.idx})
         
-        for (_, val) in data[PropertyListKeys.tagCollection] as! [String : Any] {
-            let dat = val as! [String:Any]
+        return (self.dataSource?.tags)!
+    }
+    
+    func setDataSource(data: [TagModel]) {
+        
+        self.dataSource?.tags = []
+        
+        for (idx, tag) in data.enumerated() {
+            var newTag = tag
+            newTag.idx = idx
+            newTag.reArrangeChild()
             
-            
-            let newItem: Tags
-            newItem = Tags(name: dat[PropertyListKeys.tagCollectionIDName] as! String,
-                           idx: dat[PropertyListKeys.tagCollectionIDIdx] as! Int,
-                           key: dat[PropertyListKeys.tagCollectionIDKey] as! String,
-                           child: dat[PropertyListKeys.tagCollectionIDChilds] as? [String:Any])
-            
-            tags.append(newItem)
+            self.dataSource?.tags?.append(newTag)
         }
         
-        tags.sort(by: {$0.idx < $1.idx})
-
-        return tags
+        self.updateFile()
     }
     
     private func updateFile() {
         do  {
-            let resultFile = try PropertyListSerialization.data(fromPropertyList: data, format: PropertyListSerialization.PropertyListFormat.xml, options: 0)
-            do {
-                try resultFile.write(to: settingFileURL, options: .atomic)
-                print("Successfully write")
-            }catch (let err){
-                print(err.localizedDescription)
-            }
+            let encoder = PropertyListEncoder()
+            encoder.outputFormat = .xml
+            let data = try encoder.encode(self.dataSource)
+            try data.write(to: settingFileURL, options: .atomic)
         }catch (let err){
             print(err.localizedDescription)
         }
+    }
+    
+    private func defaultSetting() {
+        basePath = UserDefaults.standard.string(forKey: UserDefaultKeys.filePath)!
+        settingFileURL = URL(fileURLWithPath: basePath).appendingPathComponent("settings.plist")
+    }
+    
+    func moveFile(oldPath: URL) {
+        do {
+            
+            self.defaultSetting()
+            try FileManager.default.moveItem(at: oldPath, to: self.settingFileURL)
+            
+        } catch (let err) {
+            print("file error : \(err)")
+        }
+        
     }
 
 }

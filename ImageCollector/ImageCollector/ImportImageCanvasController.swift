@@ -48,6 +48,8 @@ class ImportImageCanvasController: NSViewController {
         imageCanvas.image = image
     }
     
+    
+    
 //    /// displays an error
 //    private func handleError(_ error: Error) {
 //        OperationQueue.main.addOperation {
@@ -61,10 +63,10 @@ class ImportImageCanvasController: NSViewController {
     
     /// displays a progress indicator
     private func prepareForUpdate() {
-//        imageCanvas.isLoading = true
+        imageCanvas.isLoading = true
         placeholderLabel.isHidden = true
     }
-    
+
 }
 
 extension ImportImageCanvasController: ImageCanvasDelegate {
@@ -83,10 +85,18 @@ extension ImportImageCanvasController: ImageCanvasDelegate {
             self.prepareForUpdate()
             debugPrint("가져온 이미지 URL : \(imgUrl)")
             self.handleFile(with: imgUrl)
+
         }
         
         return false
         
+    }
+    
+    func replacePlaceholder() {
+        AlertManager.shared.infoMessage(messageTitle: "이미지를 확인 할 수 없는 url 입니다.")
+        
+        imageCanvas.isLoading = false
+        placeholderLabel.isHidden = false
     }
     
 }

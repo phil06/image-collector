@@ -25,6 +25,7 @@ class AlertManager: NSObject {
         alert.messageText = messageText
         alert.informativeText = infoText
         
+        
         if let title = suppressionTitle {
             alert.showsSuppressionButton = true
             alert.suppressionButton?.title = title
@@ -35,6 +36,7 @@ class AlertManager: NSObject {
         
         let input = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
         alert.accessoryView = input
+        alert.window.initialFirstResponder = input
         
         let button = alert.runModal()
         
