@@ -8,6 +8,7 @@
 //https://developer.apple.com/library/archive/samplecode/TableViewPlayground/Introduction/Intro.html#//apple_ref/doc/uid/DTS40010727
 
 import Cocoa
+import SDWebImage
 
 //MARK: reload, scroll 페이지 넘어갈때 확인
 class MainViewController: NSViewController {
@@ -16,10 +17,17 @@ class MainViewController: NSViewController {
     var tags: [TagModel]!
     var itemBeginDrag: TagModel!
     var currentTagKey: String!
+    
+    let collectionImageLoader = CollectionImageLoader()
 
     @IBOutlet weak var outlineTagView: NSOutlineView!
     @IBOutlet weak var collectionView: NSCollectionView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        allocNotification()
+    }
+
     override func viewDidAppear() {
         super.viewDidAppear()
         
@@ -63,6 +71,8 @@ class MainViewController: NSViewController {
         
         AppSettingFileManager.shared.setDataSource(data: self.tags)
     }
+    
+
     
     @IBAction func openImportWindow(_ sender: Any) {
         if outlineTagView.selectedRow < 0 {
@@ -167,33 +177,16 @@ class MainViewController: NSViewController {
         }
     }
     
-    @IBAction func test(_ sender: Any) {
-        if let key = currentTagKey {
-            let manager = TagFileManager(tagKey: key)
-            
-            var imageList: [ImageListModel] = []
-            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279165.svg", description: "그림1"))
-            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279166.svg", description: "그림2"))
-            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279171.svg", description: "그림"))
-            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279163.svg", description: "카메라맨"))
-            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279162.svg", description: "카메라 앱 아이콘"))
-            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279170.svg", description: "풍경그림"))
-            imageList.append(ImageListModel(imageUrl: "https://www.flaticon.com/premium-icon/icons/svg/279/279164.svg", description: "카메라 to 패드"))
-            
-            manager.setData(data: imageList)
-            
-            
-            let result = manager.getData()
-            debugPrint("result > \(result)")
-        } else {
-            //태그 선택 이벤트로 코드내용 옮기면 이 아이는 필요 없게 됨
-            AlertManager.shared.infoMessage(messageTitle: "선택된 태그가 없으면 이미지를 추가 할 수 없습니다. 태그를 먼저 선택해주세요")
-        }
-        
-        
+    @IBAction func clearImageCache(_ sender: Any) {
+        SDWebImageManager.shared().imageCache?.clearDisk()
+        SDWebImageManager.shared().imageCache?.clearMemory()
     }
     
+    @IBAction func test(_ sender: Any) {
     
+    }
+    
+
     
     func fetchData() {
         tags = AppSettingFileManager.shared.getDataSource()
@@ -223,7 +216,38 @@ class MainViewController: NSViewController {
         // 3
         collectionView.layer?.backgroundColor = NSColor.black.cgColor
     }
+    
+    func fetchCollectionView() {
+        collectionImageLoader.fetchData(fileName: self.currentTagKey)
+        collectionView.reloadData()
+    }
+    
+    @objc func addCollectionViewItem(notification: Notification) {
+        if let data = notification.userInfo as? [String: String] {
+            
+            if imageFile?.cacheKey == data["cacheKey"] {
+                self.imageView?.image = imageFile?.thumbnail
+                self.view.layoutSubtreeIfNeeded()
+            }
+        }
+        
+        collectionImageLoader.addItem(url: "https://www.flaticon.com/premium-icon/icons/svg/279/279165.svg", desc: "")
+
+        let itemInSectionCnt = collectionImageLoader.numberOfItemsInSection(section: 0)
+        let count = itemInSectionCnt < 1 ? 1 : itemInSectionCnt - 1
+        let indexPath = IndexPath(item: count, section: 0)
+
+        collectionView.insertItems(at: [indexPath])
+    }
  
+    //MARK: Notification
+    func allocNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(addCollectionViewItem), name: .AddImageToTagCollection , object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .AddImageToTagCollection , object: nil)
+    }
 }
 
 extension MainViewController: NSOutlineViewDataSource {
@@ -261,6 +285,7 @@ extension MainViewController: NSOutlineViewDelegate {
         if let selected =  outlineTagView.item(atRow: outlineTagView.selectedRow) as? TagModel {
             debugPrint("selected tag > name : \(selected.name), key : \(selected.key)")
             self.currentTagKey = selected.key
+            fetchCollectionView()
         }
     }
 
@@ -305,13 +330,11 @@ extension MainViewController: NSOutlineViewDelegate {
         
         while (tag != nil) {
             if (tag?.key == self.itemBeginDrag.key) {
-                debugPrint("[DEBUG] key value of tag is equal (tag/self.itemBeginDrag)")
                 return NSDragOperation()
             }
 
             tag = outlineTagView.parent(forItem: tag) as? TagModel
         }
-        debugPrint("[DEBUG] allow movement")
         return NSDragOperation.move
     }
     
@@ -361,6 +384,22 @@ extension MainViewController: NSOutlineViewDelegate {
 
 extension MainViewController: NSCollectionViewDataSource {
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        return 
+        return collectionImageLoader.numberOfSection()
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return collectionImageLoader.numberOfItemsInSection(section: section)
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CollectionViewItem"), for: indexPath)
+        
+        guard let collectionViewItem = item as? CollectionViewItem else {
+            return item
+        }
+        
+        let imageFile = collectionImageLoader.imageForIndexPath(indexPath: indexPath)
+        collectionViewItem.imageFile = imageFile
+        return item
     }
 }

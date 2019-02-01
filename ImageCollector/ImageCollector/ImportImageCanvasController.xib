@@ -15,24 +15,34 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY" customClass="ImageCanvas" customModule="ImageCollector" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="450" height="550"/>
+            <rect key="frame" x="0.0" y="0.0" width="450" height="563"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zbx-Xs-ZkT">
-                    <rect key="frame" x="0.0" y="0.0" width="450" height="550"/>
+                    <rect key="frame" x="0.0" y="55" width="450" height="508"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="M2x-Sb-Exz"/>
                 </imageView>
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Sji-qO-aLj" userLabel="Progress Indicator">
-                    <rect key="frame" x="217" y="267" width="16" height="16"/>
+                    <rect key="frame" x="217" y="301" width="16" height="16"/>
                 </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cva-iR-eGg" userLabel="Placeholder Label">
-                    <rect key="frame" x="115" y="261" width="221" height="29"/>
+                    <rect key="frame" x="115" y="295" width="221" height="29"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Drag an image here" id="uKY-WY-z2v">
                         <font key="font" metaFont="systemBold" size="24"/>
                         <color key="textColor" name="placeholderTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aRx-Bs-23r">
+                    <rect key="frame" x="184" y="12" width="82" height="23"/>
+                    <buttonCell key="cell" type="roundTextured" title="Add To Tag" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0p5-5m-sE7">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="addImageToTag:" target="-2" id="b35-uS-BZW"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="Zbx-Xs-ZkT" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="FNO-ja-8P6"/>
@@ -40,8 +50,10 @@
                 <constraint firstItem="Cva-iR-eGg" firstAttribute="centerX" secondItem="Zbx-Xs-ZkT" secondAttribute="centerX" id="TCj-Rt-iaU"/>
                 <constraint firstItem="Cva-iR-eGg" firstAttribute="centerY" secondItem="Zbx-Xs-ZkT" secondAttribute="centerY" id="VUN-VV-9hf"/>
                 <constraint firstItem="Zbx-Xs-ZkT" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="av7-uT-fwN"/>
+                <constraint firstAttribute="bottom" secondItem="aRx-Bs-23r" secondAttribute="bottom" constant="13" id="db2-E9-dXe"/>
                 <constraint firstAttribute="trailing" secondItem="Zbx-Xs-ZkT" secondAttribute="trailing" id="efe-5D-01D"/>
-                <constraint firstAttribute="bottom" secondItem="Zbx-Xs-ZkT" secondAttribute="bottom" id="gmU-S9-Mj6"/>
+                <constraint firstItem="aRx-Bs-23r" firstAttribute="top" secondItem="Zbx-Xs-ZkT" secondAttribute="bottom" constant="20" id="gmU-S9-Mj6"/>
+                <constraint firstItem="aRx-Bs-23r" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="jA6-J5-byJ"/>
                 <constraint firstItem="Sji-qO-aLj" firstAttribute="centerX" secondItem="Zbx-Xs-ZkT" secondAttribute="centerX" id="zFf-uU-QRK"/>
             </constraints>
             <connections>
@@ -49,6 +61,7 @@
                 <outlet property="imageView" destination="Zbx-Xs-ZkT" id="gui-Rx-kY6"/>
                 <outlet property="progressIndicator" destination="Sji-qO-aLj" id="Kln-Mi-YdQ"/>
             </connections>
+            <point key="canvasLocation" x="139" y="411.5"/>
         </customView>
     </objects>
 </document>

@@ -50,7 +50,7 @@ class TagFileManager: NSObject {
             let decoder = JSONDecoder()
             self.data = try decoder.decode([ImageListModel].self, from: data)
         } catch let err {
-            print("erro occured! \(err.localizedDescription)")
+            print("\(err.localizedDescription)")
         }
     }
     

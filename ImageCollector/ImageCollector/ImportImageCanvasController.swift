@@ -18,6 +18,8 @@ class ImportImageCanvasController: NSViewController {
         .urlReadingFileURLsOnly: true,
         .urlReadingContentsConformToTypes: [ kUTTypeImage ]
     ]
+    
+    var imageURL: NSURL!
 
     @IBOutlet weak var placeholderLabel: NSTextField!
     @IBOutlet weak var imageCanvas: ImageCanvas!
@@ -30,6 +32,15 @@ class ImportImageCanvasController: NSViewController {
         
         view.registerForDraggedTypes(NSFilePromiseReceiver.readableDraggedTypes.map { NSPasteboard.PasteboardType($0) })
     }
+    
+    @IBAction func addImageToTag(_ sender: Any) {
+        if let url = self.imageURL.absoluteString {
+            NotificationCenter.default.post(name: .AddImageToTagCollection , object: self, userInfo: ["url": url])
+        }
+        
+        AlertManager.shared.infoMessage(messageTitle: "이미지를 먼저 가져와주세요")
+    }
+    
     
     /// updates the canvas with a given image file
     private func handleFile(at url: URL) {
@@ -85,6 +96,7 @@ extension ImportImageCanvasController: ImageCanvasDelegate {
             self.prepareForUpdate()
             debugPrint("가져온 이미지 URL : \(imgUrl)")
             self.handleFile(with: imgUrl)
+            self.imageURL = imgUrl
 
         }
         
@@ -97,6 +109,8 @@ extension ImportImageCanvasController: ImageCanvasDelegate {
         
         imageCanvas.isLoading = false
         placeholderLabel.isHidden = false
+        
+        self.imageURL = nil
     }
     
 }

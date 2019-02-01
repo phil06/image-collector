@@ -10,10 +10,6 @@ import Cocoa
 
 class CollectionViewItem: NSCollectionViewItem {
 
-    let fileDicKeyImagePath = "path"
-    let fileDicKeyDescription = "desc"
-    let fileDicKeyThumbnailImagePath = "thumbPath"
-    
     var imageFile: ImageFile? {
         didSet {
             guard isViewLoaded else { return }
@@ -31,8 +27,28 @@ class CollectionViewItem: NSCollectionViewItem {
         super.viewDidLoad()
         // Do view setup here.
         
+        allocNotification()
+        
         view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.lightGray.cgColor
+    }
+    
+    func allocNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadImageView), name: .DidCompleteLoadImage , object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .DidCompleteLoadImage , object: nil)
+    }
+    
+    @objc func reloadImageView(notification: Notification) {
+        if let data = notification.userInfo as? [String: String] {
+
+            if imageFile?.cacheKey == data["cacheKey"] {
+                self.imageView?.image = imageFile?.thumbnail
+                self.view.layoutSubtreeIfNeeded()
+            }
+        }
+    
     }
     
 }
