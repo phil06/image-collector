@@ -34,11 +34,12 @@ class ImportImageCanvasController: NSViewController {
     }
     
     @IBAction func addImageToTag(_ sender: Any) {
-        if let url = self.imageURL.absoluteString {
-            NotificationCenter.default.post(name: .AddImageToTagCollection , object: self, userInfo: ["url": url])
+        guard self.imageURL.absoluteString != nil else {
+            AlertManager.shared.infoMessage(messageTitle: "이미지를 먼저 가져와주세요")
+            return
         }
         
-        AlertManager.shared.infoMessage(messageTitle: "이미지를 먼저 가져와주세요")
+        NotificationCenter.default.post(name: .AddImageToTagCollection , object: self, userInfo: ["url": self.imageURL.absoluteString!])
     }
     
     

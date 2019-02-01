@@ -224,20 +224,14 @@ class MainViewController: NSViewController {
     
     @objc func addCollectionViewItem(notification: Notification) {
         if let data = notification.userInfo as? [String: String] {
+            collectionImageLoader.addItem(url: data["url"]!, desc: "")
             
-            if imageFile?.cacheKey == data["cacheKey"] {
-                self.imageView?.image = imageFile?.thumbnail
-                self.view.layoutSubtreeIfNeeded()
-            }
+            let itemInSectionCnt = collectionImageLoader.numberOfItemsInSection(section: 0)
+            let count = itemInSectionCnt < 1 ? 1 : itemInSectionCnt - 1
+            let indexPath = IndexPath(item: count, section: 0)
+            
+            collectionView.insertItems(at: [indexPath])
         }
-        
-        collectionImageLoader.addItem(url: "https://www.flaticon.com/premium-icon/icons/svg/279/279165.svg", desc: "")
-
-        let itemInSectionCnt = collectionImageLoader.numberOfItemsInSection(section: 0)
-        let count = itemInSectionCnt < 1 ? 1 : itemInSectionCnt - 1
-        let indexPath = IndexPath(item: count, section: 0)
-
-        collectionView.insertItems(at: [indexPath])
     }
  
     //MARK: Notification

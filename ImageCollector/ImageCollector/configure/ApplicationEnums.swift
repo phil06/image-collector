@@ -8,11 +8,6 @@
 
 import Foundation
 
-enum Appearance {
-    static let maxDimension: CGFloat = 350.0
-    static let collectionViewThumbnailDimension: CGFloat = 160
-}
-
 enum UserDefaultKeys {
     static let filePath:String = "filePath"
 }

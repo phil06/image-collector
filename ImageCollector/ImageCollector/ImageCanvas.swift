@@ -26,9 +26,6 @@ class ImageCanvas: NSView {
             imageView.image = newValue
             isLoading = false
             
-            let constrainedSize = newValue!.aspectFitSizeForMaxDimension(Appearance.maxDimension)
-            imageView.image?.size = constrainedSize
-            
             needsLayout = true
         }
         get {

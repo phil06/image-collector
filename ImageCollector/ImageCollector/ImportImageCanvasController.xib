@@ -19,14 +19,14 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zbx-Xs-ZkT">
-                    <rect key="frame" x="0.0" y="55" width="450" height="508"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="M2x-Sb-Exz"/>
+                    <rect key="frame" x="20" y="55" width="410" height="488"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="M2x-Sb-Exz"/>
                 </imageView>
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Sji-qO-aLj" userLabel="Progress Indicator">
-                    <rect key="frame" x="217" y="301" width="16" height="16"/>
+                    <rect key="frame" x="217" y="291" width="16" height="16"/>
                 </progressIndicator>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cva-iR-eGg" userLabel="Placeholder Label">
-                    <rect key="frame" x="115" y="295" width="221" height="29"/>
+                    <rect key="frame" x="115" y="285" width="221" height="29"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="Drag an image here" id="uKY-WY-z2v">
                         <font key="font" metaFont="systemBold" size="24"/>
                         <color key="textColor" name="placeholderTextColor" catalog="System" colorSpace="catalog"/>
@@ -45,13 +45,13 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="Zbx-Xs-ZkT" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="FNO-ja-8P6"/>
+                <constraint firstItem="Zbx-Xs-ZkT" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="FNO-ja-8P6"/>
                 <constraint firstItem="Sji-qO-aLj" firstAttribute="centerY" secondItem="Zbx-Xs-ZkT" secondAttribute="centerY" id="HZ1-Zg-tjY"/>
                 <constraint firstItem="Cva-iR-eGg" firstAttribute="centerX" secondItem="Zbx-Xs-ZkT" secondAttribute="centerX" id="TCj-Rt-iaU"/>
                 <constraint firstItem="Cva-iR-eGg" firstAttribute="centerY" secondItem="Zbx-Xs-ZkT" secondAttribute="centerY" id="VUN-VV-9hf"/>
-                <constraint firstItem="Zbx-Xs-ZkT" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="av7-uT-fwN"/>
+                <constraint firstItem="Zbx-Xs-ZkT" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="av7-uT-fwN"/>
                 <constraint firstAttribute="bottom" secondItem="aRx-Bs-23r" secondAttribute="bottom" constant="13" id="db2-E9-dXe"/>
-                <constraint firstAttribute="trailing" secondItem="Zbx-Xs-ZkT" secondAttribute="trailing" id="efe-5D-01D"/>
+                <constraint firstAttribute="trailing" secondItem="Zbx-Xs-ZkT" secondAttribute="trailing" constant="20" id="efe-5D-01D"/>
                 <constraint firstItem="aRx-Bs-23r" firstAttribute="top" secondItem="Zbx-Xs-ZkT" secondAttribute="bottom" constant="20" id="gmU-S9-Mj6"/>
                 <constraint firstItem="aRx-Bs-23r" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="jA6-J5-byJ"/>
                 <constraint firstItem="Sji-qO-aLj" firstAttribute="centerX" secondItem="Zbx-Xs-ZkT" secondAttribute="centerX" id="zFf-uU-QRK"/>

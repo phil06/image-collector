@@ -830,7 +830,7 @@
                                     <rect key="frame" x="1" y="1" width="323" height="356"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView id="yTP-5N-leJ">
+                                        <collectionView selectable="YES" id="yTP-5N-leJ">
                                             <rect key="frame" x="0.0" y="0.0" width="323" height="158"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="wSt-MX-U8b">
