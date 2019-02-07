@@ -38,6 +38,16 @@ class CollectionImageLoader: NSObject {
         self.fileManager!.setData(data: self.imageList)
     }
     
+    func deleteItem(idx: [Int]) {
+     
+        idx.forEach { (index) in
+            imageList.remove(at: index)
+            dataSource.remove(at: index)
+        }
+        
+        self.fileManager?.setData(data: self.imageList)
+    }
+    
     func numberOfSection() -> Int {
         return 1
     }
@@ -50,4 +60,7 @@ class CollectionImageLoader: NSObject {
         return dataSource[indexPath.item]
     }
     
+    func imageURLForIdexPath(indexPath: IndexPath) -> ImageListModel {
+        return imageList[indexPath.item]
+    }
 }

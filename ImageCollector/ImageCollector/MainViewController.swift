@@ -25,7 +25,18 @@ class MainViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         allocNotification()
+        
+        NSEvent.addLocalMonitorForEvents(matching: .keyDown) { (event) -> NSEvent? in
+            self.keyDown(with: event)
+            return event
+        }
+        
+        NSEvent.addLocalMonitorForEvents(matching: .leftMouseUp) { (event) -> NSEvent? in
+            self.mouseUp(with: event)
+            return event
+        }
     }
 
     override func viewDidAppear() {
@@ -183,7 +194,7 @@ class MainViewController: NSViewController {
     }
     
     @IBAction func test(_ sender: Any) {
-    
+
     }
     
 
@@ -215,12 +226,62 @@ class MainViewController: NSViewController {
         view.wantsLayer = true
         // 3
         collectionView.layer?.backgroundColor = NSColor.black.cgColor
+        collectionView.delegate = self
+        collectionView.allowsMultipleSelection = true
     }
     
     func fetchCollectionView() {
         collectionImageLoader.fetchData(fileName: self.currentTagKey)
         collectionView.reloadData()
     }
+    
+    override func mouseUp(with event: NSEvent) {
+        
+        if event.clickCount < 2 {
+            return
+        }
+
+        let indexPath = collectionView.selectionIndexPaths.first
+        if indexPath == nil {
+            return
+        }
+        
+        let imageFile = collectionImageLoader.imageForIndexPath(indexPath: indexPath!)
+        let imageModel = collectionImageLoader.imageURLForIdexPath(indexPath: indexPath!)
+        debugPrint("image model url : \(imageModel.imageUrl)")
+        
+        
+//        let imgUrl = collectionImageLoader.imageURLForIdexPath(indexPath: indexPath!).imageUrl
+//        debugPrint("image url : \(imgUrl)")
+        
+//        if outlineTagView.selectedRow < 0 {
+//            AlertManager.shared.infoMessage(messageTitle: "태그를 먼저 선택해주세요")
+//            return
+//        }
+        
+        let vc = PopupImageViewController()
+        vc.setImage(imageFile: imageFile)
+        self.presentAsModalWindow(vc)
+    }
+    
+    override func keyDown(with event: NSEvent) {
+        
+        if event.keyCode != 0x33 {
+            return
+        }
+
+        let indexPaths = collectionView.selectionIndexPaths
+        
+        if indexPaths.count < 1 {
+            return
+        }
+        
+        let newArr = indexPaths.map( { return $0.item } ).sorted(by: >)
+
+        collectionImageLoader.deleteItem(idx: newArr)
+        collectionView.deleteItems(at: indexPaths)
+    }
+
     
     @objc func addCollectionViewItem(notification: Notification) {
         if let data = notification.userInfo as? [String: String] {
@@ -396,4 +457,27 @@ extension MainViewController: NSCollectionViewDataSource {
         collectionViewItem.imageFile = imageFile
         return item
     }
+}
+
+
+
+extension MainViewController: NSCollectionViewDelegate {
+
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        if let item = collectionView.item(at: indexPaths.first!) as? CollectionViewItem {
+            item.toggleSelect(stat: true)
+        }
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
+        indexPaths.forEach { (indexPath) in
+            if let item = collectionView.item(at: indexPath) as? CollectionViewItem {
+                item.toggleSelect(stat: false)
+            }
+        }
+        
+    }
+    
+    
+    
 }

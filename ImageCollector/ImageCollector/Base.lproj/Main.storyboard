@@ -706,8 +706,8 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="MainViewController" customModule="ImageCollector" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="684" height="461"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="684" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cgz-6L-s7l">
                                 <rect key="frame" x="20" y="74" width="300" height="359"/>
@@ -739,9 +739,8 @@
                                                             <rect key="frame" x="1" y="1" width="295" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m7f-He-fPM">
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="m7f-He-fPM">
                                                                     <rect key="frame" x="0.0" y="0.0" width="295" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="wdA-sm-fYg">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -749,6 +748,11 @@
                                                                     </textFieldCell>
                                                                 </textField>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="m7f-He-fPM" firstAttribute="leading" secondItem="SSh-Nj-QeP" secondAttribute="leading" constant="2" id="CwA-9T-GNz"/>
+                                                                <constraint firstItem="m7f-He-fPM" firstAttribute="centerY" secondItem="SSh-Nj-QeP" secondAttribute="centerY" id="Tff-nw-hTd"/>
+                                                                <constraint firstItem="m7f-He-fPM" firstAttribute="centerX" secondItem="SSh-Nj-QeP" secondAttribute="centerX" id="x15-wT-obp"/>
+                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="textField" destination="m7f-He-fPM" id="eEL-G5-HPn"/>
                                                             </connections>
@@ -764,7 +768,6 @@
                                     </subviews>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="359" id="2qr-ec-L7m"/>
                                     <constraint firstAttribute="width" constant="300" id="GXE-jN-AcN"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="4n3-aZ-0EN">
@@ -779,7 +782,7 @@
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f7u-pR-lMD">
                                 <rect key="frame" x="20" y="28" width="25" height="27"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="Thr-va-Vpg"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="Thr-va-Vpg"/>
                                     <constraint firstAttribute="height" constant="25" id="o9f-F7-rIw"/>
                                 </constraints>
                                 <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ccy-Cr-t2e">
@@ -792,10 +795,6 @@
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="muA-Uf-Uq1">
                                 <rect key="frame" x="45" y="28" width="25" height="27"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="AKA-Pf-2GP"/>
-                                    <constraint firstAttribute="width" constant="25" id="Tyw-dc-owv"/>
-                                </constraints>
                                 <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Vmn-Id-1iH">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -804,8 +803,8 @@
                                     <action selector="deleteTag:" target="XfG-lQ-9wD" id="8uT-JM-OvV"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NV5-dz-M4Q">
-                                <rect key="frame" x="236" y="32" width="83" height="19"/>
+                            <button horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NV5-dz-M4Q">
+                                <rect key="frame" x="170" y="32" width="83" height="19"/>
                                 <buttonCell key="cell" type="roundRect" title="태그 상태 저장" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uAN-d9-Ate">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
@@ -814,8 +813,8 @@
                                     <action selector="save:" target="XfG-lQ-9wD" id="nIY-TS-C1P"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UwV-Vg-EeY">
-                                <rect key="frame" x="169" y="32" width="59" height="19"/>
+                            <button horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UwV-Vg-EeY">
+                                <rect key="frame" x="86" y="28" width="76" height="26"/>
                                 <buttonCell key="cell" type="roundRect" title="경로 변경" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WQV-nB-Qli">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
@@ -853,7 +852,7 @@
                                 </scroller>
                             </scrollView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2gh-Yh-lVl">
-                                <rect key="frame" x="559" y="19" width="74" height="32"/>
+                                <rect key="frame" x="559" y="13" width="74" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="테스트" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Rdp-vT-p34">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -864,7 +863,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gle-co-7MK">
-                                <rect key="frame" x="340" y="32" width="90" height="19"/>
+                                <rect key="frame" x="339" y="32" width="90" height="19"/>
                                 <buttonCell key="cell" type="roundRect" title="이미지 가져오기" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oSu-Ho-qN2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
@@ -874,7 +873,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qcb-be-UNq">
-                                <rect key="frame" x="449" y="32" width="59" height="19"/>
+                                <rect key="frame" x="261" y="32" width="59" height="19"/>
                                 <buttonCell key="cell" type="roundRect" title="캐시 삭제" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YSg-O8-lXz">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
@@ -885,26 +884,29 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="f7u-pR-lMD" secondAttribute="bottom" constant="29" id="2Bs-74-7nb"/>
-                            <constraint firstAttribute="bottom" secondItem="f7u-pR-lMD" secondAttribute="bottom" constant="29" id="ERD-0J-GZQ"/>
-                            <constraint firstItem="f7u-pR-lMD" firstAttribute="top" secondItem="Cgz-6L-s7l" secondAttribute="bottom" constant="20" id="LEB-Bi-IjK"/>
-                            <constraint firstItem="NV5-dz-M4Q" firstAttribute="trailing" secondItem="LeR-s8-ZLp" secondAttribute="trailing" id="Lbu-7P-rFe"/>
+                            <constraint firstItem="UwV-Vg-EeY" firstAttribute="baseline" secondItem="NV5-dz-M4Q" secondAttribute="baseline" constant="4" id="7BF-3M-yLG"/>
+                            <constraint firstItem="muA-Uf-Uq1" firstAttribute="baseline" secondItem="f7u-pR-lMD" secondAttribute="baseline" id="CUb-wF-sJL"/>
+                            <constraint firstItem="f7u-pR-lMD" firstAttribute="bottom" secondItem="m2S-Jp-Qdl" secondAttribute="bottom" priority="250" constant="-29" id="ERD-0J-GZQ"/>
+                            <constraint firstItem="NV5-dz-M4Q" firstAttribute="trailing" secondItem="LeR-s8-ZLp" secondAttribute="trailing" constant="-66" id="Lbu-7P-rFe"/>
                             <constraint firstItem="KXg-gc-xuH" firstAttribute="top" secondItem="LeR-s8-ZLp" secondAttribute="top" id="MOe-2L-jAH"/>
                             <constraint firstItem="muA-Uf-Uq1" firstAttribute="leading" secondItem="f7u-pR-lMD" secondAttribute="trailing" id="Nwj-j5-FrK"/>
-                            <constraint firstItem="NV5-dz-M4Q" firstAttribute="centerY" secondItem="muA-Uf-Uq1" secondAttribute="centerY" id="Olx-59-gsB"/>
-                            <constraint firstItem="gle-co-7MK" firstAttribute="leading" secondItem="Mt2-36-KU3" secondAttribute="leading" id="Pvp-2Y-VOr"/>
+                            <constraint firstItem="UwV-Vg-EeY" firstAttribute="leading" secondItem="muA-Uf-Uq1" secondAttribute="trailing" constant="16" id="OuB-ii-CJi"/>
+                            <constraint firstItem="gle-co-7MK" firstAttribute="leading" secondItem="Mt2-36-KU3" secondAttribute="leading" constant="-1" id="Pvp-2Y-VOr"/>
                             <constraint firstItem="Cgz-6L-s7l" firstAttribute="bottom" secondItem="KXg-gc-xuH" secondAttribute="bottom" id="SQi-CY-hRc"/>
+                            <constraint firstItem="UwV-Vg-EeY" firstAttribute="height" secondItem="muA-Uf-Uq1" secondAttribute="height" id="U4r-8L-NxF"/>
                             <constraint firstItem="Cgz-6L-s7l" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="WCc-E5-hdT"/>
                             <constraint firstItem="UwV-Vg-EeY" firstAttribute="centerY" secondItem="muA-Uf-Uq1" secondAttribute="centerY" id="WpI-dF-baS"/>
-                            <constraint firstItem="f7u-pR-lMD" firstAttribute="baseline" secondItem="muA-Uf-Uq1" secondAttribute="baseline" id="YE6-qj-yZl"/>
                             <constraint firstItem="qcb-be-UNq" firstAttribute="centerY" secondItem="gle-co-7MK" secondAttribute="centerY" id="YRb-v1-bPq"/>
                             <constraint firstItem="NV5-dz-M4Q" firstAttribute="leading" secondItem="UwV-Vg-EeY" secondAttribute="trailing" constant="8" id="bU3-0x-iM7"/>
                             <constraint firstItem="gle-co-7MK" firstAttribute="centerY" secondItem="NV5-dz-M4Q" secondAttribute="centerY" id="caE-hP-eeV"/>
                             <constraint firstAttribute="trailing" secondItem="KXg-gc-xuH" secondAttribute="trailing" constant="20" id="hKi-bA-vHU"/>
                             <constraint firstItem="f7u-pR-lMD" firstAttribute="leading" secondItem="Cgz-6L-s7l" secondAttribute="leading" id="hcQ-Zb-sVc"/>
-                            <constraint firstItem="qcb-be-UNq" firstAttribute="leading" secondItem="gle-co-7MK" secondAttribute="trailing" constant="19" id="mMK-DC-7bj"/>
+                            <constraint firstItem="qcb-be-UNq" firstAttribute="leading" secondItem="gle-co-7MK" secondAttribute="trailing" constant="-168" id="mMK-DC-7bj"/>
                             <constraint firstItem="KXg-gc-xuH" firstAttribute="leading" secondItem="LeR-s8-ZLp" secondAttribute="trailing" constant="20" id="q6X-ES-BLY"/>
-                            <constraint firstItem="Cgz-6L-s7l" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="28" id="qAP-dQ-q05"/>
+                            <constraint firstItem="Cgz-6L-s7l" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="22" id="qAP-dQ-q05"/>
+                            <constraint firstItem="muA-Uf-Uq1" firstAttribute="width" secondItem="f7u-pR-lMD" secondAttribute="width" id="tQI-od-pf8"/>
+                            <constraint firstItem="f7u-pR-lMD" firstAttribute="top" secondItem="Cgz-6L-s7l" secondAttribute="bottom" constant="20" id="x6K-4S-ZR3"/>
+                            <constraint firstItem="muA-Uf-Uq1" firstAttribute="height" secondItem="f7u-pR-lMD" secondAttribute="height" id="zhP-Nf-EQZ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -915,7 +917,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="1228.5"/>
+            <point key="canvasLocation" x="75" y="1225.5"/>
         </scene>
     </scenes>
     <resources>

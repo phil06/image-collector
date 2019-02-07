@@ -20,7 +20,7 @@
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zbx-Xs-ZkT">
                     <rect key="frame" x="20" y="55" width="410" height="488"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="M2x-Sb-Exz"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" id="M2x-Sb-Exz"/>
                 </imageView>
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="Sji-qO-aLj" userLabel="Progress Indicator">
                     <rect key="frame" x="217" y="291" width="16" height="16"/>

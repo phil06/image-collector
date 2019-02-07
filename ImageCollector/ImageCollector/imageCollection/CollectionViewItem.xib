@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CollectionViewItem" customModule="ImageCollector" customModuleProvider="target">
             <connections>
                 <outlet property="imageView" destination="6VO-Pv-3kB" id="wKf-R6-3dT"/>
+                <outlet property="textField" destination="guS-lV-hz0" id="dKu-Z3-lr1"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -18,15 +19,25 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6VO-Pv-3kB">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="hrt-rX-0re"/>
+                    <rect key="frame" x="10" y="10" width="460" height="252"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" id="hrt-rX-0re"/>
                 </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="guS-lV-hz0" userLabel="Select Icon">
+                    <rect key="frame" x="424" y="20" width="38" height="43"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="✅" id="7gN-6r-S0z">
+                        <font key="font" size="30" name=".AppleColorEmojiUI"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="6VO-Pv-3kB" secondAttribute="trailing" id="9gW-YO-04q"/>
-                <constraint firstAttribute="bottom" secondItem="6VO-Pv-3kB" secondAttribute="bottom" id="fLd-st-Wtl"/>
-                <constraint firstItem="6VO-Pv-3kB" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="fUM-Z7-JkK"/>
-                <constraint firstItem="6VO-Pv-3kB" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="lHQ-v7-XF5"/>
+                <constraint firstAttribute="trailing" secondItem="6VO-Pv-3kB" secondAttribute="trailing" constant="10" id="9gW-YO-04q"/>
+                <constraint firstAttribute="bottom" secondItem="guS-lV-hz0" secondAttribute="bottom" constant="20" id="Cjf-sA-7DH"/>
+                <constraint firstAttribute="trailing" secondItem="guS-lV-hz0" secondAttribute="trailing" constant="20" id="JTd-yl-gDe"/>
+                <constraint firstAttribute="bottom" secondItem="6VO-Pv-3kB" secondAttribute="bottom" constant="10" id="fLd-st-Wtl"/>
+                <constraint firstItem="6VO-Pv-3kB" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="10" id="fUM-Z7-JkK"/>
+                <constraint firstItem="6VO-Pv-3kB" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="10" id="lHQ-v7-XF5"/>
             </constraints>
         </customView>
         <collectionViewItem id="WjJ-aD-cJr" customClass="CollectionViewItem" customModule="ImageCollector" customModuleProvider="target"/>

@@ -9,15 +9,21 @@
 import Cocoa
 
 class CollectionViewItem: NSCollectionViewItem {
+    
+    let currentStyle = InterfaceStyle()
 
     var imageFile: ImageFile? {
         didSet {
             guard isViewLoaded else { return }
+            
             if let imageFile = imageFile {
                 imageView?.image = imageFile.thumbnail
             } else {
                 imageView?.image = nil
             }
+            
+            textField?.isHidden = true
+            imageView?.alphaValue = 1
         }
     }
     
@@ -28,6 +34,10 @@ class CollectionViewItem: NSCollectionViewItem {
         allocNotification()
         
         view.wantsLayer = true
+    }
+    
+    override func viewWillAppear() {
+
     }
     
     func allocNotification() {
@@ -47,6 +57,16 @@ class CollectionViewItem: NSCollectionViewItem {
             }
         }
     
+    }
+    
+    func toggleSelect(stat: Bool) {
+        if stat {
+            imageView?.alphaValue = 0.5
+            textField?.isHidden = false
+        } else {
+            imageView?.alphaValue = 1
+            textField?.isHidden = true
+        }
     }
     
 }
