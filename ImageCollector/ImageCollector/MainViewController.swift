@@ -192,11 +192,6 @@ class MainViewController: NSViewController {
         SDWebImageManager.shared().imageCache?.clearDisk()
         SDWebImageManager.shared().imageCache?.clearMemory()
     }
-    
-    @IBAction func test(_ sender: Any) {
-
-    }
-    
 
     
     func fetchData() {
@@ -247,21 +242,11 @@ class MainViewController: NSViewController {
         }
         
         let imageFile = collectionImageLoader.imageForIndexPath(indexPath: indexPath!)
-        let imageModel = collectionImageLoader.imageURLForIdexPath(indexPath: indexPath!)
-        debugPrint("image model url : \(imageModel.imageUrl)")
-        
-        
-//        let imgUrl = collectionImageLoader.imageURLForIdexPath(indexPath: indexPath!).imageUrl
-//        debugPrint("image url : \(imgUrl)")
-        
-//        if outlineTagView.selectedRow < 0 {
-//            AlertManager.shared.infoMessage(messageTitle: "태그를 먼저 선택해주세요")
-//            return
-//        }
         
         let vc = PopupImageViewController()
         vc.setImage(imageFile: imageFile)
         self.presentAsModalWindow(vc)
+
     }
     
     override func keyDown(with event: NSEvent) {
@@ -292,6 +277,8 @@ class MainViewController: NSViewController {
             let indexPath = IndexPath(item: count, section: 0)
             
             collectionView.insertItems(at: [indexPath])
+            
+            NotificationCenter.default.post(name: .DidCompleteAddImageToTagCollection , object: self, userInfo: nil)
         }
     }
  
@@ -302,7 +289,10 @@ class MainViewController: NSViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .AddImageToTagCollection , object: nil)
+        
     }
+    
+    
 }
 
 extension MainViewController: NSOutlineViewDataSource {
@@ -338,7 +328,6 @@ extension MainViewController: NSOutlineViewDelegate {
     
     func outlineViewSelectionDidChange(_ notification: Notification) {
         if let selected =  outlineTagView.item(atRow: outlineTagView.selectedRow) as? TagModel {
-            debugPrint("selected tag > name : \(selected.name), key : \(selected.key)")
             self.currentTagKey = selected.key
             fetchCollectionView()
         }

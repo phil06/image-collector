@@ -56,11 +56,9 @@ class AppSettingFileManager: NSObject {
         self.dataSource?.tags = []
         
         for (idx, tag) in data.enumerated() {
-            var newTag = tag
-            newTag.idx = idx
-            newTag.reArrangeChild()
-            
-            self.dataSource?.tags?.append(newTag)
+            tag.idx = idx
+            tag.reArrangeChild()
+            self.dataSource?.tags?.append(tag)
         }
         
         self.updateFile()

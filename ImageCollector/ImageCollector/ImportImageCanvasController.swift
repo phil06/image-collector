@@ -23,6 +23,8 @@ class ImportImageCanvasController: NSViewController {
 
     @IBOutlet weak var placeholderLabel: NSTextField!
     @IBOutlet weak var imageCanvas: ImageCanvas!
+    @IBOutlet weak var addButton: NSButton!
+    @IBOutlet weak var addProcessIndicator: NSProgressIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +33,37 @@ class ImportImageCanvasController: NSViewController {
         self.title = "Add Image"
         
         view.registerForDraggedTypes(NSFilePromiseReceiver.readableDraggedTypes.map { NSPasteboard.PasteboardType($0) })
+        
+        allocNotification()
     }
     
+
+    
     @IBAction func addImageToTag(_ sender: Any) {
+        
+        self.toggleButton(isProcessing: true)
+        
         guard self.imageURL.absoluteString != nil else {
             AlertManager.shared.infoMessage(messageTitle: "이미지를 먼저 가져와주세요")
             return
         }
         
         NotificationCenter.default.post(name: .AddImageToTagCollection , object: self, userInfo: ["url": self.imageURL.absoluteString!])
+    }
+    
+    private func toggleButton(isProcessing: Bool) {
+        addProcessIndicator.isHidden = !isProcessing
+        addButton.isHidden = isProcessing
+        
+        if isProcessing {
+            addProcessIndicator.startAnimation(nil)
+        } else {
+            addProcessIndicator.stopAnimation(nil)
+        }
+    }
+    
+    @objc func stopAnimation() {
+        self.toggleButton(isProcessing: false)
     }
     
     
@@ -78,10 +102,20 @@ class ImportImageCanvasController: NSViewController {
         imageCanvas.isLoading = true
         placeholderLabel.isHidden = true
     }
+    
+    //MARK: Notification
+    func allocNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(stopAnimation), name: .DidCompleteAddImageToTagCollection , object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .DidCompleteAddImageToTagCollection , object: nil)
+    }
 
 }
 
 extension ImportImageCanvasController: ImageCanvasDelegate {
+    
     
     func draggingEntered(forImageCanvas imageCanvas: ImageCanvas, sender: NSDraggingInfo) -> NSDragOperation {
         return sender.draggingSourceOperationMask.intersection([.copy])
@@ -95,7 +129,6 @@ extension ImportImageCanvasController: ImageCanvasDelegate {
         if let imgUrl = NSURL.init(from: pasteBoard) {
             
             self.prepareForUpdate()
-            debugPrint("가져온 이미지 URL : \(imgUrl)")
             self.handleFile(with: imgUrl)
             self.imageURL = imgUrl
 
@@ -106,7 +139,7 @@ extension ImportImageCanvasController: ImageCanvasDelegate {
     }
     
     func replacePlaceholder() {
-        AlertManager.shared.infoMessage(messageTitle: "이미지를 확인 할 수 없는 url 입니다.")
+        AlertManager.shared.infoMessage(messageTitle: "경로를 확인 할 수 없는 타입 입니다.")
         
         imageCanvas.isLoading = false
         placeholderLabel.isHidden = false

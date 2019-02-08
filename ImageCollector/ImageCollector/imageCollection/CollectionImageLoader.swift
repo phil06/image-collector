@@ -28,10 +28,6 @@ class CollectionImageLoader: NSObject {
     }
     
     func addItem(url: String, desc: String) {
-        
-        //MARK: 처음 저장할때(파일이 없을떄)에 대한 대응이 필요함 파일매니저가 nil 이거나 할테이니...
-        
-
         imageList.append(ImageListModel(imageUrl: url, description: desc))
         dataSource.append(ImageFile(url: URL.init(string: url)!, tagName: fileManager!.fileURL.lastPathComponent))
         

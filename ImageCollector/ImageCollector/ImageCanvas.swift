@@ -8,13 +8,12 @@
 
 import Cocoa
 
-//MARK: isLoading 은 나중에 구현하기... 일단 기능 먼저..
 class ImageCanvas: NSView {
 
-    @IBOutlet weak var delegate: ImportImageCanvasController!
+    @IBOutlet weak var delegate: ImageCanvasDelegate!
     @IBOutlet weak var imageView: NSImageView!
     @IBOutlet weak var progressIndicator: NSProgressIndicator!
-
+    
     var image: NSImage? {
         set {
             if newValue == nil {

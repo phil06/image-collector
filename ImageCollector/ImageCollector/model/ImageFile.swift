@@ -19,25 +19,23 @@ class ImageFile {
         desc = ""
         fileName = url.lastPathComponent
         cacheKey = ""
-        thumbnail = NSImage() //요기서 인디케이터 이미지로 설정한 후에... (디폴트)
+        thumbnail = NSImage()
         cacheKey = makeCacheKey(tagName: tagName)
         
         getThumbnailImage(url: url)
     }
     
     private func getThumbnailImage(url: URL) {
-        SDWebImageManager.shared().imageCache?.queryCacheOperation(forKey: self.cacheKey, done: { (image, data, type) in
+        SDWebImageManager.shared().imageCache?.queryCacheOperation(forKey: self.cacheKey, options: .queryDataWhenInMemory, done: { (image, data, type) in
             if let downloadedImage = image {
-                //캐시에 있으면 캐시에 있는걸 가져옴
                 self.thumbnail = downloadedImage
                 NotificationCenter.default.post(name: .DidCompleteLoadImage , object: self, userInfo: ["cacheKey": self.cacheKey])
             } else {
-                //캐시에 없으면 url에서 가져옴
-                SDWebImageManager.shared().loadImage(with: url , options: .cacheMemoryOnly, progress: { (a, b, url) in
-    
+                SDWebImageManager.shared().loadImage(with: url , options: [.cacheMemoryOnly, .queryDataWhenInMemory], progress: { (a, b, url) in
+                    //MARK: 로딩중이라는 gif 있으면 좋을듯...? 아님 초기화시에 박아버리거나.... -ㅁ-
                 }, completed: { (image, data, error, type, bool, url) in
                     self.thumbnail = image!
-                    SDWebImageManager.shared().imageCache?.store(image, forKey: self.cacheKey)
+                    SDWebImageManager.shared().imageCache?.store(image, imageData: data, forKey: self.cacheKey, toDisk: true)
                     NotificationCenter.default.post(name: .DidCompleteLoadImage , object: self, userInfo: ["cacheKey": self.cacheKey])
                 })
             }
