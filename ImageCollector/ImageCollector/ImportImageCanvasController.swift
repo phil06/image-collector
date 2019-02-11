@@ -32,6 +32,8 @@ class ImportImageCanvasController: NSViewController {
         
         self.title = "Add Image"
         
+        self.toggleButton(isProcessing: false)
+        
         view.registerForDraggedTypes(NSFilePromiseReceiver.readableDraggedTypes.map { NSPasteboard.PasteboardType($0) })
         
         allocNotification()
@@ -43,8 +45,9 @@ class ImportImageCanvasController: NSViewController {
         
         self.toggleButton(isProcessing: true)
         
-        guard self.imageURL.absoluteString != nil else {
+        guard self.imageURL != nil else {
             AlertManager.shared.infoMessage(messageTitle: "이미지를 먼저 가져와주세요")
+            self.toggleButton(isProcessing: false)
             return
         }
         

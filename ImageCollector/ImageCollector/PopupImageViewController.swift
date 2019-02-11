@@ -18,8 +18,8 @@ class PopupImageViewController: NSViewController {
     
     override func loadView() {
         self.view = NSView()
-        self.view.window?.titleVisibility = .hidden
         
+        self.view.window?.styleMask.remove(.titled)
 
         
         //기본사이즈

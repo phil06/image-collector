@@ -23,6 +23,8 @@ class MainViewController: NSViewController {
     @IBOutlet weak var outlineTagView: NSOutlineView!
     @IBOutlet weak var collectionView: NSCollectionView!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -175,6 +177,39 @@ class MainViewController: NSViewController {
         self.outlineTagView.reloadData()
     }
     
+    @IBAction func editTag(_ sender: Any) {
+        var targetIdx = outlineTagView.selectedRow
+        
+        if targetIdx < 0 {
+            AlertManager.shared.infoMessage(messageTitle: "변경할 태그를 선택해주세요")
+            return
+        }
+        
+        if let tagName = AlertManager.shared.showAddTagAlert(messageText: "태그명을 입력해주세요",
+                                                             infoText: "변경할 내용을 입력해주세요",
+                                                             okTitle: "수정",
+                                                             cancelTitle: "취소",
+                                                             suppressionTitle: nil) {
+
+            let selectedItem = outlineTagView.item(atRow: targetIdx) as! TagModel
+            let parentOfSelected = outlineTagView.parent(forItem: outlineTagView.item(atRow: targetIdx)) as? TagModel
+            
+            if parentOfSelected == nil {
+                //root에서 삭제
+                if let foundIdx = findGroupIndexByKey(arr: self.tags, keyToFind: selectedItem.key) {
+                    targetIdx = foundIdx
+                }
+                self.tags[targetIdx].name = tagName["input"] as! String
+            } else {
+                //부모에서 삭제
+                parentOfSelected?.changeChildName(key: selectedItem.key, name: tagName["input"] as! String)
+            }
+        }
+        
+        self.outlineTagView.reloadData()
+    }
+    
+    
     @IBAction func save(_ sender: Any) {
         AppSettingFileManager.shared.setDataSource(data: self.tags)
     }
@@ -245,8 +280,9 @@ class MainViewController: NSViewController {
         
         let vc = PopupImageViewController()
         vc.setImage(imageFile: imageFile)
+        vc.view.window?.titleVisibility = .hidden
+        
         self.presentAsModalWindow(vc)
-
     }
     
     override func keyDown(with event: NSEvent) {

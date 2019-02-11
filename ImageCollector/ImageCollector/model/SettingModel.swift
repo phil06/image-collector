@@ -70,4 +70,20 @@ class TagModel: Codable {
             self.childs?.remove(at: targetIdx)
         }
     }
+    
+    func changeChildName(key: String, name: String) {
+        if let child = self.childs {
+            
+            var targetIdx = 0
+            
+            for (idx, tag) in child.enumerated() {
+                if tag.key == key {
+                    targetIdx = idx
+                    break
+                }
+            }
+            
+            self.childs![targetIdx].name = name
+        }
+    }
 }
