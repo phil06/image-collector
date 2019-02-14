@@ -27,6 +27,8 @@ class CollectionViewItem: NSCollectionViewItem {
         }
     }
     
+    @IBOutlet weak var initialIndicator: NSProgressIndicator!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -34,6 +36,8 @@ class CollectionViewItem: NSCollectionViewItem {
         allocNotification()
         
         view.wantsLayer = true
+        initialIndicator.isHidden = false
+        initialIndicator.startAnimation(nil)
     }
     
     override func viewWillAppear() {
@@ -53,6 +57,8 @@ class CollectionViewItem: NSCollectionViewItem {
 
             if imageFile?.cacheKey == data["cacheKey"] {
                 self.imageView?.image = imageFile?.thumbnail
+                initialIndicator.isHidden = true
+                initialIndicator.stopAnimation(nil)
                 self.view.layoutSubtreeIfNeeded()
             }
         }
