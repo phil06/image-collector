@@ -29,6 +29,7 @@
 		2D5A2FE321FADF1A003AB537 /* DisableIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */; };
 		2D5A2FE521FB01DA003AB537 /* ExtNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */; };
 		2D5A2FE721FB0BFC003AB537 /* AppSettingFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */; };
+		2D83E7C0222789730093966E /* ImportAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D83E7BF222789730093966E /* ImportAllViewController.swift */; };
 		2D978082220C256400D01EA4 /* PopupImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D978081220C256400D01EA4 /* PopupImageViewController.swift */; };
 		2D978086220D842E00D01EA4 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D978085220D842E00D01EA4 /* MainWindowController.swift */; };
 		2DE6D660221A7EBE00A23824 /* EnlargeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */; };
@@ -66,6 +67,7 @@
 		2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableIndicator.swift; sourceTree = "<group>"; };
 		2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtNSView.swift; sourceTree = "<group>"; };
 		2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingFileManager.swift; sourceTree = "<group>"; };
+		2D83E7BF222789730093966E /* ImportAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAllViewController.swift; sourceTree = "<group>"; };
 		2D978081220C256400D01EA4 /* PopupImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupImageViewController.swift; sourceTree = "<group>"; };
 		2D978085220D842E00D01EA4 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargeImageViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		2D5A2FB421F6EDCE003AB537 /* ImageCollector */ = {
 			isa = PBXGroup;
 			children = (
+				2D83E7BE2227894C0093966E /* viewer */,
 				2D4B525622002020006A4119 /* imageCollection */,
 				8AED201821FF451600E0578C /* utils */,
 				2D5A2FE221FADF1A003AB537 /* DisableIndicator.swift */,
@@ -193,6 +196,14 @@
 				2D4B52632201B4AE006A4119 /* ImageFile.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		2D83E7BE2227894C0093966E /* viewer */ = {
+			isa = PBXGroup;
+			children = (
+				2D83E7BF222789730093966E /* ImportAllViewController.swift */,
+			);
+			path = viewer;
 			sourceTree = "<group>";
 		};
 		7337312CA7BF40722A152607 /* Frameworks */ = {
@@ -353,6 +364,7 @@
 				2D4B525922002063006A4119 /* CollectionViewItem.swift in Sources */,
 				2D5A2FCE21F86565003AB537 /* MainViewController.swift in Sources */,
 				8AED201121FD78B700E0578C /* AlertManager.swift in Sources */,
+				2D83E7C0222789730093966E /* ImportAllViewController.swift in Sources */,
 				8AED201A21FF454F00E0578C /* Utility.swift in Sources */,
 				2D5A2FE721FB0BFC003AB537 /* AppSettingFileManager.swift in Sources */,
 				2D5A2FE321FADF1A003AB537 /* DisableIndicator.swift in Sources */,

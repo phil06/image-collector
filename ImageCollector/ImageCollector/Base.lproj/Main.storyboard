@@ -261,7 +261,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qcb-be-UNq">
-                                <rect key="frame" x="443" y="32" width="59" height="19"/>
+                                <rect key="frame" x="521" y="32" width="59" height="19"/>
                                 <buttonCell key="cell" type="roundRect" title="캐시 삭제" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YSg-O8-lXz">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
@@ -280,6 +280,17 @@
                                     <action selector="editTag:" target="XfG-lQ-9wD" id="hrA-O5-eSl"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KmA-Db-1tl">
+                                <rect key="frame" x="437" y="32" width="76" height="19"/>
+                                <buttonCell key="cell" type="roundRect" title="import page" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WBO-n4-jEz">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="12" name=".AppleSDGothicNeoI-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="openImportWindow:" target="XfG-lQ-9wD" id="5FY-Z2-7yI"/>
+                                    <segue destination="aLM-Po-Ntg" kind="show" id="N4g-Ld-iAQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="eeD-eJ-AkD" firstAttribute="top" secondItem="muA-Uf-Uq1" secondAttribute="top" id="5V6-yJ-E2H"/>
@@ -291,19 +302,21 @@
                             <constraint firstItem="NV5-dz-M4Q" firstAttribute="trailing" secondItem="LeR-s8-ZLp" secondAttribute="trailing" constant="1" id="Lbu-7P-rFe"/>
                             <constraint firstItem="KXg-gc-xuH" firstAttribute="top" secondItem="LeR-s8-ZLp" secondAttribute="top" id="MOe-2L-jAH"/>
                             <constraint firstItem="muA-Uf-Uq1" firstAttribute="leading" secondItem="f7u-pR-lMD" secondAttribute="trailing" id="Nwj-j5-FrK"/>
-                            <constraint firstItem="gle-co-7MK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qcb-be-UNq" secondAttribute="trailing" constant="-163" id="OfM-2T-AOJ"/>
                             <constraint firstItem="UwV-Vg-EeY" firstAttribute="leading" secondItem="muA-Uf-Uq1" secondAttribute="trailing" constant="83" id="OuB-ii-CJi"/>
                             <constraint firstItem="gle-co-7MK" firstAttribute="leading" secondItem="Mt2-36-KU3" secondAttribute="leading" constant="-1" id="Pvp-2Y-VOr"/>
+                            <constraint firstItem="KmA-Db-1tl" firstAttribute="top" secondItem="gle-co-7MK" secondAttribute="top" id="R6g-gg-IGI"/>
                             <constraint firstItem="Cgz-6L-s7l" firstAttribute="bottom" secondItem="KXg-gc-xuH" secondAttribute="bottom" id="SQi-CY-hRc"/>
                             <constraint firstItem="UwV-Vg-EeY" firstAttribute="height" secondItem="muA-Uf-Uq1" secondAttribute="height" id="U4r-8L-NxF"/>
                             <constraint firstItem="Cgz-6L-s7l" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="WCc-E5-hdT"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qcb-be-UNq" secondAttribute="trailing" constant="20" symbolic="YES" id="WaP-2a-7lq"/>
                             <constraint firstItem="UwV-Vg-EeY" firstAttribute="centerY" secondItem="muA-Uf-Uq1" secondAttribute="centerY" id="WpI-dF-baS"/>
                             <constraint firstItem="qcb-be-UNq" firstAttribute="centerY" secondItem="gle-co-7MK" secondAttribute="centerY" id="YRb-v1-bPq"/>
                             <constraint firstItem="NV5-dz-M4Q" firstAttribute="leading" secondItem="UwV-Vg-EeY" secondAttribute="trailing" constant="8" id="bU3-0x-iM7"/>
                             <constraint firstItem="gle-co-7MK" firstAttribute="centerY" secondItem="NV5-dz-M4Q" secondAttribute="centerY" id="caE-hP-eeV"/>
                             <constraint firstAttribute="trailing" secondItem="KXg-gc-xuH" secondAttribute="trailing" constant="20" id="hKi-bA-vHU"/>
+                            <constraint firstItem="KmA-Db-1tl" firstAttribute="leading" secondItem="gle-co-7MK" secondAttribute="trailing" constant="8" id="hNR-7i-vDA"/>
                             <constraint firstItem="f7u-pR-lMD" firstAttribute="leading" secondItem="Cgz-6L-s7l" secondAttribute="leading" id="hcQ-Zb-sVc"/>
-                            <constraint firstItem="qcb-be-UNq" firstAttribute="leading" secondItem="gle-co-7MK" secondAttribute="trailing" constant="14" id="mMK-DC-7bj"/>
+                            <constraint firstItem="qcb-be-UNq" firstAttribute="leading" secondItem="KmA-Db-1tl" secondAttribute="trailing" constant="8" id="mMK-DC-7bj"/>
                             <constraint firstItem="eeD-eJ-AkD" firstAttribute="width" secondItem="muA-Uf-Uq1" secondAttribute="width" id="n8f-Kh-LI5"/>
                             <constraint firstItem="KXg-gc-xuH" firstAttribute="leading" secondItem="LeR-s8-ZLp" secondAttribute="trailing" constant="20" id="q6X-ES-BLY"/>
                             <constraint firstItem="Cgz-6L-s7l" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="22" id="qAP-dQ-q05"/>
@@ -320,6 +333,19 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="1230"/>
+        </scene>
+        <!--Import All View Controller-->
+        <scene sceneID="cad-b3-g4H">
+            <objects>
+                <viewController id="aLM-Po-Ntg" customClass="ImportAllViewController" customModule="ImageCollector" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Wgl-4K-zqe">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="434"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="7rT-Yk-3SZ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="833" y="1215"/>
         </scene>
     </scenes>
     <resources>
