@@ -13,6 +13,9 @@ class PopupImageViewController: NSViewController {
     var imageView: NSImageView?
     var scrollView: NSScrollView?
     
+    var zoomIn: NSButton!
+    var zoomOut: NSButton!
+    
     let maxWidth: CGFloat = 750
     let maxHeight: CGFloat = 600
     
@@ -21,6 +24,22 @@ class PopupImageViewController: NSViewController {
         
         self.view.window?.styleMask.remove(.titled)
 
+        zoomIn = NSButton(image: NSImage(named: NSImage.enterFullScreenTemplateName)!, target: self, action: #selector(zoomInScrollView))
+        zoomIn.setButtonType(.momentaryLight)
+        zoomIn.title = "ZoomIn"
+        zoomIn.imagePosition = .imageLeading
+        zoomIn.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(zoomIn)
+        
+        zoomOut = NSButton(image: NSImage(named: NSImage.exitFullScreenTemplateName)!, target: self, action: #selector(zoomOutScrollView))
+        zoomOut.setButtonType(.momentaryLight)
+        zoomOut.title = "ZoomOut"
+        zoomOut.imagePosition = .imageLeading
+        zoomOut.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(zoomOut)
+        
+        
         
         //기본사이즈
         view.frame = CGRect.init(x: 0, y: 0, width: 300, height: 300)
@@ -32,6 +51,16 @@ class PopupImageViewController: NSViewController {
             self.mouseUp(with: event)
             return event
         }
+    }
+    
+    @objc func zoomInScrollView() {
+        debugPrint("zoom in ...")
+         scrollView?.magnification = 2
+    }
+    
+    @objc func zoomOutScrollView() {
+        debugPrint("zoom out ...")
+         scrollView?.magnification = 0.5
     }
     
     func setImage(imageFile: ImageFile) {
@@ -56,15 +85,27 @@ class PopupImageViewController: NSViewController {
     func layoutSubviews() {
         
         imageView?.animates = true
+        
         scrollView?.backgroundColor = NSColor.clear
+        scrollView?.allowsMagnification = true
+        scrollView?.minMagnification = 0.1
+        scrollView?.maxMagnification = 3.0
+        scrollView?.magnification = 1
         scrollView?.translatesAutoresizingMaskIntoConstraints = false
         
         var allConstraints: [NSLayoutConstraint] = []
 
-        let constraint1 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[scrollView]-0-|",  metrics: nil, views: ["scrollView": scrollView!])
+        let constraint1 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[zoomIn(==32)]-0-[scrollView]-0-|",  metrics: nil, views: ["scrollView": scrollView!,
+                                                                                                                                             "zoomIn": zoomIn])
         allConstraints += constraint1
         let constraint2 = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[scrollView]-0-|",  metrics: nil, views: ["scrollView": scrollView!])
         allConstraints += constraint2
+        let constraint3 = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[zoomIn(==100)]-20-[zoomOut(==100)]",  metrics: nil, views: ["zoomIn": zoomIn,
+                                                                                                                                                   "zoomOut": zoomOut])
+        allConstraints += constraint3
+        let constraint4 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[zoomOut(==32)]",  metrics: nil, views: ["zoomOut": zoomOut])
+        allConstraints += constraint4
+        
         
         NSLayoutConstraint.activate(allConstraints)
     }
@@ -80,23 +121,23 @@ class PopupImageViewController: NSViewController {
 final class CenteringClipView: NSClipView {
     override func constrainBoundsRect(_ proposedBounds: NSRect) -> NSRect {
         var constrainedClipViewBounds = super.constrainBoundsRect(proposedBounds)
-        
+
         guard let documentView = documentView else {
             return constrainedClipViewBounds
         }
-        
+
         let documentViewFrame = documentView.frame
-        
+
         // If proposed clip view bounds width is greater than document view frame width, center it horizontally.
         if documentViewFrame.width < proposedBounds.width {
             constrainedClipViewBounds.origin.x = floor((proposedBounds.width - documentViewFrame.width) / -2.0)
         }
-        
+
         // If proposed clip view bounds height is greater than document view frame height, center it vertically.
         if documentViewFrame.height < proposedBounds.height {
             constrainedClipViewBounds.origin.y = floor((proposedBounds.height - documentViewFrame.height) / -2.0)
         }
-        
+
         return constrainedClipViewBounds
     }
 }

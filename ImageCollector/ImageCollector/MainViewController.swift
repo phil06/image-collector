@@ -278,7 +278,7 @@ class MainViewController: NSViewController {
         
         let imageFile = collectionImageLoader.imageForIndexPath(indexPath: indexPath!)
         
-        let vc = PopupImageViewController()
+        let vc = EnlargeImageViewController()
         vc.setImage(imageFile: imageFile)
         vc.view.window?.titleVisibility = .hidden
         

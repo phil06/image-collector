@@ -31,6 +31,8 @@
 		2D5A2FE721FB0BFC003AB537 /* AppSettingFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */; };
 		2D978082220C256400D01EA4 /* PopupImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D978081220C256400D01EA4 /* PopupImageViewController.swift */; };
 		2D978086220D842E00D01EA4 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D978085220D842E00D01EA4 /* MainWindowController.swift */; };
+		2DE6D660221A7EBE00A23824 /* EnlargeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */; };
+		2DE6D661221A7EBE00A23824 /* EnlargeImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE6D65F221A7EBE00A23824 /* EnlargeImageViewController.xib */; };
 		7AD2BEB75415D61E04A3F67D /* Pods_ImageCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1257F6164E83A2A3EDC4991 /* Pods_ImageCollector.framework */; };
 		8AED201121FD78B700E0578C /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED201021FD78B700E0578C /* AlertManager.swift */; };
 		8AED201321FF2B7100E0578C /* PanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED201221FF2B7100E0578C /* PanelManager.swift */; };
@@ -66,6 +68,8 @@
 		2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingFileManager.swift; sourceTree = "<group>"; };
 		2D978081220C256400D01EA4 /* PopupImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupImageViewController.swift; sourceTree = "<group>"; };
 		2D978085220D842E00D01EA4 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
+		2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargeImageViewController.swift; sourceTree = "<group>"; };
+		2DE6D65F221A7EBE00A23824 /* EnlargeImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnlargeImageViewController.xib; sourceTree = "<group>"; };
 		60723DC552004CDCC8CD8204 /* Pods-ImageCollector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageCollector.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageCollector/Pods-ImageCollector.debug.xcconfig"; sourceTree = "<group>"; };
 		8AED201021FD78B700E0578C /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		8AED201221FF2B7100E0578C /* PanelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelManager.swift; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 				2D5A2FD121F8665D003AB537 /* ImportImageCanvasController.swift */,
 				2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */,
 				2D978081220C256400D01EA4 /* PopupImageViewController.swift */,
+				2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */,
+				2DE6D65F221A7EBE00A23824 /* EnlargeImageViewController.xib */,
 			);
 			path = ImageCollector;
 			sourceTree = "<group>";
@@ -277,6 +283,7 @@
 				2D5A2FE121FADDD2003AB537 /* DisableIndicator.xib in Resources */,
 				2D4B525A22002063006A4119 /* CollectionViewItem.xib in Resources */,
 				2D5A2FBD21F6EDCF003AB537 /* Main.storyboard in Resources */,
+				2DE6D661221A7EBE00A23824 /* EnlargeImageViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +339,7 @@
 				2D5A2FD721F9B4E7003AB537 /* ExtNSImage.swift in Sources */,
 				2D4B52682204089A006A4119 /* ExNotification.swift in Sources */,
 				2D5A2FD321F8665D003AB537 /* ImportImageCanvasController.swift in Sources */,
+				2DE6D660221A7EBE00A23824 /* EnlargeImageViewController.swift in Sources */,
 				2D5A2FB621F6EDCE003AB537 /* AppDelegate.swift in Sources */,
 				2D5A2FDA21FAB238003AB537 /* ApplicationEnums.swift in Sources */,
 				2D4B525C22013648006A4119 /* TagFileManager.swift in Sources */,

@@ -52,6 +52,11 @@
                 <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="qbA-zG-lIJ">
                     <rect key="frame" x="217" y="16" width="16" height="16"/>
                 </progressIndicator>
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dls-ny-vcz">
+                    <rect key="frame" x="23" y="53" width="271" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="3SW-6O-QGZ"/>
+                </slider>
             </subviews>
             <constraints>
                 <constraint firstItem="Zbx-Xs-ZkT" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="FNO-ja-8P6"/>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="EnlargeImageViewController" customModule="ImageCollector" customModuleProvider="target">
+            <connections>
+                <outlet property="scrollView" destination="hED-S9-5vG" id="Xbr-lM-pAa"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="1dh-go-3SI"/>
+                <outlet property="zoomInBtn" destination="tjU-GA-tYE" id="UBn-5d-sKM"/>
+                <outlet property="zoomInBtnBottomConst" destination="cyf-SP-nJD" id="JeP-ar-WRC"/>
+                <outlet property="zoomOutBtn" destination="0Kw-lT-0vX" id="dr2-o9-53N"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" allowsMagnification="YES" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hED-S9-5vG">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+                    <clipView key="contentView" id="QZC-02-cGm">
+                        <rect key="frame" x="1" y="1" width="478" height="270"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iap-qa-5GJ">
+                                <rect key="frame" x="0.0" y="0.0" width="463" height="255"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="0xT-e9-XQR">
+                        <rect key="frame" x="1" y="255" width="478" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="2I4-C9-QgF">
+                        <rect key="frame" x="463" y="1" width="16" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tjU-GA-tYE">
+                    <rect key="frame" x="30" y="-31" width="100" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="tdi-oL-qNi"/>
+                    </constraints>
+                    <buttonCell key="cell" type="roundRect" title="Zoom In" bezelStyle="roundedRect" image="NSEnterFullScreenTemplate" imagePosition="leading" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eLr-N9-zV1">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="zoomIn:" target="-2" id="x6y-Sp-2Vg"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Kw-lT-0vX">
+                    <rect key="frame" x="160" y="-31" width="100" height="19"/>
+                    <buttonCell key="cell" type="roundRect" title="Zoom Out" bezelStyle="roundedRect" image="NSExitFullScreenTemplate" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DYi-ms-RmH">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="zoomOut:" target="-2" id="LBl-Vh-vTJ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="0Kw-lT-0vX" firstAttribute="width" secondItem="tjU-GA-tYE" secondAttribute="width" id="A9Y-0H-wYt"/>
+                <constraint firstItem="0Kw-lT-0vX" firstAttribute="height" secondItem="tjU-GA-tYE" secondAttribute="height" id="EBG-ui-HNy"/>
+                <constraint firstItem="hED-S9-5vG" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="QDq-3c-M2S"/>
+                <constraint firstItem="0Kw-lT-0vX" firstAttribute="centerY" secondItem="tjU-GA-tYE" secondAttribute="centerY" id="Shp-Zu-Xw9"/>
+                <constraint firstItem="tjU-GA-tYE" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="30" id="Uok-6u-Hqo"/>
+                <constraint firstAttribute="bottom" secondItem="tjU-GA-tYE" secondAttribute="bottom" constant="-30" id="cyf-SP-nJD"/>
+                <constraint firstItem="hED-S9-5vG" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="j3w-ur-6p5"/>
+                <constraint firstAttribute="trailing" secondItem="hED-S9-5vG" secondAttribute="trailing" id="kLw-dm-aWU"/>
+                <constraint firstAttribute="bottom" secondItem="hED-S9-5vG" secondAttribute="bottom" id="rY4-0d-7YU"/>
+                <constraint firstItem="0Kw-lT-0vX" firstAttribute="leading" secondItem="tjU-GA-tYE" secondAttribute="trailing" constant="30" id="ten-We-2SA"/>
+            </constraints>
+            <point key="canvasLocation" x="102" y="155"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="NSEnterFullScreenTemplate" width="15" height="15"/>
+        <image name="NSExitFullScreenTemplate" width="15" height="15"/>
+    </resources>
+</document>
