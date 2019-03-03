@@ -11,14 +11,12 @@ import Cocoa
 import SDWebImage
 
 //MARK: reload, scroll 페이지 넘어갈때 확인
-class MainViewController: NSViewController {
+class MainViewController: ExNSViewController {
     
     var indicator: DisableIndicator!
     var tags: [TagModel]!
     var itemBeginDrag: TagModel!
     var currentTagKey: String!
-    
-    let collectionImageLoader = CollectionImageLoader()
 
     @IBOutlet weak var outlineTagView: NSOutlineView!
     @IBOutlet weak var collectionView: NSCollectionView!
@@ -305,6 +303,12 @@ class MainViewController: NSViewController {
 
     
     @objc func addCollectionViewItem(notification: Notification) {
+
+        guard outlineTagView.selectedRow >= 0 else {
+//            AlertManager.shared.infoMessage(messageTitle: "tag selection required")
+            return
+        }
+        
         if let data = notification.userInfo as? [String: String] {
             collectionImageLoader.addItem(url: data["url"]!, desc: "")
             
@@ -462,47 +466,3 @@ extension MainViewController: NSOutlineViewDelegate {
     }
 }
 
-extension MainViewController: NSCollectionViewDataSource {
-    func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        return collectionImageLoader.numberOfSection()
-    }
-    
-    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionImageLoader.numberOfItemsInSection(section: section)
-    }
-    
-    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CollectionViewItem"), for: indexPath)
-        
-        guard let collectionViewItem = item as? CollectionViewItem else {
-            return item
-        }
-        
-        let imageFile = collectionImageLoader.imageForIndexPath(indexPath: indexPath)
-        collectionViewItem.imageFile = imageFile
-        return item
-    }
-}
-
-
-
-extension MainViewController: NSCollectionViewDelegate {
-
-    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        if let item = collectionView.item(at: indexPaths.first!) as? CollectionViewItem {
-            item.toggleSelect(stat: true)
-        }
-    }
-    
-    func collectionView(_ collectionView: NSCollectionView, didDeselectItemsAt indexPaths: Set<IndexPath>) {
-        indexPaths.forEach { (indexPath) in
-            if let item = collectionView.item(at: indexPath) as? CollectionViewItem {
-                item.toggleSelect(stat: false)
-            }
-        }
-        
-    }
-    
-    
-    
-}

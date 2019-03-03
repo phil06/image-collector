@@ -9,5 +9,6 @@ target 'ImageCollector' do
 
   # Pods for ImageCollector
   pod 'SDWebImage', '~> 4.0'
+  pod 'SwiftSoup'
 
 end

@@ -32,7 +32,6 @@ class ImageFile {
                 NotificationCenter.default.post(name: .DidCompleteLoadImage , object: self, userInfo: ["cacheKey": self.cacheKey])
             } else {
                 SDWebImageManager.shared().loadImage(with: url , options: [.cacheMemoryOnly, .queryDataWhenInMemory], progress: { (a, b, url) in
-                    //MARK: 로딩중이라는 gif 있으면 좋을듯...? 아님 초기화시에 박아버리거나.... -ㅁ-
                 }, completed: { (image, data, error, type, bool, url) in
                     self.thumbnail = image!
                     SDWebImageManager.shared().imageCache?.store(image, imageData: data, forKey: self.cacheKey, toDisk: true)
