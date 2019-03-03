@@ -16,6 +16,18 @@ class CollectionImageLoader: NSObject {
     
     var fileManager: TagFileManager?
     
+    //웹뷰용
+    func fetchData(urlList: [String]) {
+        dataSource.removeAll()
+        imageList.removeAll()
+
+        for url in urlList {
+            dataSource.append(ImageFile(url: URL.init(string: url)!, tagName: ""))
+            imageList.append(ImageListModel(imageUrl: url, description: ""))
+        }
+    }
+    
+    //파일용
     func fetchData(fileName: String) {
         fileManager = TagFileManager(tagKey: fileName)
         imageList = fileManager!.getData()

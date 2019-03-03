@@ -35,11 +35,30 @@
 		2DE6D660221A7EBE00A23824 /* EnlargeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */; };
 		2DE6D661221A7EBE00A23824 /* EnlargeImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE6D65F221A7EBE00A23824 /* EnlargeImageViewController.xib */; };
 		7AD2BEB75415D61E04A3F67D /* Pods_ImageCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1257F6164E83A2A3EDC4991 /* Pods_ImageCollector.framework */; };
+		8AC239A92229B69500C2C771 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC239A82229B69500C2C771 /* HTMLParser.swift */; };
+		8AC239C7222BAA8A00C2C771 /* ExNSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC239C6222BAA8A00C2C771 /* ExNSViewController.swift */; };
 		8AED201121FD78B700E0578C /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED201021FD78B700E0578C /* AlertManager.swift */; };
 		8AED201321FF2B7100E0578C /* PanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED201221FF2B7100E0578C /* PanelManager.swift */; };
 		8AED201721FF446D00E0578C /* ExtDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED201621FF446D00E0578C /* ExtDate.swift */; };
 		8AED201A21FF454F00E0578C /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AED201921FF454F00E0578C /* Utility.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8AC239B32229B95700C2C771 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D5A2FAA21F6EDCE003AB537 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2D5A2FB121F6EDCE003AB537;
+			remoteInfo = ImageCollector;
+		};
+		8AC239C12229B96400C2C771 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D5A2FAA21F6EDCE003AB537 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2D5A2FB121F6EDCE003AB537;
+			remoteInfo = ImageCollector;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2D4B525722002063006A4119 /* CollectionViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewItem.swift; sourceTree = "<group>"; };
@@ -73,6 +92,10 @@
 		2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargeImageViewController.swift; sourceTree = "<group>"; };
 		2DE6D65F221A7EBE00A23824 /* EnlargeImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnlargeImageViewController.xib; sourceTree = "<group>"; };
 		60723DC552004CDCC8CD8204 /* Pods-ImageCollector.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageCollector.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageCollector/Pods-ImageCollector.debug.xcconfig"; sourceTree = "<group>"; };
+		8AC239A82229B69500C2C771 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
+		8AC239AE2229B95700C2C771 /* HTMLParserTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTMLParserTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AC239BC2229B96300C2C771 /* ImageCollectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageCollectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AC239C6222BAA8A00C2C771 /* ExNSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExNSViewController.swift; sourceTree = "<group>"; };
 		8AED201021FD78B700E0578C /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		8AED201221FF2B7100E0578C /* PanelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelManager.swift; sourceTree = "<group>"; };
 		8AED201621FF446D00E0578C /* ExtDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtDate.swift; sourceTree = "<group>"; };
@@ -87,6 +110,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AD2BEB75415D61E04A3F67D /* Pods_ImageCollector.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AC239AB2229B95700C2C771 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AC239B92229B96300C2C771 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				2D5A2FB221F6EDCE003AB537 /* ImageCollector.app */,
+				8AC239AE2229B95700C2C771 /* HTMLParserTest.xctest */,
+				8AC239BC2229B96300C2C771 /* ImageCollectorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -174,6 +213,7 @@
 				2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */,
 				8AED201621FF446D00E0578C /* ExtDate.swift */,
 				2D4B52672204089A006A4119 /* ExNotification.swift */,
+				8AC239C6222BAA8A00C2C771 /* ExNSViewController.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -220,6 +260,7 @@
 				8AED201021FD78B700E0578C /* AlertManager.swift */,
 				8AED201921FF454F00E0578C /* Utility.swift */,
 				2D4B525B22013648006A4119 /* TagFileManager.swift */,
+				8AC239A82229B69500C2C771 /* HTMLParser.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -246,6 +287,42 @@
 			productReference = 2D5A2FB221F6EDCE003AB537 /* ImageCollector.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8AC239AD2229B95700C2C771 /* HTMLParserTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AC239B52229B95700C2C771 /* Build configuration list for PBXNativeTarget "HTMLParserTest" */;
+			buildPhases = (
+				8AC239AA2229B95700C2C771 /* Sources */,
+				8AC239AB2229B95700C2C771 /* Frameworks */,
+				8AC239AC2229B95700C2C771 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AC239B42229B95700C2C771 /* PBXTargetDependency */,
+			);
+			name = HTMLParserTest;
+			productName = HTMLParserTest;
+			productReference = 8AC239AE2229B95700C2C771 /* HTMLParserTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8AC239BB2229B96300C2C771 /* ImageCollectorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8AC239C32229B96400C2C771 /* Build configuration list for PBXNativeTarget "ImageCollectorTests" */;
+			buildPhases = (
+				8AC239B82229B96300C2C771 /* Sources */,
+				8AC239B92229B96300C2C771 /* Frameworks */,
+				8AC239BA2229B96300C2C771 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8AC239C22229B96400C2C771 /* PBXTargetDependency */,
+			);
+			name = ImageCollectorTests;
+			productName = ImageCollectorTests;
+			productReference = 8AC239BC2229B96300C2C771 /* ImageCollectorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -264,6 +341,14 @@
 							};
 						};
 					};
+					8AC239AD2229B95700C2C771 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 2D5A2FB121F6EDCE003AB537;
+					};
+					8AC239BB2229B96300C2C771 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 2D5A2FB121F6EDCE003AB537;
+					};
 				};
 			};
 			buildConfigurationList = 2D5A2FAD21F6EDCE003AB537 /* Build configuration list for PBXProject "ImageCollector" */;
@@ -280,6 +365,8 @@
 			projectRoot = "";
 			targets = (
 				2D5A2FB121F6EDCE003AB537 /* ImageCollector */,
+				8AC239AD2229B95700C2C771 /* HTMLParserTest */,
+				8AC239BB2229B96300C2C771 /* ImageCollectorTests */,
 			);
 		};
 /* End PBXProject section */
@@ -295,6 +382,20 @@
 				2D4B525A22002063006A4119 /* CollectionViewItem.xib in Resources */,
 				2D5A2FBD21F6EDCF003AB537 /* Main.storyboard in Resources */,
 				2DE6D661221A7EBE00A23824 /* EnlargeImageViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AC239AC2229B95700C2C771 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AC239BA2229B96300C2C771 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,16 +426,18 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ImageCollector/Pods-ImageCollector-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ImageCollector/Pods-ImageCollector-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ImageCollector/Pods-ImageCollector-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ImageCollector/Pods-ImageCollector-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -361,18 +464,47 @@
 				2D4B52622201AC6E006A4119 /* ImageListModel.swift in Sources */,
 				2D4B52642201B4AE006A4119 /* ImageFile.swift in Sources */,
 				8AED201721FF446D00E0578C /* ExtDate.swift in Sources */,
+				8AC239C7222BAA8A00C2C771 /* ExNSViewController.swift in Sources */,
 				2D4B525922002063006A4119 /* CollectionViewItem.swift in Sources */,
 				2D5A2FCE21F86565003AB537 /* MainViewController.swift in Sources */,
 				8AED201121FD78B700E0578C /* AlertManager.swift in Sources */,
 				2D83E7C0222789730093966E /* ImportAllViewController.swift in Sources */,
 				8AED201A21FF454F00E0578C /* Utility.swift in Sources */,
 				2D5A2FE721FB0BFC003AB537 /* AppSettingFileManager.swift in Sources */,
+				8AC239A92229B69500C2C771 /* HTMLParser.swift in Sources */,
 				2D5A2FE321FADF1A003AB537 /* DisableIndicator.swift in Sources */,
 				2D5A2FE521FB01DA003AB537 /* ExtNSView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8AC239AA2229B95700C2C771 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8AC239B82229B96300C2C771 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8AC239B42229B95700C2C771 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2D5A2FB121F6EDCE003AB537 /* ImageCollector */;
+			targetProxy = 8AC239B32229B95700C2C771 /* PBXContainerItemProxy */;
+		};
+		8AC239C22229B96400C2C771 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2D5A2FB121F6EDCE003AB537 /* ImageCollector */;
+			targetProxy = 8AC239C12229B96400C2C771 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2D5A2FBB21F6EDCF003AB537 /* Main.storyboard */ = {
@@ -543,6 +675,86 @@
 			};
 			name = Release;
 		};
+		8AC239B62229B95700C2C771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = E833V996FU;
+				INFOPLIST_FILE = HTMLParserTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Saera.HTMLParserTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageCollector.app/Contents/MacOS/ImageCollector";
+			};
+			name = Debug;
+		};
+		8AC239B72229B95700C2C771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = E833V996FU;
+				INFOPLIST_FILE = HTMLParserTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Saera.HTMLParserTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageCollector.app/Contents/MacOS/ImageCollector";
+			};
+			name = Release;
+		};
+		8AC239C42229B96400C2C771 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = E833V996FU;
+				INFOPLIST_FILE = ImageCollectorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Saera.ImageCollectorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageCollector.app/Contents/MacOS/ImageCollector";
+			};
+			name = Debug;
+		};
+		8AC239C52229B96400C2C771 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = E833V996FU;
+				INFOPLIST_FILE = ImageCollectorTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Saera.ImageCollectorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImageCollector.app/Contents/MacOS/ImageCollector";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -560,6 +772,24 @@
 			buildConfigurations = (
 				2D5A2FC321F6EDCF003AB537 /* Debug */,
 				2D5A2FC421F6EDCF003AB537 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AC239B52229B95700C2C771 /* Build configuration list for PBXNativeTarget "HTMLParserTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AC239B62229B95700C2C771 /* Debug */,
+				8AC239B72229B95700C2C771 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8AC239C32229B96400C2C771 /* Build configuration list for PBXNativeTarget "ImageCollectorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AC239C42229B96400C2C771 /* Debug */,
+				8AC239C52229B96400C2C771 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

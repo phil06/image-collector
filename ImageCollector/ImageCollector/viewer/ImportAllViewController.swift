@@ -7,71 +7,115 @@
 //
 
 import Cocoa
+import WebKit
 
-class ImportAllViewController: NSViewController {
+class ImportAllViewController: ExNSViewController {
     
-    var parser = XMLParser()
-    var parseResult = ""
+    enum VIEW_TYPE {
+        case WEBVIEW, COLLECTIONVIEW
+    }
     
-    var el_current = ""
-    var el_isPassing = false
+    @IBOutlet weak var webview: WKWebView!
+    @IBOutlet weak var inputUrl: NSTextField!
     
-    var isPassedData = false
-
+    @IBOutlet weak var scrollView: NSScrollView!
+    @IBOutlet weak var collectionView: NSCollectionView!
+    
+    @IBOutlet weak var returnBtn: NSButton!
+    @IBOutlet weak var addBtn: NSButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         
-        let url = "http://api.androidhive.info/pizza/?format=xml"
-        let urlToSend = URL(string: url)
+        self.configureCollectionView()
+        self.toggleView(type: VIEW_TYPE.WEBVIEW)
+    }
+
+    @IBAction func extractImages(_ sender: Any) {
         
-        parser = XMLParser(contentsOf: urlToSend!)!
-        parser.delegate = self
-        
-        let success:Bool = parser.parse()
-        
-        if success {
-            print("parse success!")
-            print(parseResult)
-        } else {
-            print("parse fail!")
+        webview.evaluateJavaScript("document.getElementsByTagName('html')[0].innerHTML") { innerHTML, error in
+            let htmlParser = HTMLParser(content: innerHTML as! String)
+            do {
+                let images = try htmlParser.parsed()
+                
+                if images.count < 1 {
+                    AlertManager.shared.infoMessage(messageTitle: "can't found images")
+                    return
+                }
+                
+                
+                DispatchQueue.main.async {
+                    self.collectionImageLoader.fetchData(urlList: images)
+                    self.collectionView.reloadData()
+                    
+                    self.toggleView(type: VIEW_TYPE.COLLECTIONVIEW)
+                    
+                    self.collectionView.selectAll(nil)
+                }
+                
+                
+                
+            } catch (let err) {
+                self.handleError(err)
+            }
         }
-        
     }
     
+    @IBAction func returnToWebView(_ sender: Any) {
+        self.toggleView(type: VIEW_TYPE.WEBVIEW)
+    }
+    
+    @IBAction func addSelectedToFile(_ sender: Any) {
+        for index in collectionView.selectionIndexPaths {
+            let imageFile = collectionImageLoader.imageURLForIdexPath(indexPath: index)
+//            debugPrint("selected image > \(imageFile.imageUrl)")
+            NotificationCenter.default.post(name: .AddImageToTagCollection , object: self, userInfo: ["url": imageFile.imageUrl])
+        }
+    }
+    
+    @IBAction func loadUrl(_ sender: Any) {
+        let url = URL(string: self.inputUrl!.stringValue)
+        let myRequest = URLRequest(url: url!)
+        webview.load(myRequest)
+    }
+    
+    private func toggleView(type: VIEW_TYPE) {
+        switch type {
+        case .WEBVIEW:
+            self.webview.isHidden = false
+            self.collectionView.isHidden = true
+            self.scrollView.isHidden = true
+            self.returnBtn.isHidden = true
+            self.addBtn.isHidden = true
+        case .COLLECTIONVIEW:
+            self.webview.isHidden = true
+            self.collectionView.isHidden = false
+            self.scrollView.isHidden = false
+            self.returnBtn.isHidden = false
+            self.addBtn.isHidden = false
+        }
+    }
+    
+    //MARK: collection view
+    private func configureCollectionView() {
+        // 1
+        let flowLayout = NSCollectionViewFlowLayout()
+        flowLayout.itemSize = NSSize(width: 130.0, height: 130.0)
+        flowLayout.sectionInset = NSEdgeInsets(top: 10.0, left: 20.0, bottom: 10.0, right: 20.0)
+        flowLayout.minimumInteritemSpacing = 20.0
+        flowLayout.minimumLineSpacing = 20.0
+        collectionView.collectionViewLayout = flowLayout
+        // 2
+        view.wantsLayer = true
+        // 3
+        collectionView.layer?.backgroundColor = NSColor.black.cgColor
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.allowsMultipleSelection = true
+    }
+    
+
 }
 
-extension ImportAllViewController: XMLParserDelegate {
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        el_current = elementName
-        if elementName == "id" || elementName == "name" || elementName == "cost" || elementName == "description" {
-            if elementName == "name" {
-                el_isPassing = true
-            }
-            isPassedData = true
-        }
-    }
-    
-    func parser(_ parser: XMLParser, foundAttributeDeclarationWithName attributeName: String, forElement elementName: String, type: String?, defaultValue: String?) {
-        if elementName == "id" || elementName == "name" || elementName == "cost" || elementName == "description" {
-            if elementName == "name" {
-                el_isPassing = false
-            }
-            isPassedData = false
-        }
-    }
-    
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-        if el_isPassing {
-            parseResult = parseResult + "\n\n" + string
-        }
-        
-        if isPassedData {
-            print(string)
-        }
-    }
-    
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        debugPrint("fail error:\(parseError)")
-    }
-}
