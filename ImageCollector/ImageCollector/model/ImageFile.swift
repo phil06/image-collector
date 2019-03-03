@@ -14,12 +14,14 @@ class ImageFile {
     private(set) var fileName: String
     private(set) var desc: String
     private(set) var cacheKey: String
+    var isLoading: Bool!
 
     init(url: URL, tagName: String) {
         desc = ""
         fileName = url.lastPathComponent
         cacheKey = ""
         thumbnail = NSImage()
+        isLoading = true
         cacheKey = makeCacheKey(tagName: tagName)
         
         getThumbnailImage(url: url)
@@ -29,11 +31,14 @@ class ImageFile {
         SDWebImageManager.shared().imageCache?.queryCacheOperation(forKey: self.cacheKey, options: .queryDataWhenInMemory, done: { (image, data, type) in
             if let downloadedImage = image {
                 self.thumbnail = downloadedImage
+                self.isLoading = false
                 NotificationCenter.default.post(name: .DidCompleteLoadImage , object: self, userInfo: ["cacheKey": self.cacheKey])
             } else {
                 SDWebImageManager.shared().loadImage(with: url , options: [.cacheMemoryOnly, .queryDataWhenInMemory], progress: { (a, b, url) in
+                    
                 }, completed: { (image, data, error, type, bool, url) in
                     self.thumbnail = image!
+                    self.isLoading = false
                     SDWebImageManager.shared().imageCache?.store(image, imageData: data, forKey: self.cacheKey, toDisk: true)
                     NotificationCenter.default.post(name: .DidCompleteLoadImage , object: self, userInfo: ["cacheKey": self.cacheKey])
                 })

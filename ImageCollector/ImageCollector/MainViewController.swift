@@ -310,17 +310,26 @@ class MainViewController: ExNSViewController {
         }
         
         if let data = notification.userInfo as? [String: String] {
-            collectionImageLoader.addItem(url: data["url"]!, desc: "")
-            
-            let itemInSectionCnt = collectionImageLoader.numberOfItemsInSection(section: 0)
-            let count = itemInSectionCnt < 1 ? 1 : itemInSectionCnt - 1
-            let indexPath = IndexPath(item: count, section: 0)
-            
-            collectionView.insertItems(at: [indexPath])
-            
-            NotificationCenter.default.post(name: .DidCompleteAddImageToTagCollection , object: self, userInfo: nil)
+            self.addItem(url: data["url"]!)
+        } else if let data = notification.userInfo as? [String: [String]] {
+            for url in data["urls"]! {
+                self.addItem(url: url)
+            }
         }
     }
+    
+    private func addItem(url: String) {
+        collectionImageLoader.addItem(url: url, desc: "")
+        
+        let itemInSectionCnt = collectionImageLoader.numberOfItemsInSection(section: 0)
+        let count = itemInSectionCnt < 1 ? 1 : itemInSectionCnt - 1
+        let indexPath = IndexPath(item: count, section: 0)
+        
+        collectionView.insertItems(at: [indexPath])
+        
+        NotificationCenter.default.post(name: .DidCompleteAddImageToTagCollection , object: self, userInfo: nil)
+    }
+
  
     //MARK: Notification
     func allocNotification() {
@@ -329,7 +338,6 @@ class MainViewController: ExNSViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .AddImageToTagCollection , object: nil)
-        
     }
     
     

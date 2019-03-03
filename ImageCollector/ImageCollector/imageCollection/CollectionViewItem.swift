@@ -59,12 +59,10 @@ class CollectionViewItem: NSCollectionViewItem {
                 self.imageView?.image = imageFile?.thumbnail
                 initialIndicator.isHidden = true
                 initialIndicator.stopAnimation(nil)
-                self.view.layoutSubtreeIfNeeded()
             }
         }
-    
     }
-    
+
     func toggleSelect(stat: Bool) {
         if stat {
             imageView?.alphaValue = 0.5
@@ -72,6 +70,17 @@ class CollectionViewItem: NSCollectionViewItem {
         } else {
             imageView?.alphaValue = 1
             textField?.isHidden = true
+        }
+    }
+    
+    func layoutIndicator() {
+     
+        if (imageFile?.isLoading)! {
+            initialIndicator.isHidden = false
+            initialIndicator.startAnimation(nil)
+        } else {
+            initialIndicator.isHidden = true
+            initialIndicator.stopAnimation(nil)
         }
     }
     
