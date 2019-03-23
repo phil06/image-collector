@@ -69,10 +69,12 @@ class ImportAllViewController: ExNSViewController {
     
     @IBAction func addSelectedToFile(_ sender: Any) {
         var imageUrls: [String] = []
-        for index in collectionView.selectionIndexPaths {
+        
+        for index in collectionView.selectionIndexPaths.sorted() {
             let imageFile = collectionImageLoader.imageURLForIdexPath(indexPath: index)
             imageUrls.append(imageFile.imageUrl)
         }
+        
         NotificationCenter.default.post(name: .AddImageToTagCollection , object: self, userInfo: ["urls": imageUrls])
     }
     
