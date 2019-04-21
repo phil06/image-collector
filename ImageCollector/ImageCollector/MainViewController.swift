@@ -376,6 +376,7 @@ extension MainViewController: NSOutlineViewDelegate {
     
     func outlineViewSelectionDidChange(_ notification: Notification) {
         if let selected =  outlineTagView.item(atRow: outlineTagView.selectedRow) as? TagModel {
+            debugPrint("selected tag : \(selected.key)")
             self.currentTagKey = selected.key
             fetchCollectionView()
         }

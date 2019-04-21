@@ -30,7 +30,6 @@
 		2D5A2FE521FB01DA003AB537 /* ExtNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */; };
 		2D5A2FE721FB0BFC003AB537 /* AppSettingFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */; };
 		2D83E7C0222789730093966E /* ImportAllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D83E7BF222789730093966E /* ImportAllViewController.swift */; };
-		2D978082220C256400D01EA4 /* PopupImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D978081220C256400D01EA4 /* PopupImageViewController.swift */; };
 		2D978086220D842E00D01EA4 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D978085220D842E00D01EA4 /* MainWindowController.swift */; };
 		2DE6D660221A7EBE00A23824 /* EnlargeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */; };
 		2DE6D661221A7EBE00A23824 /* EnlargeImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE6D65F221A7EBE00A23824 /* EnlargeImageViewController.xib */; };
@@ -87,7 +86,6 @@
 		2D5A2FE421FB01DA003AB537 /* ExtNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtNSView.swift; sourceTree = "<group>"; };
 		2D5A2FE621FB0BFC003AB537 /* AppSettingFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingFileManager.swift; sourceTree = "<group>"; };
 		2D83E7BF222789730093966E /* ImportAllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportAllViewController.swift; sourceTree = "<group>"; };
-		2D978081220C256400D01EA4 /* PopupImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupImageViewController.swift; sourceTree = "<group>"; };
 		2D978085220D842E00D01EA4 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnlargeImageViewController.swift; sourceTree = "<group>"; };
 		2DE6D65F221A7EBE00A23824 /* EnlargeImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnlargeImageViewController.xib; sourceTree = "<group>"; };
@@ -191,7 +189,6 @@
 				2D5A2FC621F807CB003AB537 /* ImageCanvas.swift */,
 				2D5A2FD121F8665D003AB537 /* ImportImageCanvasController.swift */,
 				2D5A2FD221F8665D003AB537 /* ImportImageCanvasController.xib */,
-				2D978081220C256400D01EA4 /* PopupImageViewController.swift */,
 				2DE6D65E221A7EBE00A23824 /* EnlargeImageViewController.swift */,
 				2DE6D65F221A7EBE00A23824 /* EnlargeImageViewController.xib */,
 			);
@@ -447,7 +444,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D978082220C256400D01EA4 /* PopupImageViewController.swift in Sources */,
 				2D978086220D842E00D01EA4 /* MainWindowController.swift in Sources */,
 				2D4B526622028EA0006A4119 /* CollectionImageLoader.swift in Sources */,
 				2D5A2FD721F9B4E7003AB537 /* ExtNSImage.swift in Sources */,

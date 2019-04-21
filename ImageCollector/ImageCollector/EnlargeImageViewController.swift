@@ -43,7 +43,6 @@ class EnlargeImageViewController: NSViewController {
         
 
         NSEvent.addLocalMonitorForEvents(matching: .mouseMoved) { (event) -> NSEvent? in
-            debugPrint("로컬 모니터 이벤트 등록")
             self.mouseMoved(with: event)
             return event
         }
@@ -54,6 +53,9 @@ class EnlargeImageViewController: NSViewController {
         imageView = NSImageView(image: image)
         imageView?.animates = true
         imageView!.frame.size = image.size
+        
+        
+        debugPrint("imageSize : \(image.size)")
         
         estimateFrameSize(viewSize: image.size)
 
@@ -77,7 +79,6 @@ class EnlargeImageViewController: NSViewController {
     }
     
     override func mouseMoved(with event: NSEvent) {
-        debugPrint("마우스 움직임 이벤트 탐지")
         super.mouseMoved(with: event)
         
         if event.locationInWindow.y <= 60, zoomInBtnBottomConst.constant > 0 {

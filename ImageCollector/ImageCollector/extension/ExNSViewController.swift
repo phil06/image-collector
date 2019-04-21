@@ -33,6 +33,8 @@ class ExNSViewController: NSViewController {
 
 extension ExNSViewController: NSCollectionViewDataSource {
     
+    
+    
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
         return collectionImageLoader.numberOfSection()
     }

@@ -23,10 +23,22 @@ class HTMLParser: NSObject {
         
         do {
             let doc: Document = try SwiftSoup.parse(htmlContent)
-            for img in try doc.select("img") {
-                let imgSrc = try img.attr("src")
-                images.append(imgSrc)
+            
+//            //img src 인거...
+//            for img in try doc.select("img") {
+//                let imgSrc = try img.attr("src")
+//                images.append(imgSrc)
+//            }
+            
+            //a 로 감싸진 img 인거..
+            for href in try doc.select("a") {
+                if let hasImg = try href.select("img").first() {
+                    let imgSrc = try href.attr("href")
+                    debugPrint("img href = \(imgSrc)")
+                    images.append(imgSrc)
+                }
             }
+            
         } catch (let err)  {
             throw err
         }

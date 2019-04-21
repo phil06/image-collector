@@ -12,12 +12,12 @@ import SDWebImage
 class ImageFile {
     private(set) var thumbnail: NSImage?
     private(set) var fileName: String
-    private(set) var desc: String
+    private(set) var fileUrl: String
     private(set) var cacheKey: String
     var isLoading: Bool!
 
     init(url: URL, tagName: String) {
-        desc = ""
+        fileUrl = url.absoluteString
         fileName = url.lastPathComponent
         cacheKey = ""
         thumbnail = NSImage()
