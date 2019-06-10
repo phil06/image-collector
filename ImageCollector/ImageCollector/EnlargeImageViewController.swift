@@ -49,12 +49,15 @@ class EnlargeImageViewController: NSViewController {
     }
     
     func setImage(imageFile: ImageFile) {
-        let image = imageFile.thumbnail!
+        let image = NSImage(contentsOf: URL(string: imageFile.fileUrl)!)!
+        if let cgImage = (image.representations as? [NSBitmapImageRep])?.first?.cgImage {
+            image.size = NSMakeSize(CGFloat(cgImage.width), CGFloat(cgImage.height))
+        }
+        
         imageView = NSImageView(image: image)
         imageView?.animates = true
         imageView!.frame.size = image.size
-        
-        
+//
         debugPrint("imageSize : \(image.size)")
         
         estimateFrameSize(viewSize: image.size)
@@ -72,6 +75,7 @@ class EnlargeImageViewController: NSViewController {
         let adjustHeight: CGFloat = viewSize.height > maxHeight ? maxHeight : (viewSize.height < minSize ? minSize : viewSize.height)
         
         view.frame = CGRect.init(x: 0.0, y: 0.0, width: adjustWidth, height: adjustHeight)
+        debugPrint("adjusted size width:\(adjustWidth), height:\(adjustHeight)")
     }
 
     override func mouseUp(with event: NSEvent) {
@@ -137,3 +141,4 @@ final class CenteredClipView: NSClipView {
         return constrainedClipViewBounds
     }
 }
+
