@@ -49,9 +49,9 @@ class EnlargeImageViewController: NSViewController {
     }
     
     func setImage(imageFile: ImageFile) {
-        let image = NSImage(contentsOf: URL(string: imageFile.fileUrl)!)!
+        var image = NSImage(contentsOf: URL(string: imageFile.fileUrl)!)!
         if let cgImage = (image.representations as? [NSBitmapImageRep])?.first?.cgImage {
-            image.size = NSMakeSize(CGFloat(cgImage.width), CGFloat(cgImage.height))
+            image = NSImage(cgImage: cgImage, size: NSSize.zero)
         }
         
         imageView = NSImageView(image: image)
