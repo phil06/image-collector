@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class EnlargeImageViewController: NSViewController {
+class EnlargeImageViewController: NSViewController, NSWindowDelegate, NSOpenSavePanelDelegate {
 
     let maxWidth: CGFloat = 750
     let maxHeight: CGFloat = 600
@@ -17,39 +17,33 @@ class EnlargeImageViewController: NSViewController {
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var zoomInBtn: NSButton!
     @IBOutlet weak var zoomOutBtn: NSButton!
+    @IBOutlet weak var download: NSButton!
     
-    @IBOutlet weak var zoomInBtnBottomConst: NSLayoutConstraint!
+    @IBOutlet weak var menuBackgroundView: NSView!
+    @IBOutlet weak var menuViewConst: NSLayoutConstraint!
     
     var magnification: CGFloat?
     var imageView: NSImageView?
+    var imageUrl: String!
     var isShownFloatingMenu: Bool?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        
-//        self.view.becomeFirstResponder()
-//        if scrollView.acceptsFirstResponder {
-//            self.scrollView.becomeFirstResponder()
-//        }
-//        self.view.window?.makeFirstResponder(self.scrollView)
-//        self.view.window?.acceptsMouseMovedEvents = true
- 
-        NSEvent.addLocalMonitorForEvents(matching: .leftMouseUp) { (event) -> NSEvent? in
-            self.mouseUp(with: event)
-            return event
-        }
-        
 
-        NSEvent.addLocalMonitorForEvents(matching: .mouseMoved) { (event) -> NSEvent? in
-            self.mouseMoved(with: event)
-            return event
-        }
+        let options: NSTrackingArea.Options = [.mouseMoved, .activeAlways]
+        let trackingArea = NSTrackingArea(rect: self.view.bounds, options: options, owner: self, userInfo: nil)
+        self.view.addTrackingArea(trackingArea)
+        
+        menuBackgroundView.wantsLayer = true
+        menuBackgroundView.layer?.backgroundColor = NSColor.black.cgColor
+        menuBackgroundView.layer?.opacity = 0.7
     }
-    
+
     func setImage(imageFile: ImageFile) {
-        var image = NSImage(contentsOf: URL(string: imageFile.fileUrl)!)!
+        imageUrl = imageFile.fileUrl
+        
+        var image = NSImage(contentsOf: URL(string: imageUrl)!)!
         if let cgImage = (image.representations as? [NSBitmapImageRep])?.first?.cgImage {
             image = NSImage(cgImage: cgImage, size: NSSize.zero)
         }
@@ -57,9 +51,7 @@ class EnlargeImageViewController: NSViewController {
         imageView = NSImageView(image: image)
         imageView?.animates = true
         imageView!.frame.size = image.size
-//
-        debugPrint("imageSize : \(image.size)")
-        
+
         estimateFrameSize(viewSize: image.size)
 
         layoutSubviews()
@@ -83,12 +75,15 @@ class EnlargeImageViewController: NSViewController {
     }
     
     override func mouseMoved(with event: NSEvent) {
-        super.mouseMoved(with: event)
         
-        if event.locationInWindow.y <= 60, zoomInBtnBottomConst.constant > 0 {
+        guard let locWindow = self.view.window, NSApplication.shared.keyWindow === locWindow else {
+            return
+        }
+ 
+        if event.locationInWindow.y <= 60, menuViewConst.constant > 0 {
             isShownFloatingMenu = true
             return
-        } else if event.locationInWindow.y > 60, zoomInBtnBottomConst.constant < 0 {
+        } else if event.locationInWindow.y > 60, menuViewConst.constant < 0 {
             isShownFloatingMenu = false
             return
         }
@@ -101,7 +96,7 @@ class EnlargeImageViewController: NSViewController {
         
         NSAnimationContext.runAnimationGroup( { context in
             context.allowsImplicitAnimation = true
-            zoomInBtnBottomConst.constant = isShownFloatingMenu ?? false ? -30 : 30
+            menuViewConst.constant = isShownFloatingMenu ?? false ? -60 : 1
             self.view.layoutSubtreeIfNeeded()
         })
     }
@@ -116,7 +111,44 @@ class EnlargeImageViewController: NSViewController {
         scrollView.magnification = magnification!
     }
     
+    @IBAction func download(_ sender: Any) {
+        
+        let openPanel = NSOpenPanel();
+        openPanel.title = "Select a folder to download image"
+        openPanel.showsResizeIndicator=true;
+        openPanel.canChooseDirectories = true;
+        openPanel.canChooseFiles = false;
+        openPanel.allowsMultipleSelection = false;
+        openPanel.canCreateDirectories = true;
+        openPanel.delegate = self;
+        
+        openPanel.beginSheetModal(for: self.view.window!) { (result) in
+            if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){
+                var target: URL = openPanel.url!
+                let imageUrl = URL(string: self.imageUrl)!
+                
+                target.appendPathComponent(imageUrl.lastPathComponent)
+                
+                if let repImage = (NSImage(contentsOf: imageUrl)!.representations as? [NSBitmapImageRep])?.first {
+                    let data = repImage.representation(using: .png, properties: [:])
+                    
+                    do  {
+                        try data?.write(to: target, options: .atomic)
+                    }catch (let err){
+                        print(err.localizedDescription)
+                    }
+                }
+                
+            } else if result.rawValue == NSApplication.ModalResponse.cancel.rawValue {
+                debugPrint("user canceled...")
+            }
+        }
+    }
+    
+    
 }
+
+
 
 final class CenteredClipView: NSClipView {
     override func constrainBoundsRect(_ proposedBounds: NSRect) -> NSRect {

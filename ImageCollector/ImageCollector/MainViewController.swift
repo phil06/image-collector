@@ -187,7 +187,8 @@ class MainViewController: ExNSViewController {
                                                              infoText: "변경할 내용을 입력해주세요",
                                                              okTitle: "수정",
                                                              cancelTitle: "취소",
-                                                             suppressionTitle: nil) {
+                                                             suppressionTitle: nil,
+                                                             inputBase: self.tags[targetIdx].name) {
 
             let selectedItem = outlineTagView.item(atRow: targetIdx) as! TagModel
             let parentOfSelected = outlineTagView.parent(forItem: outlineTagView.item(atRow: targetIdx)) as? TagModel
@@ -265,6 +266,10 @@ class MainViewController: ExNSViewController {
     
     override func mouseUp(with event: NSEvent) {
         
+        guard let locWindow = self.view.window, NSApplication.shared.keyWindow === locWindow else {
+            return
+        }
+        
         if event.clickCount < 2 {
             return
         }
@@ -284,6 +289,10 @@ class MainViewController: ExNSViewController {
     }
     
     override func keyDown(with event: NSEvent) {
+        
+        guard let locWindow = self.view.window, NSApplication.shared.keyWindow === locWindow else {
+            return
+        }
         
         if event.keyCode != 0x33 {
             return

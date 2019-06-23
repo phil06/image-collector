@@ -18,13 +18,13 @@ class AlertManager: NSObject {
     func showAddTagAlert(messageText: String,
                                    infoText: String,
                                    okTitle: String, cancelTitle: String,
-                                   suppressionTitle: String?) -> [String:Any]? {
+                                   suppressionTitle: String?,
+                                   inputBase: String = "") -> [String:Any]? {
         let alert = NSAlert()
         
         alert.alertStyle = .informational
         alert.messageText = messageText
         alert.informativeText = infoText
-        
         
         if let title = suppressionTitle {
             alert.showsSuppressionButton = true
@@ -35,6 +35,9 @@ class AlertManager: NSObject {
         alert.addButton(withTitle: cancelTitle)
         
         let input = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
+        
+        input.stringValue = inputBase
+        
         alert.accessoryView = input
         alert.window.initialFirstResponder = input
         
