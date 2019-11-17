@@ -25,12 +25,14 @@ class ImportImageCanvasController: NSViewController {
     @IBOutlet weak var imageCanvas: ImageCanvas!
     @IBOutlet weak var addButton: NSButton!
     @IBOutlet weak var addProcessIndicator: NSProgressIndicator!
+    @IBOutlet weak var descTextField: NSTextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         
         self.title = "Add Image"
+        self.descTextField.cell?.title = ""
         
         self.toggleButton(isProcessing: false)
         
@@ -51,7 +53,9 @@ class ImportImageCanvasController: NSViewController {
             return
         }
         
-        NotificationCenter.default.post(name: .AddImageToTagCollection , object: self, userInfo: ["url": self.imageURL.absoluteString!])
+        NotificationCenter.default.post(name: .AddImageToTagCollection , object: self,
+                                        userInfo: ["url": self.imageURL.absoluteString!,
+                                                   "desc": self.descTextField.cell?.title])
     }
     
     private func toggleButton(isProcessing: Bool) {

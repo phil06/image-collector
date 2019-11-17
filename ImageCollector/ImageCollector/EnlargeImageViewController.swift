@@ -7,12 +7,16 @@
 //
 
 import Cocoa
+import SDWebImage
 
 class EnlargeImageViewController: NSViewController, NSWindowDelegate, NSOpenSavePanelDelegate {
 
     let maxWidth: CGFloat = 750
     let maxHeight: CGFloat = 600
-    let minSize: CGFloat = 300
+    let minSize: CGFloat = 400
+    let minWindowWidth: CGFloat = 450
+    
+    var tagName: String!
 
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var zoomInBtn: NSButton!
@@ -40,16 +44,20 @@ class EnlargeImageViewController: NSViewController, NSWindowDelegate, NSOpenSave
         menuBackgroundView.layer?.opacity = 0.7
     }
 
-    func setImage(imageFile: ImageFile) {
+    func setImage(imageFile: ItemFile) {
         imageUrl = imageFile.fileUrl
         
         var image = NSImage(contentsOf: URL(string: imageUrl)!)!
-        if let cgImage = (image.representations as? [NSBitmapImageRep])?.first?.cgImage {
+
+        if let repImage = (image.representations as? [NSBitmapImageRep])?.first {
+            let cgImage = repImage.cgImage!
             image = NSImage(cgImage: cgImage, size: NSSize.zero)
         }
         
-        imageView = NSImageView(image: image)
-        imageView?.animates = true
+//        imageView = NSImageView(image: image)
+        imageView = NSImageView(image: imageFile.thumbnail!)
+        imageView?.image?.size = image.size
+        imageView!.animates = true
         imageView!.frame.size = image.size
 
         estimateFrameSize(viewSize: image.size)
@@ -63,7 +71,7 @@ class EnlargeImageViewController: NSViewController, NSWindowDelegate, NSOpenSave
     }
     
     func estimateFrameSize(viewSize: NSSize) {
-        let adjustWidth: CGFloat = viewSize.width > maxWidth ? maxWidth : (viewSize.width < minSize ? minSize : viewSize.width)
+        let adjustWidth: CGFloat = viewSize.width > maxWidth ? maxWidth : (viewSize.width < minWindowWidth ? minWindowWidth : viewSize.width)
         let adjustHeight: CGFloat = viewSize.height > maxHeight ? maxHeight : (viewSize.height < minSize ? minSize : viewSize.height)
         
         view.frame = CGRect.init(x: 0.0, y: 0.0, width: adjustWidth, height: adjustHeight)
@@ -113,37 +121,45 @@ class EnlargeImageViewController: NSViewController, NSWindowDelegate, NSOpenSave
     
     @IBAction func download(_ sender: Any) {
         
-        let openPanel = NSOpenPanel();
+        let imageUrl = URL(string: self.imageUrl)!
+        
+        let openPanel = NSSavePanel();
         openPanel.title = "Select a folder to download image"
         openPanel.showsResizeIndicator=true;
-        openPanel.canChooseDirectories = true;
-        openPanel.canChooseFiles = false;
-        openPanel.allowsMultipleSelection = false;
         openPanel.canCreateDirectories = true;
-        openPanel.delegate = self;
+        openPanel.delegate = self
+        openPanel.nameFieldStringValue = imageUrl.lastPathComponent
         
-        openPanel.beginSheetModal(for: self.view.window!) { (result) in
-            if(result.rawValue == NSApplication.ModalResponse.OK.rawValue){
-                var target: URL = openPanel.url!
-                let imageUrl = URL(string: self.imageUrl)!
-                
-                target.appendPathComponent(imageUrl.lastPathComponent)
-                
-                if let repImage = (NSImage(contentsOf: imageUrl)!.representations as? [NSBitmapImageRep])?.first {
-                    let data = repImage.representation(using: .png, properties: [:])
-                    
-                    do  {
-                        try data?.write(to: target, options: .atomic)
-                    }catch (let err){
-                        print(err.localizedDescription)
-                    }
-                }
-                
-            } else if result.rawValue == NSApplication.ModalResponse.cancel.rawValue {
-                debugPrint("user canceled...")
+        openPanel.runModal()
+    }
+    
+    
+    func panel(_ sender: Any, validate url: URL) throws {
+        
+        let imgUrl = URL(string: self.imageUrl)!
+        
+        let saveFile = { (data: Data) in
+            do {
+                try data.write(to: url, options: .atomic)
+            } catch (let err) {
+                print("file write failed! >>> \(err.localizedDescription)")
             }
         }
+        
+        SDWebImageManager.shared.imageCache.queryImage(forKey: imgUrl.makeCacheKey(tagName: tagName), options: .queryMemoryData, context: nil, completion: { (image, data, type) in
+            if let downloadedImage = data {
+                saveFile(downloadedImage)
+            } else {
+                SDWebImageManager.shared.loadImage(with: imgUrl , options: [ .fromCacheOnly, .queryMemoryData], progress: { (a, b, url) in
+                    
+                }, completed: { (image, data, error, type, bool, fileurl) in
+                    saveFile(data!)
+                })
+            }
+        })
+        
     }
+    
     
     
 }

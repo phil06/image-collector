@@ -51,20 +51,47 @@ class AppSettingFileManager: NSObject {
         return (self.dataSource?.tags)!
     }
     
+    func setDataSource(tagName: String) {
+        
+    }
+    
     func setDataSource(data: [TagModel]) {
         
         self.dataSource?.tags = []
         
-        for (idx, tag) in data.enumerated() {
-            tag.idx = idx
-            tag.reArrangeChild()
-            self.dataSource?.tags?.append(tag)
-        }
+        var fileList:[String] = []
         
+        do {
+            fileList = try FileManager.default.contentsOfDirectory(atPath: basePath)
+            
+            for (idx, tag) in data.enumerated() {
+                tag.idx = idx
+                tag.reArrangeChild()
+                self.dataSource?.tags?.append(tag)
+            }
+            
+            if let keys = self.dataSource?.getAllTagKeys() {
+                
+                for file in fileList {
+                    let fileName  = String(file.split(separator: ".")[0])
+                    if !keys.contains(fileName) {
+                        if fileName == "settings" {
+                            continue
+                        }
+                        debugPrint("fileName:\(fileName) doesn't belong to plist. delete it!")
+                        try FileManager.default.removeItem(atPath: basePath + "/" + file)
+                    }
+                }
+                
+            }
+        } catch (let err) {
+            print("file error : \(err)")
+        }
+       
         self.updateFile()
     }
     
-    private func updateFile() {
+    func updateFile() {
         do  {
             let encoder = PropertyListEncoder()
             encoder.outputFormat = .xml
@@ -78,6 +105,8 @@ class AppSettingFileManager: NSObject {
     private func defaultSetting() {
         basePath = UserDefaults.standard.string(forKey: UserDefaultKeys.filePath)!
         settingFileURL = URL(fileURLWithPath: basePath).appendingPathComponent("settings.plist")
+        
+        
     }
     
     func moveFile(oldPath: URL) {

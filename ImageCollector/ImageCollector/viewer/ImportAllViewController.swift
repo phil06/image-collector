@@ -33,6 +33,33 @@ class ImportAllViewController: ExNSViewController {
         self.toggleView(type: VIEW_TYPE.WEBVIEW)
     }
 
+    @IBAction func extractIFrame(_ sender: Any) {
+        webview.evaluateJavaScript("document.getElementsByTagName('html')[0].innerHTML") { innerHTML, error in
+            let htmlParser = HTMLParser(content: innerHTML as! String)
+            do {
+                let frame = try htmlParser.parsedIFrame()
+                
+                if frame.count < 1 {
+                    AlertManager.shared.infoMessage(messageTitle: "can't found video")
+                    return
+                }
+                
+                
+                DispatchQueue.main.async {
+                    self.collectionImageLoader.fetchData(itemList: frame, type: .VIDEO)
+                    self.collectionView.reloadData()
+                    self.toggleView(type: VIEW_TYPE.COLLECTIONVIEW)
+                    self.collectionView.selectAll(nil)
+                }
+                
+                
+                
+            } catch (let err) {
+                self.handleError(err)
+            }
+        }
+    }
+    
     @IBAction func extractImages(_ sender: Any) {
         
         webview.evaluateJavaScript("document.getElementsByTagName('html')[0].innerHTML") { innerHTML, error in
@@ -47,7 +74,7 @@ class ImportAllViewController: ExNSViewController {
                 
                 
                 DispatchQueue.main.async {
-                    self.collectionImageLoader.fetchData(urlList: images)
+                    self.collectionImageLoader.fetchData(itemList: images, type: .IMAGE)
                     self.collectionView.reloadData()
                     
                     self.toggleView(type: VIEW_TYPE.COLLECTIONVIEW)
@@ -68,14 +95,15 @@ class ImportAllViewController: ExNSViewController {
     }
     
     @IBAction func addSelectedToFile(_ sender: Any) {
-        var imageUrls: [String] = []
+        var userInfo:[SourceModel] = []
         
         for index in collectionView.selectionIndexPaths.sorted() {
             let imageFile = collectionImageLoader.imageURLForIdexPath(indexPath: index)
-            imageUrls.append(imageFile.imageUrl)
+
+            userInfo.append(imageFile)
         }
         
-        NotificationCenter.default.post(name: .AddImageToTagCollection , object: self, userInfo: ["urls": imageUrls])
+        NotificationCenter.default.post(name: .AddImageToTagCollection , object: self, userInfo: ["userInfo": userInfo])
     }
     
     @IBAction func loadUrl(_ sender: Any) {

@@ -50,11 +50,14 @@ extension ExNSViewController: NSCollectionViewDataSource {
             return item
         }
         
-        let imageFile = collectionImageLoader.imageForIndexPath(indexPath: indexPath)
-        collectionViewItem.imageFile = imageFile
+        let itemFile = collectionImageLoader.imageForIndexPath(indexPath: indexPath)
+        let itemModel = collectionImageLoader.imageURLForIdexPath(indexPath: indexPath)
+        collectionViewItem.imageFile = itemFile
+        collectionViewItem.desc = itemModel.description
         collectionViewItem.toggleSelect(stat: collectionViewItem.isSelected)
         collectionViewItem.layoutIndicator()
-        return item
+        
+        return collectionViewItem
     }
 }
 

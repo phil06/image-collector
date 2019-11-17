@@ -12,4 +12,6 @@ extension Notification.Name {
     static let DidCompleteLoadImage = Notification.Name("DidCompleteLoadImage")
     static let AddImageToTagCollection = Notification.Name("AddImageToTagCollection")
     static let DidCompleteAddImageToTagCollection = Notification.Name("DidCompleteAddImageToTagCollection")
+    
+    static let WillUpdateCollectionItemDescription = Notification.Name("WillUpdateItem")
 }

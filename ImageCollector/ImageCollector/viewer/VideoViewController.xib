@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.WebKit2IBPlugin" version="15505"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="VideoViewController" customModule="ImageCollector" customModuleProvider="target">
+            <connections>
+                <outlet property="desc" destination="gMM-4J-soI" id="juy-57-g40"/>
+                <outlet property="indicator" destination="0jb-dN-V33" id="3z6-qp-r9X"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="webview" destination="59W-gT-eoL" id="ptF-AM-QWJ"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <wkWebView wantsLayer="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="59W-gT-eoL">
+                    <rect key="frame" x="0.0" y="55" width="480" height="217"/>
+                    <wkWebViewConfiguration key="configuration">
+                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                        <wkPreferences key="preferences"/>
+                    </wkWebViewConfiguration>
+                </wkWebView>
+                <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gMM-4J-soI">
+                    <rect key="frame" x="13" y="20" width="96" height="16"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" id="3X9-Rk-Ye7">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NOf-DL-ef5">
+                    <rect key="frame" x="396" y="-2" width="85" height="32"/>
+                    <buttonCell key="cell" type="push" title="save" bezelStyle="rounded" image="NSRefreshTemplate" imagePosition="leading" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="P6m-tz-kio">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="saveToFile:" target="-2" id="UDf-Cl-uXL"/>
+                    </connections>
+                </button>
+                <progressIndicator wantsLayer="YES" maxValue="100" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="0jb-dN-V33">
+                    <rect key="frame" x="224" y="120" width="32" height="32"/>
+                </progressIndicator>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="gMM-4J-soI" secondAttribute="bottom" constant="5" id="7el-I5-fYN"/>
+                <constraint firstItem="0jb-dN-V33" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="8EX-bw-S1D"/>
+                <constraint firstItem="59W-gT-eoL" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="93X-kh-gSV"/>
+                <constraint firstAttribute="trailing" secondItem="NOf-DL-ef5" secondAttribute="trailing" constant="5" id="S2f-Ok-oPe"/>
+                <constraint firstItem="59W-gT-eoL" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="Xpn-pA-OwM"/>
+                <constraint firstAttribute="trailing" secondItem="59W-gT-eoL" secondAttribute="trailing" id="Yft-F5-Wgz"/>
+                <constraint firstItem="NOf-DL-ef5" firstAttribute="centerY" secondItem="gMM-4J-soI" secondAttribute="centerY" id="ZWI-hS-Aie"/>
+                <constraint firstItem="gMM-4J-soI" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="5" id="ZbO-PQ-fpm"/>
+                <constraint firstItem="gMM-4J-soI" firstAttribute="top" secondItem="59W-gT-eoL" secondAttribute="bottom" constant="5" id="bhD-c9-Sqe"/>
+                <constraint firstItem="NOf-DL-ef5" firstAttribute="leading" secondItem="gMM-4J-soI" secondAttribute="trailing" constant="5" id="oAY-Xs-5ka"/>
+                <constraint firstItem="0jb-dN-V33" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="vhG-aQ-U9K"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="NSRefreshTemplate" width="11" height="15"/>
+    </resources>
+</document>

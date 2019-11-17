@@ -9,6 +9,7 @@
 
 import Cocoa
 import SDWebImage
+import WebKit
 
 //MARK: reload, scroll 페이지 넘어갈때 확인
 class MainViewController: ExNSViewController {
@@ -21,7 +22,7 @@ class MainViewController: ExNSViewController {
     @IBOutlet weak var outlineTagView: NSOutlineView!
     @IBOutlet weak var collectionView: NSCollectionView!
     
-    
+    @IBOutlet weak var webview: WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,12 @@ class MainViewController: ExNSViewController {
             self.mouseUp(with: event)
             return event
         }
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        
+        
     }
 
     override func viewDidAppear() {
@@ -73,6 +80,10 @@ class MainViewController: ExNSViewController {
         outlineTagView.delegate = self
         outlineTagView.dataSource = self
         outlineTagView.registerForDraggedTypes([.string])
+        
+        if let mainUrl = AppSettingFileManager.shared.dataSource!.mainUrl {
+            self.webview.load(URLRequest(url: URL(string: mainUrl)!))
+        }
     }
     
     override func viewWillDisappear() {
@@ -81,9 +92,30 @@ class MainViewController: ExNSViewController {
         }
         
         AppSettingFileManager.shared.setDataSource(data: self.tags)
+        
+        collectionView(shown: false)
     }
     
+    @IBAction func setMainView(_ sender: Any) {
+        
+        let inputBase = AppSettingFileManager.shared.dataSource!.mainUrl ?? ""
 
+        //요고 취소는 안되넹
+        let url = AlertManager.shared.showPrompt(messageText: "메인 뷰 url 을 입력해주세요",
+                                                 infoText: "url",
+                                                 okTitle: "확인",
+                                                 cancelTitle: "취소",
+                                                 suppressionTitle: nil,
+                                                 inputBase:inputBase)
+        
+        if url.count > 0 {
+            AppSettingFileManager.shared.dataSource?.mainUrl = url
+            AppSettingFileManager.shared.updateFile()
+            
+            self.webview.load(URLRequest(url: URL(string: url)!))
+        } 
+    }
+    
     
     @IBAction func openImportWindow(_ sender: Any) {
         if outlineTagView.selectedRow < 0 {
@@ -138,6 +170,8 @@ class MainViewController: ExNSViewController {
                 }
 
             }
+            
+            AppSettingFileManager.shared.setDataSource(data: self.tags)
 
             outlineTagView.reloadData()
         }
@@ -169,6 +203,8 @@ class MainViewController: ExNSViewController {
                 //부모에서 삭제
                 parentOfSelected!.deleteChild(key: selectedItem.key)
             }
+            
+            AppSettingFileManager.shared.setDataSource(data: self.tags)
             
         }
         
@@ -203,15 +239,16 @@ class MainViewController: ExNSViewController {
                 //부모에서 삭제
                 parentOfSelected?.changeChildName(key: selectedItem.key, name: tagName["input"] as! String)
             }
+            
+            AppSettingFileManager.shared.setDataSource(data: self.tags)
         }
+        
+        
         
         self.outlineTagView.reloadData()
     }
     
-    
-    @IBAction func save(_ sender: Any) {
-        AppSettingFileManager.shared.setDataSource(data: self.tags)
-    }
+
     
     @IBAction func changeDefaultSetting(_ sender: Any) {
         let oldPath = AppSettingFileManager.shared.settingFileURL
@@ -223,8 +260,7 @@ class MainViewController: ExNSViewController {
     }
     
     @IBAction func clearImageCache(_ sender: Any) {
-        SDWebImageManager.shared().imageCache?.clearDisk()
-        SDWebImageManager.shared().imageCache?.clearMemory()
+        SDWebImageManager.shared.imageCache.clear(with: .all, completion: nil)
     }
 
     
@@ -253,7 +289,8 @@ class MainViewController: ExNSViewController {
         collectionView.collectionViewLayout = flowLayout
         // 2
         view.wantsLayer = true
-        // 3
+
+        collectionView.register(NSNib(nibNamed: "CollectionViewItem", bundle: .main), forItemWithIdentifier: .init("CollectionViewItem"))
         collectionView.layer?.backgroundColor = NSColor.black.cgColor
         collectionView.delegate = self
         collectionView.allowsMultipleSelection = true
@@ -281,11 +318,26 @@ class MainViewController: ExNSViewController {
         
         let imageFile = collectionImageLoader.imageForIndexPath(indexPath: indexPath!)
         
-        let vc = EnlargeImageViewController()
-        vc.setImage(imageFile: imageFile)
-        vc.view.window?.titleVisibility = .hidden
+        let targetIdx = outlineTagView.selectedRow
         
-        self.presentAsModalWindow(vc)
+        let curTagName = self.tags[targetIdx == 0 ? targetIdx : targetIdx - 1].name
+        
+        if imageFile.type == SourceType.IMAGE {
+            let vc = EnlargeImageViewController()
+            vc.setImage(imageFile: imageFile)
+            vc.tagName = curTagName
+            vc.view.window?.titleVisibility = .hidden
+            
+            self.presentAsModalWindow(vc)
+        } else if imageFile.type == SourceType.VIDEO {
+            let videoFile = collectionImageLoader.imageURLForIdexPath(indexPath: indexPath!)
+            let vc = VideoViewController()
+            vc.url = videoFile.itemSource
+            vc.descText = videoFile.description
+            vc.tag = curTagName
+            self.presentAsModalWindow(vc)
+        }
+        
     }
     
     override func keyDown(with event: NSEvent) {
@@ -318,17 +370,31 @@ class MainViewController: ExNSViewController {
             return
         }
         
-        if let data = notification.userInfo as? [String: String] {
-            self.addItem(url: data["url"]!)
-        } else if let data = notification.userInfo as? [String: [String]] {
-            for url in data["urls"]! {
-                self.addItem(url: url)
+        if let userInfo = notification.userInfo as? [String: [SourceModel]] {
+            if let data = userInfo["userInfo"] {
+                for item in data {
+                    self.addItem(url: item.itemSource,
+                                 desc: item.description,
+                                 type: SourceType(rawValue: item.type!)!)
+                }
             }
         }
     }
     
-    private func addItem(url: String) {
-        collectionImageLoader.addItem(url: url, desc: "")
+    @objc func updateCollectionViewItem(notification: Notification) {
+        guard outlineTagView.selectedRow >= 0 else {
+            return
+        }
+        
+        if let userInfo = notification.userInfo as? [String: String] {
+            if let desc = userInfo["desc"] {
+                self.updateItem(desc: desc)
+            }
+        }
+    }
+    
+    private func addItem(url: String, desc: String = "", type: SourceType) {
+        collectionImageLoader.addItem(url: url, desc: desc, type: type)
         
         let itemInSectionCnt = collectionImageLoader.numberOfItemsInSection(section: 0)
         let count = itemInSectionCnt < 1 ? 1 : itemInSectionCnt - 1
@@ -338,16 +404,45 @@ class MainViewController: ExNSViewController {
         
         NotificationCenter.default.post(name: .DidCompleteAddImageToTagCollection , object: self, userInfo: nil)
     }
+    
+    private func updateItem(desc: String) {
+        let itemInSectionCnt = collectionImageLoader.numberOfItemsInSection(section: 0)
+        let count = itemInSectionCnt < 1 ? 1 : itemInSectionCnt - 1
+//        let indexPath = IndexPath(item: count, section: 0)
+        
+        collectionImageLoader.updateItem(idx: count, dat: desc)
+        
+        collectionView.reloadData()
+    }
 
+    func collectionView(shown: Bool) {
+        
+        if shown {
+            collectionView.isHidden = false
+            collectionView.layer?.zPosition = 1
+            webview.isHidden = true
+            webview.layer?.zPosition = 0
+        } else {
+            collectionView.isHidden = true
+            collectionView.layer?.zPosition = 0
+            webview.isHidden = false
+            webview.layer?.zPosition = 1
+        }
+        
+    }
  
     //MARK: Notification
     func allocNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(addCollectionViewItem), name: .AddImageToTagCollection , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCollectionViewItem), name: .WillUpdateCollectionItemDescription , object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .AddImageToTagCollection , object: nil)
+        NotificationCenter.default.removeObserver(self, name: .WillUpdateCollectionItemDescription , object: nil)
     }
+    
+
     
     
 }
@@ -387,6 +482,9 @@ extension MainViewController: NSOutlineViewDelegate {
         if let selected =  outlineTagView.item(atRow: outlineTagView.selectedRow) as? TagModel {
             debugPrint("selected tag : \(selected.key)")
             self.currentTagKey = selected.key
+            
+            collectionView(shown: true)
+            
             fetchCollectionView()
         }
     }

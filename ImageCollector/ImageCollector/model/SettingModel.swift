@@ -10,11 +10,24 @@ import Foundation
 
 class SettingModel: Codable {
     var location: String
+    var mainUrl: String?
     var tags: [TagModel]?
     
     init(location: String, tags: [TagModel]?) {
         self.location = location
         self.tags = tags
+        self.mainUrl = ""
+    }
+    
+    func getAllTagKeys() -> [String] {
+        var keys:[String] = []
+        
+        for tag in self.tags! {
+            keys.append(tag.key)
+            keys.append(contentsOf: tag.allKeys())
+        }
+        
+        return keys
     }
 }
 
@@ -37,6 +50,19 @@ class TagModel: Codable {
         self.idx = idx
         self.childs = []
         self.key = Utility.shared.getTagKey()
+    }
+    
+    func allKeys() -> [String] {
+        var keys:[String] = []
+        
+        if childs!.count > 0 {
+            for tag in self.childs! {
+                keys.append(tag.key)
+                keys.append(contentsOf: tag.allKeys())
+            }
+        }
+        
+        return keys
     }
     
     func reArrangeChild() {

@@ -12,7 +12,7 @@ class TagFileManager: NSObject {
     
     var key: String
     var fileURL: URL
-    var data: [ImageListModel]
+    var data: [SourceModel]
     
     init(tagKey: String) {
         self.key = tagKey
@@ -24,12 +24,12 @@ class TagFileManager: NSObject {
         self.data = []
     }
     
-    func setData(data: [ImageListModel]) {
+    func setData(data: [SourceModel]) {
         self.data = data
         self.update()
     }
     
-    func getData() -> [ImageListModel] {
+    func getData() -> [SourceModel] {
         self.read()
         return self.data
     }
@@ -47,8 +47,9 @@ class TagFileManager: NSObject {
     private func read() {
         do {
             let data = try Data(contentsOf:  self.fileURL)
+            debugPrint("\(self.fileURL.absoluteString)")
             let decoder = JSONDecoder()
-            self.data = try decoder.decode([ImageListModel].self, from: data)
+            self.data = try decoder.decode([SourceModel].self, from: data)
         } catch let err {
             print("\(err.localizedDescription)")
         }

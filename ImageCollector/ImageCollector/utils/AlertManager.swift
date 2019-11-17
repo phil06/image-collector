@@ -15,6 +15,51 @@ class AlertManager: NSObject {
     override init(){
     }
     
+    func showPrompt(messageText: String,
+                    infoText: String,
+                    okTitle: String, cancelTitle: String,
+                    suppressionTitle: String?,
+                    inputBase: String = "") -> String {
+        
+        let alert = NSAlert()
+        
+        alert.alertStyle = .informational
+        alert.messageText = messageText
+        alert.informativeText = infoText
+        
+        if let title = suppressionTitle {
+            alert.showsSuppressionButton = true
+            alert.suppressionButton?.title = title
+        }
+        
+        alert.addButton(withTitle: okTitle)
+        alert.addButton(withTitle: cancelTitle)
+        
+        let input = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
+        
+        input.stringValue = inputBase
+        input.maximumNumberOfLines = 1
+        
+        alert.accessoryView = input
+        alert.window.initialFirstResponder = input
+        
+        let button = alert.runModal()
+        
+        if button == NSApplication.ModalResponse.alertFirstButtonReturn {
+            
+            var result:[String:Any] = [:]
+            
+            if alert.suppressionButton?.state == NSControl.StateValue.on {
+                result["suppression"] = true
+            }
+            
+            input.validateEditing()
+            return input.stringValue
+        }
+        
+        return ""
+    }
+    
     func showAddTagAlert(messageText: String,
                                    infoText: String,
                                    okTitle: String, cancelTitle: String,

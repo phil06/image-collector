@@ -17,6 +17,23 @@ class HTMLParser: NSObject {
         htmlContent = content
     }
     
+    func parsedIFrame() throws -> [String] {
+        
+        var frameTags: [String] = []
+        
+        do {
+            let doc: Document = try SwiftSoup.parse(htmlContent)
+            for frame in try doc.select("iframe") {
+                let frameSrc = try frame.attr("src")
+                frameTags.append(frameSrc)
+            }
+        } catch (let err)  {
+            throw err
+        }
+        
+        return frameTags
+    }
+    
     func parsed() throws -> [String] {
         
         var images: [String] = []
